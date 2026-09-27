@@ -1,0 +1,61 @@
+{
+  "name": "Nyxcode",
+  "version": "1.0.0",
+  "description": "A modern code editor with live collaboration",
+  "main": "nyxcode.js",
+  "build": {
+    "appId": "com.nyxcode.app",
+    "productName": "Nyxcode",
+    "directories": {
+      "output": "dist"
+    },
+    "asar": true,
+    "files": [
+      "nyxcode.js",
+      "nyxcode.html",
+      "preload.js",
+      "nyxsync.js",
+      "nyx.json",
+      "LICENSE",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "installerHeaderIcon": "assets/icon.ico",
+      "artifactName": "Nyxcode-${version}-Setup.exe",
+      "shortcutName": "Nyxcode",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "build": "electron-builder --win",
+    "share": "powershell -NoProfile -Command \"if(Test-Path 'dist\\Nyxcode-win-x64.zip'){Remove-Item 'dist\\Nyxcode-win-x64.zip'}; Compress-Archive -Path 'dist\\win-unpacked\\*' -DestinationPath 'dist\\Nyxcode-win-x64.zip'\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "electron": "^41.3.0",
+    "electron-builder": "^25.0.0"
+  }
+}

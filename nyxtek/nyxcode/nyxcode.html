@@ -1,0 +1,2535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NyxCode</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080b0f;--bg2:#0d1117;--bg3:#161b22;--bg4:#1c2128;--bg5:#21262d;
+  --bdr:#21262d;--bdr2:#30363d;
+  --txt:#e6edf3;--txt2:#8b949e;--txt3:#484f58;
+  --acc:#a855f7;--acc2:#3b82f6;--acc3:#22c55e;
+  --sh-kw:#f97583;--sh-fn:#b392f0;--sh-str:#9ecbff;--sh-num:#79b8ff;
+  --sh-cmt:#6a737d;--sh-type:#ffab70;--sh-tag:#85e89d;--sh-attr:#79b8ff;
+  --sh-op:#f97583;--sh-bool:#79b8ff;--sh-rx:#9ecbff;
+}
+body.theme-dracula{--bg:#1e1f29;--bg2:#282a36;--bg3:#21222c;--bg4:#2d2f3f;--bg5:#343746;--bdr:#383a4a;--bdr2:#44475a;--txt:#f8f8f2;--txt2:#6272a4;--txt3:#44475a;--acc:#bd93f9;--acc2:#8be9fd;--acc3:#50fa7b;--sh-kw:#ff79c6;--sh-fn:#50fa7b;--sh-str:#f1fa8c;--sh-num:#bd93f9;--sh-cmt:#6272a4;--sh-type:#ffb86c;--sh-tag:#ff79c6;--sh-attr:#50fa7b;--sh-op:#ff79c6;--sh-bool:#bd93f9;--sh-rx:#f1fa8c}
+body.theme-monokai{--bg:#1a1b16;--bg2:#272822;--bg3:#1e1f1c;--bg4:#2d2e27;--bg5:#3a3b32;--bdr:#3a3b32;--bdr2:#49483e;--txt:#f8f8f2;--txt2:#75715e;--txt3:#49483e;--acc:#f92672;--acc2:#a6e22e;--acc3:#e6db74;--sh-kw:#f92672;--sh-fn:#a6e22e;--sh-str:#e6db74;--sh-num:#ae81ff;--sh-cmt:#75715e;--sh-type:#66d9e8;--sh-tag:#f92672;--sh-attr:#a6e22e;--sh-op:#f92672;--sh-bool:#ae81ff;--sh-rx:#e6db74}
+body.theme-light{--bg:#f0f0f0;--bg2:#ffffff;--bg3:#f3f3f3;--bg4:#e8e8e8;--bg5:#dcdcdc;--bdr:#e0e0e0;--bdr2:#d0d0d0;--txt:#1f2328;--txt2:#656d76;--txt3:#b0b8c2;--acc:#8250df;--acc2:#0969da;--acc3:#1a7f37;--sh-kw:#cf222e;--sh-fn:#6639ba;--sh-str:#0a3069;--sh-num:#0550ae;--sh-cmt:#6e7781;--sh-type:#953800;--sh-tag:#116329;--sh-attr:#0550ae;--sh-op:#cf222e;--sh-bool:#0550ae;--sh-rx:#0a3069}
+body.theme-midnight{--bg:#040810;--bg2:#090e1a;--bg3:#0d1424;--bg4:#111a2e;--bg5:#162038;--bdr:#152038;--bdr2:#1e2d4a;--txt:#cdd9e5;--txt2:#6b8aad;--txt3:#2d4a6a;--acc:#4fc3f7;--acc2:#64b5f6;--acc3:#69f0ae;--sh-kw:#ef9a9a;--sh-fn:#80deea;--sh-str:#a5d6a7;--sh-num:#ffcc80;--sh-cmt:#4a6680;--sh-type:#ffab40;--sh-tag:#80cbc4;--sh-attr:#80deea;--sh-op:#ef9a9a;--sh-bool:#ffcc80;--sh-rx:#a5d6a7}
+body.theme-nord{--bg:#242932;--bg2:#2e3440;--bg3:#3b4252;--bg4:#434c5e;--bg5:#4c566a;--bdr:#434c5e;--bdr2:#5e6779;--txt:#eceff4;--txt2:#d8dee9;--txt3:#9099a9;--acc:#b48ead;--acc2:#88c0d0;--acc3:#a3be8c;--sh-kw:#81a1c1;--sh-fn:#88c0d0;--sh-str:#a3be8c;--sh-num:#b48ead;--sh-cmt:#616e88;--sh-type:#ebcb8b;--sh-tag:#8fbcbb;--sh-attr:#88c0d0;--sh-op:#81a1c1;--sh-bool:#b48ead;--sh-rx:#a3be8c}
+body.theme-tokyo{--bg:#13141f;--bg2:#1a1b26;--bg3:#16161e;--bg4:#1f2335;--bg5:#292e42;--bdr:#24283b;--bdr2:#3b4261;--txt:#c0caf5;--txt2:#9aa5ce;--txt3:#444b6d;--acc:#bb9af7;--acc2:#7aa2f7;--acc3:#9ece6a;--sh-kw:#f7768e;--sh-fn:#7aa2f7;--sh-str:#9ece6a;--sh-num:#ff9e64;--sh-cmt:#444b6d;--sh-type:#2ac3de;--sh-tag:#f7768e;--sh-attr:#7aa2f7;--sh-op:#89ddff;--sh-bool:#ff9e64;--sh-rx:#9ece6a}
+body.theme-catppuccin{--bg:#161621;--bg2:#1e1e2e;--bg3:#181825;--bg4:#1e1e2e;--bg5:#313244;--bdr:#313244;--bdr2:#45475a;--txt:#cdd6f4;--txt2:#bac2de;--txt3:#585b70;--acc:#cba6f7;--acc2:#89b4fa;--acc3:#a6e3a1;--sh-kw:#f38ba8;--sh-fn:#89b4fa;--sh-str:#a6e3a1;--sh-num:#fab387;--sh-cmt:#6c7086;--sh-type:#f9e2af;--sh-tag:#f38ba8;--sh-attr:#89dceb;--sh-op:#f5c2e7;--sh-bool:#fab387;--sh-rx:#94e2d5}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:13px;display:flex;flex-direction:column;transition:background .2s,color .2s}
+
+/* ── AUTH SCREEN ── */
+#auth-screen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0}
+#auth-screen.hidden{display:none}
+.auth-box{background:var(--bg2);border:1px solid var(--bdr2);border-radius:12px;padding:36px 40px;width:400px;display:flex;flex-direction:column;gap:14px}
+.auth-logo{font-family:'Orbitron',monospace;font-size:22px;font-weight:900;background:linear-gradient(90deg,#f43f5e,#f97316,#eab308,#22c55e,#06b6d4,#3b82f6,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:4px;text-align:center;margin-bottom:4px}
+.auth-sub{color:var(--txt3);font-size:10px;letter-spacing:2px;text-align:center;margin-bottom:4px}
+.auth-tabs{display:flex;border:1px solid var(--bdr2);border-radius:6px;overflow:hidden}
+.auth-tab{flex:1;padding:7px;font-size:11px;font-family:'JetBrains Mono',monospace;background:none;border:none;color:var(--txt2);cursor:pointer;transition:.15s}
+.auth-tab.active{background:var(--bg4);color:var(--txt)}
+.auth-input{background:var(--bg4);border:1px solid var(--bdr2);color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:12px;padding:9px 12px;border-radius:6px;outline:none;transition:.12s;width:100%}
+.auth-input:focus{border-color:rgba(168,85,247,.5)}
+.auth-btn{background:linear-gradient(135deg,#a855f7,#3b82f6);border:none;color:#fff;padding:10px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;width:100%;transition:.15s;letter-spacing:1px}
+.auth-btn:hover{opacity:.85}
+.auth-btn:disabled{opacity:.5;cursor:not-allowed}
+.auth-divider{display:flex;align-items:center;gap:10px;color:var(--txt3);font-size:10px}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--bdr2)}
+.oauth-btns{display:flex;flex-direction:column;gap:8px}
+.oauth-btn{display:flex;align-items:center;gap:10px;padding:9px 14px;border:1px solid var(--bdr2);border-radius:6px;background:none;color:var(--txt2);font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer;transition:.15s;width:100%;position:relative}
+.oauth-btn:hover{background:var(--bg4);color:var(--txt);border-color:var(--bdr)}
+.oauth-btn:disabled{opacity:.5;cursor:not-allowed}
+.oauth-icon{width:16px;height:16px;flex-shrink:0}
+.auth-err{color:#f87171;font-size:10.5px;text-align:center;min-height:16px}
+.auth-ok{color:#22c55e;font-size:10.5px;text-align:center;min-height:16px}
+.auth-loading{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.oauth-spinner{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:14px;height:14px;border:2px solid rgba(168,85,247,.3);border-top-color:#a855f7;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.oauth-btn.loading .oauth-spinner{display:block}
+.auth-note{font-size:9.5px;color:var(--txt3);text-align:center;line-height:1.6;padding:6px 10px;background:var(--bg4);border-radius:5px;border:1px solid var(--bdr)}
+/* popup waiting overlay */
+#oauth-waiting{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:10000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;backdrop-filter:blur(4px)}
+#oauth-waiting.open{display:flex}
+.ow-box{background:var(--bg2);border:1px solid var(--bdr2);border-radius:12px;padding:28px 36px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center;max-width:340px}
+.ow-spinner{width:36px;height:36px;border:3px solid var(--bdr2);border-top-color:var(--acc);border-radius:50%;animation:spin .8s linear infinite}
+.ow-title{font-family:'Orbitron',monospace;font-size:11px;letter-spacing:2px;color:var(--acc)}
+.ow-msg{font-size:11px;color:var(--txt2);line-height:1.6}
+.ow-cancel{background:none;border:1px solid var(--bdr2);color:var(--txt3);font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 14px;border-radius:4px;cursor:pointer;transition:.12s}
+.ow-cancel:hover{color:var(--txt);background:var(--bg5)}
+
+/* ── NATIVE TITLEBAR ── */
+#titlebar{height:38px;background:var(--bg3);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 10px;flex-shrink:0;z-index:200;user-select:none;-webkit-app-region:drag}
+#titlebar *{-webkit-app-region:no-drag}
+.logo{font-family:'Orbitron',monospace;font-size:10px;font-weight:900;background:linear-gradient(90deg,#f43f5e,#f97316,#eab308,#22c55e,#06b6d4,#3b82f6,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:3px;margin-right:14px;flex-shrink:0}
+.menu-bar{display:flex;gap:1px;flex-shrink:0}
+.title-actions{display:flex;align-items:center;gap:6px;margin-left:10px}
+.titlebtn{width:32px;height:32px;border:none;border-radius:5px;background:var(--bg4);color:var(--txt);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+.titlebtn:hover{background:var(--bg5);color:var(--acc)}
+.titlebtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8}
+.mi{padding:3px 8px;font-size:11px;color:var(--txt2);border-radius:3px;cursor:pointer;transition:.1s;position:relative;z-index:300}
+.mi:hover,.mi.open{background:var(--bg4);color:var(--txt)}
+.dropdown{display:none;position:absolute;top:100%;left:0;background:var(--bg4);border:1px solid var(--bdr2);border-radius:5px;z-index:999;min-width:220px;padding:3px;box-shadow:0 8px 30px rgba(0,0,0,.9);margin-top:2px}
+.mi.open .dropdown{display:block}
+.ddi{padding:5px 10px;cursor:pointer;border-radius:3px;color:var(--txt);font-size:11.5px;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:.1s}
+.ddi:hover{background:var(--bg5);color:#fff}
+.dds{color:var(--txt3);font-size:10px;white-space:nowrap}
+.dddiv{height:1px;background:var(--bdr);margin:3px 0}
+.tb-right{margin-left:auto;display:flex;gap:8px;align-items:center}
+#user-pill{display:flex;align-items:center;gap:6px;padding:3px 10px 3px 6px;background:var(--bg4);border:1px solid var(--bdr2);border-radius:20px;cursor:pointer;transition:.15s;font-size:10.5px;color:var(--txt2);-webkit-app-region:no-drag}
+#user-pill:hover{background:var(--bg5);color:var(--txt)}
+#user-avatar,#user-name{pointer-events:auto;-webkit-app-region:no-drag}
+#notif-button{position:relative;width:32px;height:32px;border:none;border-radius:6px;background:var(--bg4);color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0;margin-right:6px}
+#notif-button:hover{background:var(--bg5);color:var(--txt)}
+#notif-button .badge{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:#f97316;box-shadow:0 0 0 2px var(--bg4)}
+#notif-popover{position:absolute;right:10px;top:46px;width:320px;background:var(--bg2);border:1px solid var(--bdr2);border-radius:10px;box-shadow:0 16px 50px rgba(0,0,0,.4);z-index:1000;display:none;overflow:hidden}
+#notif-popover.open{display:block}
+#notif-head{padding:11px 14px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:8px}
+#notif-head span{font-size:10px;letter-spacing:1px;color:var(--txt3);text-transform:uppercase;flex:1}
+#notif-list{max-height:260px;overflow-y:auto}
+#notif-item{padding:10px 14px;border-bottom:1px solid var(--bdr);font-size:12px;color:var(--txt);line-height:1.45;}
+#notif-item:last-child{border-bottom:none}
+#notif-item .notif-sender{display:block;color:var(--txt3);font-size:10px;margin-bottom:4px}
+#notif-actions{padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+#notif-actions button{background:none;border:1px solid var(--bdr2);color:var(--txt2);padding:6px 10px;border-radius:6px;cursor:pointer;font-size:11px;transition:.12s}
+#notif-actions button:hover{background:var(--bg4);color:var(--txt)}
+#global-toast{position:fixed;left:50%;top:72px;transform:translateX(-50%);min-width:300px;max-width:560px;background:rgba(15,23,42,.96);border:1px solid rgba(148,163,184,.15);border-radius:12px;padding:12px 14px;color:#f8fafc;font-size:12px;box-shadow:0 18px 50px rgba(0,0,0,.35);z-index:1200;display:none;pointer-events:none;backdrop-filter:blur(8px)}
+#global-toast.show{display:block;animation:toast-in .22s ease-out;}
+@keyframes toast-in{from{opacity:0;transform:translate(-50%, -10px)}to{opacity:1;transform:translate(-50%, 0)}}
+#user-avatar{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden}
+#collab-btn:hover{background:rgba(34,197,94,.2)}
+#collab-btn svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2}
+
+#main{display:flex;flex:1;overflow:hidden;position:relative}
+#actbar{width:46px;background:var(--bg2);border-right:1px solid var(--bdr);display:flex;flex-direction:column;align-items:center;padding:4px 0;gap:1px;flex-shrink:0}
+.aicon{width:34px;height:34px;border-radius:5px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--txt3);transition:.15s;position:relative}
+.aicon:hover{color:var(--txt2);background:var(--bg4)}
+.aicon.active{color:var(--txt)}
+.aicon.active::before{content:'';position:absolute;left:-4px;top:50%;transform:translateY(-50%);width:2px;height:18px;border-radius:1px;background:var(--acc)}
+.aicon svg{width:20px;height:20px;stroke-width:1.6;fill:none;stroke:currentColor}
+.act-spacer{flex:1}
+#sidebar{width:230px;background:var(--bg2);border-right:1px solid var(--bdr);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0;transition:width .18s}
+#sbhead{padding:7px 10px 5px;font-size:9.5px;font-weight:700;letter-spacing:2px;color:var(--txt3);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.sbbtns{display:flex;gap:1px}
+.sbbtn{background:none;border:none;color:var(--txt3);cursor:pointer;padding:3px 5px;border-radius:3px;transition:.1s;display:flex;align-items:center}
+.sbbtn:hover{color:var(--txt);background:var(--bg5)}
+.sbbtn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8}
+#filetree{flex:1;overflow-y:auto;padding:2px 0}
+#filetree::-webkit-scrollbar{width:4px}
+#filetree::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:2px}
+.fnode{padding:2px 8px 2px 0;cursor:pointer;display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--txt2);transition:.08s;white-space:nowrap;border-radius:0;position:relative;outline:none}
+.fnode:hover{background:rgba(255,255,255,.04);color:var(--txt)}
+.fnode.selected{background:rgba(59,130,246,.18);color:#fff}
+.fnode.selected::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--acc2)}
+.fnode-icon{flex-shrink:0;display:flex;align-items:center}
+.fnode-dot{width:6px;height:6px;border-radius:50%;background:var(--acc);flex-shrink:0;display:none}
+.fnode.dirty .fnode-dot{display:block}
+.fnode-rename{background:var(--bg4);border:1px solid var(--acc2);color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:0 4px;border-radius:2px;outline:none;min-width:100px;max-width:160px}
+#editor-container{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+#welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:22px;padding:40px;background:var(--bg)}
+.wlc-logo{font-family:'Orbitron',monospace;font-size:28px;font-weight:900;background:linear-gradient(90deg,#f43f5e,#f97316,#eab308,#22c55e,#06b6d4,#3b82f6,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:4px}
+.wlc-sub{color:var(--txt3);font-size:11px;letter-spacing:3px}
+.wlc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:360px}
+.wbtn{background:none;border:1px solid var(--bdr2);color:var(--txt2);font-family:'JetBrains Mono',monospace;font-size:11px;padding:10px 14px;border-radius:6px;cursor:pointer;transition:.18s;display:flex;align-items:center;gap:7px;text-align:left}
+.wbtn:hover{color:var(--txt);background:var(--bg4)}
+.wbtn.primary{border-color:rgba(168,85,247,.4);color:var(--acc)}
+.wbtn.primary:hover{background:rgba(168,85,247,.08)}
+.wbtn.blue{border-color:rgba(59,130,246,.4);color:var(--acc2)}
+.wbtn.blue:hover{background:rgba(59,130,246,.08)}
+.wbtn.green{border-color:rgba(34,197,94,.4);color:var(--acc3)}
+.wbtn.green:hover{background:rgba(34,197,94,.08)}
+.wbtn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8}
+.wlc-note{color:var(--txt3);font-size:10.5px;text-align:center;line-height:1.8;max-width:360px}
+.fs-badge{display:inline-block;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#22c55e;font-size:9.5px;padding:1px 6px;border-radius:8px;margin-left:6px}
+#tabs-bar{height:34px;background:var(--bg2);display:flex;overflow-x:auto;overflow-y:hidden;flex-shrink:0;border-bottom:1px solid var(--bdr)}
+#tabs-bar::-webkit-scrollbar{height:2px}
+#tabs-bar::-webkit-scrollbar-thumb{background:var(--bdr2)}
+.tab{display:flex;align-items:center;gap:5px;padding:0 10px;min-width:90px;max-width:150px;height:100%;border-right:1px solid var(--bdr);cursor:pointer;font-size:11.5px;color:var(--txt3);background:var(--bg2);transition:.08s;white-space:nowrap;flex-shrink:0;position:relative}
+.tab:hover{background:var(--bg4);color:var(--txt2)}
+.tab.active{background:var(--bg);color:var(--txt)}
+.tab.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--acc2)}
+.tab-name{overflow:hidden;text-overflow:ellipsis;flex:1}
+.tab-mod{width:7px;height:7px;border-radius:50%;background:var(--acc);flex-shrink:0;display:none}
+.tab.dirty .tab-mod{display:block}
+.tab-x{color:var(--txt3);font-size:13px;width:16px;height:16px;display:flex;align-items:center;justify-content:center;border-radius:3px;flex-shrink:0;opacity:0;transition:.1s;line-height:1}
+.tab:hover .tab-x{opacity:1}
+.tab-x:hover{background:var(--bg5);color:var(--txt)!important}
+#toolbar{height:33px;background:var(--bg3);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 6px;gap:1px;flex-shrink:0}
+.tbtn{background:none;border:none;color:var(--txt3);width:26px;height:26px;border-radius:4px;cursor:pointer;transition:.12s;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
+.tbtn:hover{color:var(--txt);background:var(--bg5)}
+.tbtn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8}
+.tbtn.sav{color:var(--acc2)}.tbtn.sav:hover{background:rgba(59,130,246,.12)}
+.tbtn.prev{color:var(--acc3)}.tbtn.prev:hover{background:rgba(34,197,94,.1)}
+.tbtn[title]:hover::after{content:attr(title);position:absolute;top:calc(100% + 5px);left:50%;transform:translateX(-50%);background:var(--bg4);border:1px solid var(--bdr2);color:var(--txt2);font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 7px;border-radius:4px;white-space:nowrap;z-index:999;pointer-events:none}
+.tbtn-div{width:1px;height:16px;background:var(--bdr2);margin:0 2px;flex-shrink:0}
+#lang-badge{margin-left:auto;font-size:10px;color:var(--txt3);padding:2px 7px;background:var(--bg4);border-radius:3px;border:1px solid var(--bdr);cursor:pointer;transition:.1s}
+#autosave-badge{font-size:10px;color:var(--acc3);padding:2px 7px;margin-right:4px;opacity:0;transition:opacity .4s}
+#work-area{flex:1;display:flex;overflow:hidden;min-height:0}
+#cm-wrap{flex:1;overflow:hidden;min-width:0;position:relative;background:var(--bg)}
+#editor-wrap{position:relative;flex:1;overflow:hidden;width:100%;height:100%}
+#highlight-layer{position:absolute;inset:0;padding:10px 14px 10px 56px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.65;white-space:pre;overflow:hidden;tab-size:2;pointer-events:none;word-wrap:normal;color:var(--txt);background:var(--bg);z-index:1}
+#editor-textarea{position:absolute;inset:0;padding:10px 14px 10px 56px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.65;white-space:pre;tab-size:2;background:transparent!important;color:transparent!important;caret-color:var(--txt)!important;border:none;outline:none;resize:none;overflow:auto;z-index:2}
+#editor-textarea::selection{background:rgba(59,130,246,.3)}
+#line-numbers{position:absolute;left:0;top:0;bottom:0;width:46px;padding:10px 8px 10px 0;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.65;color:var(--txt3);text-align:right;background:var(--bg);pointer-events:none;user-select:none;overflow:hidden;z-index:3;border-right:1px solid var(--bdr)}
+.sh-kw{color:var(--sh-kw);font-weight:500}.sh-fn{color:var(--sh-fn)}.sh-str{color:var(--sh-str)}.sh-num{color:var(--sh-num)}.sh-cmt{color:var(--sh-cmt);font-style:italic}.sh-type{color:var(--sh-type)}.sh-tag{color:var(--sh-tag)}.sh-attr{color:var(--sh-attr)}.sh-op{color:var(--sh-op)}.sh-bool{color:var(--sh-bool)}.sh-rx{color:var(--sh-rx)}.sh-punct{color:var(--txt2)}
+#split-divider{width:4px;background:var(--bdr);cursor:col-resize;flex-shrink:0;transition:background .15s;position:relative;z-index:10}
+#split-divider:hover,#split-divider.dragging{background:var(--acc)}
+#preview-pane{background:var(--bg);display:none;flex-direction:column;overflow:hidden;min-width:0;border-left:1px solid var(--bdr)}
+#preview-pane.visible{display:flex}
+#pv-bar{height:27px;background:var(--bg3);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 7px;gap:5px;flex-shrink:0}
+#pv-title{font-size:10px;color:var(--txt3);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pvbtn{background:none;border:1px solid var(--bdr2);color:var(--txt2);font-family:'JetBrains Mono',monospace;font-size:9.5px;padding:2px 6px;border-radius:3px;cursor:pointer;transition:.1s}
+.pvbtn:hover{color:var(--txt);background:var(--bg5)}
+#pv-frame{flex:1;border:none;background:var(--bg)}
+#pv-placeholder{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;background:var(--bg);color:var(--txt3);font-size:12px}
+#panel{background:var(--bg2);border-top:1px solid var(--bdr);flex-shrink:0;overflow:hidden;display:flex;flex-direction:column;height:0;transition:height .18s}
+#panel.open{height:200px}
+#ptabbar{display:flex;background:var(--bg);border-bottom:1px solid var(--bdr);flex-shrink:0}
+.ptab{padding:5px 13px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;color:var(--txt3);border-bottom:1px solid transparent;transition:.1s}
+.ptab:hover{color:var(--txt2)}.ptab.active{color:var(--txt);border-bottom-color:var(--acc2)}
+.panel-close{margin-left:auto;padding:5px 9px;font-size:14px;color:var(--txt3);cursor:pointer;transition:.1s;line-height:1}
+.panel-close:hover{color:var(--txt)}
+#terminal{flex:1;padding:5px 10px;font-size:12px;overflow-y:auto;line-height:1.6;display:flex;flex-direction:column}
+#terminal::-webkit-scrollbar{width:4px}
+#terminal::-webkit-scrollbar-thumb{background:var(--bdr2)}
+.tline{margin:1px 0;word-break:break-all}
+.tp{color:#22c55e}.tpath{color:#06b6d4}.tcmd{color:var(--txt)}.tout{color:var(--txt2)}.terr{color:#f87171}.tok{color:#22c55e}.twarn{color:#fbbf24}
+#terminput-row{display:flex;align-items:center;padding:3px 10px;gap:5px;flex-shrink:0;border-top:1px solid var(--bdr)}
+#terminput{flex:1;background:transparent;border:none;outline:none;color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:12px;caret-color:#22c55e}
+#probpanel,#outpanel{flex:1;padding:8px 10px;font-size:12px;overflow-y:auto;display:none;color:var(--txt2)}
+
+#extpanel{width:300px;background:var(--bg2);border-left:1px solid var(--bdr);display:flex;flex-direction:column;z-index:50;overflow:hidden;transition:width .22s}
+#extpanel.closed{width:0}
+#ext-head{padding:9px 12px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:7px;flex-shrink:0}
+.ext-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--txt2);text-transform:uppercase}
+#ext-close{background:none;border:none;color:var(--txt3);font-size:16px;cursor:pointer;line-height:1;transition:.1s;margin-left:auto}
+#ext-close:hover{color:var(--txt)}
+#ext-search{width:calc(100% - 18px);margin:7px 9px;background:var(--bg4);border:1px solid var(--bdr2);color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:6px 10px;border-radius:4px;outline:none;transition:.12s}
+#ext-search:focus{border-color:rgba(168,85,247,.5)}
+#ext-tabs{display:flex;border-bottom:1px solid var(--bdr);flex-shrink:0;padding:0 9px}
+.ext-tab{font-size:10px;padding:5px 9px;cursor:pointer;color:var(--txt3);border-bottom:2px solid transparent;transition:.1s}
+.ext-tab:hover{color:var(--txt2)}.ext-tab.active{color:var(--txt);border-bottom-color:var(--acc)}
+#ext-body{flex:1;overflow-y:auto;padding:6px 0}
+#ext-body::-webkit-scrollbar{width:4px}
+#ext-body::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:2px}
+.ext-section{padding:3px 9px 7px}
+.ext-section-title{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--txt3);text-transform:uppercase;margin-bottom:7px;padding-bottom:4px;border-bottom:1px solid var(--bdr)}
+.ext-card{background:var(--bg4);border:1px solid var(--bdr);border-radius:5px;padding:9px 11px;margin-bottom:5px;transition:.12s}
+.ext-card:hover{border-color:var(--bdr2);background:var(--bg5)}
+.ext-card.active-ext{border-color:rgba(168,85,247,.4);background:rgba(168,85,247,.04)}
+.ext-card-head{display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.ext-ic{width:26px;height:26px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:.5px;flex-shrink:0;font-family:monospace}
+.ext-name{font-size:11.5px;font-weight:700;color:var(--txt);flex:1}
+.ext-ver{font-size:9px;color:var(--txt3)}
+.ext-desc{font-size:10.5px;color:var(--txt2);line-height:1.5;margin-bottom:5px}
+.ext-footer{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.ext-badge{font-size:9px;padding:1px 5px;border-radius:8px;border:1px solid var(--bdr);color:var(--txt3)}
+.ext-badge.installed{border-color:rgba(34,197,94,.3);color:#22c55e;background:rgba(34,197,94,.06)}
+.ext-badge.active{border-color:rgba(168,85,247,.3);color:var(--acc);background:rgba(168,85,247,.06)}
+.ext-badge.featured{border-color:rgba(59,130,246,.3);color:var(--acc2);background:rgba(59,130,246,.06)}
+.ext-badge.pending{border-color:rgba(250,191,36,.3);color:#fbbf24;background:rgba(250,191,36,.06)}
+.ext-btn{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9.5px;padding:3px 10px;border-radius:3px;cursor:pointer;transition:.15s;border:1px solid var(--bdr2);background:none;color:var(--txt2)}
+.ext-btn:hover{color:var(--txt);background:var(--bg5)}
+.ext-btn.btn-install{border-color:rgba(59,130,246,.5);color:var(--acc2);background:rgba(59,130,246,.06)}
+.ext-btn.btn-install:hover{background:rgba(59,130,246,.15)}
+.ext-btn.btn-installing{border-color:rgba(250,191,36,.5);color:#fbbf24;cursor:default}
+.ext-btn.btn-apply{border-color:rgba(168,85,247,.5);color:var(--acc);background:rgba(168,85,247,.06)}
+.ext-btn.btn-apply:hover{background:rgba(168,85,247,.15)}
+.ext-btn.btn-active{border-color:rgba(34,197,94,.4);color:#22c55e;background:rgba(34,197,94,.06);cursor:default}
+.ext-btn.btn-uninstall{border-color:rgba(248,113,113,.4);color:#f87171;background:rgba(248,113,113,.06)}
+.ext-btn.btn-uninstall:hover{background:rgba(248,113,113,.15)}
+.ext-progress{width:100%;height:2px;background:var(--bdr);border-radius:1px;overflow:hidden;margin-top:5px;display:none}
+.ext-progress.active{display:block}
+.ext-progress-bar{height:100%;background:var(--acc2);border-radius:1px;transition:width .1s}
+.theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:0 9px 9px}
+.theme-swatch{border-radius:5px;border:2px solid var(--bdr);cursor:pointer;overflow:hidden;transition:.15s;position:relative}
+.theme-swatch:hover{border-color:var(--bdr2)}.theme-swatch.active-theme{border-color:var(--acc)}
+.theme-swatch.active-theme::after{content:'✓';position:absolute;top:3px;right:4px;font-size:9px;color:#fff;font-weight:700;text-shadow:0 0 4px rgba(0,0,0,.8)}
+.ts-preview{height:50px;display:flex;gap:1px;overflow:hidden}
+.ts-col{flex:1;display:flex;flex-direction:column;gap:1px;padding:4px 3px}
+.ts-line{height:3px;border-radius:1px;opacity:.8}
+.ts-name{font-size:9px;padding:3px 6px;font-weight:700;letter-spacing:.5px}
+
+
+#collab-panel{position:absolute;right:0;top:0;bottom:0;width:300px;background:var(--bg2);border-left:1px solid var(--bdr);display:flex;flex-direction:column;z-index:50;transform:translateX(100%);transition:transform .22s}
+#collab-panel.open{transform:translateX(0)}
+#collab-head{padding:9px 12px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:7px;flex-shrink:0}
+.collab-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--acc3);text-transform:uppercase}
+#collab-close{background:none;border:none;color:var(--txt3);font-size:16px;cursor:pointer;line-height:1;transition:.1s;margin-left:auto}
+#collab-close:hover{color:var(--txt)}
+.collab-section{padding:10px 12px;border-bottom:1px solid var(--bdr)}
+.collab-section-title{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--txt3);text-transform:uppercase;margin-bottom:8px}
+.collab-share-row{display:flex;gap:6px}
+#collab-link-input{flex:1;background:var(--bg4);border:1px solid var(--bdr2);color:var(--txt2);font-family:'JetBrains Mono',monospace;font-size:10px;padding:6px 8px;border-radius:4px;outline:none}
+.collab-copy-btn{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--acc3);font-family:'JetBrains Mono',monospace;font-size:10px;padding:6px 10px;border-radius:4px;cursor:pointer;transition:.12s;white-space:nowrap}
+.collab-copy-btn:hover{background:rgba(34,197,94,.2)}
+.collab-members{display:flex;flex-direction:column;gap:5px}
+.collab-member{display:flex;align-items:center;gap:8px;padding:5px 0}
+.collab-avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+.collab-member-name{font-size:11px;color:var(--txt);flex:1}
+.collab-member-status{font-size:9px;color:var(--txt3)}
+.collab-online-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
+#collab-chat{flex:1;overflow-y:auto;padding:8px 12px;display:flex;flex-direction:column;gap:5px}
+#collab-chat::-webkit-scrollbar{width:4px}
+#collab-chat::-webkit-scrollbar-thumb{background:var(--bdr2)}
+.chat-msg{font-size:11.5px;line-height:1.5}
+.chat-sender{font-weight:700;color:var(--acc2);margin-right:5px}
+.chat-text{color:var(--txt2)}
+.chat-time{font-size:9px;color:var(--txt3);margin-left:5px}
+#collab-input-row{display:flex;gap:5px;padding:7px 9px;border-top:1px solid var(--bdr);flex-shrink:0}
+#collab-input{flex:1;background:var(--bg4);border:1px solid var(--bdr2);color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:12px;padding:6px 9px;border-radius:5px;outline:none;transition:.12s}
+#collab-input:focus{border-color:rgba(34,197,94,.4)}
+#collab-send{background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:var(--acc3);padding:6px 11px;border-radius:5px;cursor:pointer;font-size:12px;flex-shrink:0}
+#collab-send:hover{background:rgba(34,197,94,.25)}
+
+#devpanel{position:absolute;inset:0;background:var(--bg);display:none;flex-direction:column;z-index:400}
+#devpanel.open{display:flex}
+#dev-toolbar{height:36px;background:var(--bg2);border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:6px;padding:0 10px;flex-shrink:0}
+#dev-toolbar .dev-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--acc3);margin-right:4px}
+#dev-url-input{flex:1;background:var(--bg4);border:1px solid var(--bdr2);color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:4px 10px;border-radius:4px;outline:none;transition:.12s}
+#dev-url-input:focus{border-color:rgba(34,197,94,.5)}
+.devbtn{background:none;border:1px solid var(--bdr2);color:var(--txt2);font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 9px;border-radius:3px;cursor:pointer;transition:.1s;white-space:nowrap}
+.devbtn:hover{color:var(--txt);background:var(--bg5)}
+.devbtn.green{border-color:rgba(34,197,94,.4);color:var(--acc3)}.devbtn.green:hover{background:rgba(34,197,94,.1)}
+.devbtn.purple{border-color:rgba(168,85,247,.4);color:var(--acc)}.devbtn.purple:hover{background:rgba(168,85,247,.1)}
+.devbtn.blue{border-color:rgba(59,130,246,.4);color:var(--acc2)}.devbtn.blue:hover{background:rgba(59,130,246,.1)}
+#dev-close-btn{background:none;border:none;color:var(--txt3);font-size:16px;cursor:pointer;transition:.1s;line-height:1;margin-left:4px}
+#dev-close-btn:hover{color:var(--txt)}
+#dev-main{display:flex;flex:1;overflow:hidden;position:relative}
+#dev-browser{flex:1;display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--bdr)}
+#dev-browser-bar{height:32px;background:var(--bg3);border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:5px;padding:0 8px;flex-shrink:0}
+.dev-nav-btn{background:none;border:none;color:var(--txt3);cursor:pointer;padding:3px 5px;border-radius:3px;font-size:14px;transition:.1s;line-height:1}
+.dev-nav-btn:hover{color:var(--txt);background:var(--bg5)}
+#dev-address-bar{flex:1;background:var(--bg4);border:1px solid var(--bdr2);color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 9px;border-radius:12px;outline:none;transition:.12s}
+#dev-frame-wrap{flex:1;position:relative;overflow:hidden;background:#fff}
+#dev-frame{width:100%;height:100%;border:none;background:#fff}
+#dev-overlay{position:absolute;inset:0;background:rgba(8,11,15,.94);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:var(--txt2);font-size:12px}
+#dev-overlay svg{width:44px;height:44px;stroke:var(--txt3);fill:none}
+.dev-overlay-hint{font-size:10px;color:var(--txt3);max-width:320px;text-align:center;line-height:1.7}
+#dev-source-panel{width:500px;background:var(--bg2);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+#dev-source-bar{height:34px;background:var(--bg3);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 9px;gap:6px;flex-shrink:0;font-size:10px;color:var(--txt3)}
+#dev-source-bar span{font-weight:700;letter-spacing:1px;text-transform:uppercase}
+#dev-tabs-bar{height:30px;background:var(--bg3);border-bottom:1px solid var(--bdr);display:flex;align-items:center;flex-shrink:0;overflow-x:auto}
+#dev-tabs-bar::-webkit-scrollbar{height:2px}
+.dev-src-tab{padding:0 12px;height:100%;display:flex;align-items:center;font-size:10.5px;color:var(--txt3);cursor:pointer;border-right:1px solid var(--bdr);white-space:nowrap;transition:.08s}
+.dev-src-tab:hover{background:var(--bg5);color:var(--txt2)}
+.dev-src-tab.active{background:var(--bg);color:var(--txt);border-bottom:1px solid var(--acc3)}
+#dev-split{display:flex;flex:1;overflow:hidden}
+#dev-code-view{flex:1;min-width:0;display:flex;flex-direction:column;border-right:1px solid var(--bdr)}
+#dev-code-header{height:26px;background:var(--bg3);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 9px;gap:5px;font-size:10px;color:var(--txt3);flex-shrink:0}
+#dev-code-label{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--txt2)}
+#dev-code-content{flex:1;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.5;color:var(--txt2);overflow:auto;padding:6px 8px;word-break:break-all;white-space:pre-wrap}
+#dev-code-content::-webkit-scrollbar{width:4px}
+#dev-code-content::-webkit-scrollbar-thumb{background:var(--bdr2)}
+#dev-asset-col{width:200px;flex-shrink:0;display:flex;flex-direction:column;overflow:hidden}
+#dev-asset-col-head{height:26px;background:var(--bg3);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 9px;font-size:10px;color:var(--txt3);flex-shrink:0;gap:5px}
+#dev-asset-list{flex:1;overflow-y:auto}
+#dev-asset-list::-webkit-scrollbar{width:4px}
+#dev-asset-list::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:2px}
+.asset-item{display:flex;align-items:center;gap:5px;padding:4px 7px;border-bottom:1px solid var(--bdr);font-size:10px;color:var(--txt2);cursor:pointer;transition:.08s}
+.asset-item:hover{background:var(--bg4);color:var(--txt)}
+.asset-type{font-size:8px;padding:1px 4px;border-radius:2px;flex-shrink:0;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.asset-type.html{background:rgba(227,76,38,.15);color:#e34c26}
+.asset-type.css{background:rgba(86,61,124,.15);color:#9c6fc5}
+.asset-type.js{background:rgba(247,223,30,.1);color:#f7df1e}
+.asset-type.img{background:rgba(34,197,94,.1);color:#22c55e}
+.asset-type.font{background:rgba(59,130,246,.1);color:#3b82f6}
+.asset-type.other{background:rgba(100,100,100,.1);color:var(--txt3)}
+.asset-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.asset-st{font-size:9px;flex-shrink:0}
+.asset-st.ok{color:#22c55e}.asset-st.err{color:#f87171}.asset-st.pending{color:var(--txt3);animation:pulse 1s ease-in-out infinite}
+#dev-source-status{height:24px;background:var(--bg3);border-top:1px solid var(--bdr);display:flex;align-items:center;padding:0 9px;font-size:10px;color:var(--txt3);flex-shrink:0;gap:8px}
+#ext-progress-overlay{position:absolute;inset:0;background:rgba(8,11,15,.88);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:10;backdrop-filter:blur(2px)}
+#ext-progress-overlay.active{display:flex}
+.epo-title{font-family:'Orbitron',monospace;font-size:12px;letter-spacing:2px;color:var(--acc3)}
+.epo-bar-wrap{width:280px;height:6px;background:var(--bdr2);border-radius:3px;overflow:hidden}
+.epo-bar{height:100%;background:linear-gradient(90deg,var(--acc3),var(--acc2));width:0%;transition:width .1s;border-radius:3px}
+.epo-stats{font-size:10px;color:var(--txt2);display:flex;gap:16px}
+.epo-stat{display:flex;flex-direction:column;align-items:center;gap:2px}
+.epo-stat-val{font-size:14px;font-weight:700;color:var(--txt)}
+.epo-stat-lbl{font-size:9px;color:var(--txt3);letter-spacing:1px;text-transform:uppercase}
+.epo-current{font-size:9.5px;color:var(--txt3);max-width:340px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+#filetree-ctx{position:fixed;background:var(--bg4);border:1px solid var(--bdr2);border-radius:5px;padding:3px;z-index:9999;display:none;min-width:190px;box-shadow:0 8px 30px rgba(0,0,0,.9);font-size:11.5px}
+.fctxi{padding:5px 10px;cursor:pointer;border-radius:3px;color:var(--txt);display:flex;justify-content:space-between;align-items:center;gap:16px;transition:.08s}
+.fctxi:hover{background:var(--bg5);color:#fff}
+.fctxi.danger:hover{background:rgba(248,113,113,.12);color:#f87171}
+.fctxs{color:var(--txt3);font-size:10px}
+.fctxdiv{height:1px;background:var(--bdr);margin:3px 0}
+#ctxmenu{position:fixed;background:var(--bg4);border:1px solid var(--bdr2);border-radius:5px;padding:3px;z-index:9999;display:none;min-width:185px;box-shadow:0 8px 30px rgba(0,0,0,.9);font-size:11.5px}
+.ctxi{padding:5px 10px;cursor:pointer;border-radius:3px;color:var(--txt);display:flex;justify-content:space-between;align-items:center;gap:16px;transition:.08s}
+.ctxi:hover{background:var(--bg5);color:#fff}
+.ctxs{color:var(--txt3);font-size:10px}
+.ctxdiv{height:1px;background:var(--bdr);margin:3px 0}
+#cmdpal{position:fixed;top:55px;left:50%;transform:translateX(-50%);width:510px;background:var(--bg4);border:1px solid var(--bdr2);border-radius:7px;z-index:9999;display:none;box-shadow:0 20px 60px rgba(0,0,0,.95);overflow:hidden}
+#cmdpal.open{display:block}
+#cmdinput{width:100%;background:transparent;border:none;outline:none;color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:13px;padding:11px 13px;border-bottom:1px solid var(--bdr)}
+#cmdlist .ci{padding:7px 13px;cursor:pointer;display:flex;align-items:center;gap:9px;font-size:11.5px;color:var(--txt2);transition:.08s}
+#cmdlist .ci:hover,#cmdlist .ci.sel{background:var(--bg5);color:var(--txt)}
+.ci-icon{font-size:12px;width:16px;text-align:center;color:var(--txt3)}
+.ci-hint{font-size:10px;color:var(--txt3);margin-left:auto}
+#modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+#modal-overlay.open{display:flex}
+#modal-box{background:var(--bg4);border:1px solid var(--bdr2);border-radius:8px;padding:18px;min-width:310px;box-shadow:0 20px 60px rgba(0,0,0,.95)}
+#modal-box h3{font-family:'Orbitron',monospace;font-size:11px;color:var(--acc);margin-bottom:13px;letter-spacing:1px}
+#modal-input{width:100%;background:var(--bg);border:1px solid var(--bdr2);color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:12px;padding:7px 10px;border-radius:4px;outline:none;margin-bottom:10px;transition:.12s}
+#modal-input:focus{border-color:var(--acc)}
+.modal-btns{display:flex;gap:7px;justify-content:flex-end}
+.mbtn{background:none;border:1px solid var(--bdr2);color:var(--txt2);font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 13px;border-radius:4px;cursor:pointer;transition:.1s}
+.mbtn:hover{color:var(--txt)}
+.mbtn.ok{border-color:rgba(168,85,247,.4);color:var(--acc)}.mbtn.ok:hover{background:rgba(168,85,247,.1)}
+.mbtn.danger{border-color:rgba(248,113,113,.4);color:#f87171}.mbtn.danger:hover{background:rgba(248,113,113,.1)}
+#statusbar{height:22px;background:var(--acc2);display:flex;align-items:center;font-size:10.5px;overflow:hidden;flex-shrink:0}
+#statusbar.nok{background:#374151}
+.sitem{padding:0 9px;height:100%;display:flex;align-items:center;gap:4px;cursor:pointer;color:rgba(255,255,255,.85);transition:.08s;white-space:nowrap}
+.sitem:hover{background:rgba(255,255,255,.15)}
+.sitem.branch{background:rgba(0,0,0,.2)}
+.sright{margin-left:auto;display:flex;height:100%}
+@keyframes rbshift{0%{background-position:0%}100%{background-position:200%}}
+.rb{background:linear-gradient(90deg,#f43f5e,#f97316,#eab308,#22c55e,#06b6d4,#3b82f6,#a855f7,#f43f5e);background-size:200%;animation:rbshift 3s linear infinite;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.save-flash{position:absolute;top:8px;right:8px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);color:#22c55e;font-size:10px;padding:2px 7px;border-radius:3px;pointer-events:none;opacity:0;transition:opacity .3s;z-index:10}
+.save-flash.show{opacity:1}
+#file-input{display:none}
+#folder-input{display:none}
+#avatar-file-input{display:none}
+#user-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+#modal-body{margin-bottom:10px;font-size:12px;color:var(--txt3)}
+</style>
+</head>
+<body>
+
+<input type="file" id="file-input" multiple>
+<input type="file" id="folder-input" webkitdirectory multiple>
+<input type="file" id="avatar-file-input" accept="image/*">
+
+<!-- OAuth Waiting Overlay -->
+<div id="oauth-waiting">
+  <div class="ow-box">
+    <div class="ow-spinner"></div>
+    <div class="ow-title" id="ow-title">SIGNING IN</div>
+    <div class="ow-msg" id="ow-msg">A sign-in window has opened.<br>Complete sign-in there to continue.</div>
+    <button class="ow-cancel" onclick="cancelOAuth()">Cancel</button>
+  </div>
+</div>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen">
+  <div class="auth-box">
+    <div class="auth-logo">NYXCODE</div>
+    <div class="auth-sub"></div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-signin" onclick="switchAuthTab('signin')">Sign In</button>
+      <button class="auth-tab" id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
+    </div>
+    <div id="auth-fields" style="display:flex;flex-direction:column;gap:10px">
+      <input class="auth-input" id="auth-email" type="email" placeholder="Email address" autocomplete="email">
+      <input class="auth-input" id="auth-user" type="text" placeholder="Username" style="display:none" autocomplete="username">
+      <input class="auth-input" id="auth-pass" type="password" placeholder="Password" autocomplete="current-password">
+    </div>
+    <div class="auth-err" id="auth-err"></div>
+    <button class="auth-btn" id="auth-submit-btn" onclick="authSubmit()">SIGN IN</button>
+    <div class="auth-divider">or continue with</div>
+    <div class="oauth-btns">
+      <button class="oauth-btn" id="btn-google" onclick="oauthLogin('google')">
+        <svg class="oauth-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+        <div class="oauth-spinner"></div>
+      </button>
+      <button class="oauth-btn" id="btn-yahoo" onclick="oauthLogin('yahoo')">
+        <svg class="oauth-icon" viewBox="0 0 24 24" fill="#6001D2"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1.5 14.5v-4L7 7h2.5l2 3.5L13.5 7H16l-3.5 5.5v4h-2z"/></svg>
+        Continue with Yahoo
+        <div class="oauth-spinner"></div>
+      </button>
+      <button class="oauth-btn" id="btn-github" onclick="oauthLogin('github')">
+        <svg class="oauth-icon" viewBox="0 0 24 24" fill="var(--txt2)"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        Continue with GitHub
+        <div class="oauth-spinner"></div>
+      </button>
+    </div>
+    <div class="auth-note">
+      OAuth opens a real sign-in window from the provider.<br>
+      Email/password is stored locally in your browser.
+    </div>
+  </div>
+</div>
+
+<!-- DEV MODE PANEL -->
+<div id="devpanel">
+  <div id="dev-toolbar">
+    <span class="dev-label">Dev Mode</span>
+    <button class="dev-nav-btn" id="dev-back-btn" onclick="devGoBack()" disabled>&#x2190;</button>
+    <button class="dev-nav-btn" id="dev-fwd-btn" onclick="devGoForward()" disabled>&#x2192;</button>
+    <button class="dev-nav-btn" onclick="devReload()">&#x21BB;</button>
+    <input id="dev-url-input" placeholder="https://example.com" value="">
+    <button class="devbtn" onclick="devNavigate()">Go</button>
+    <button class="devbtn green" id="btn-extract-all" onclick="devExtractAll()">&#x25BC; Extract All</button>
+    <button class="devbtn" onclick="devOpenInNew()">Open Tab</button>
+    <button class="devbtn purple" onclick="devSendToEditor()">Send to Editor</button>
+    <button id="dev-close-btn" onclick="closeDevMode()">&#x2715;</button>
+  </div>
+  <div id="dev-main" style="position:relative">
+    <div id="dev-browser">
+      <div id="dev-browser-bar">
+        <span style="font-size:10px;color:var(--txt3);white-space:nowrap">Preview:</span>
+        <input id="dev-address-bar" readonly placeholder="No page loaded" value="">
+        <button class="devbtn" style="font-size:9px" onclick="devApplySource()">Apply HTML</button>
+      </div>
+      <div id="dev-frame-wrap">
+        <div id="dev-overlay">
+          <svg viewBox="0 0 24 24" stroke-width="1.3"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <span style="font-weight:700;font-size:13px;letter-spacing:1px">Dev Mode Browser</span>
+          <div class="dev-overlay-hint">Enter a URL and click Go to load it.<br>Use Extract All to fetch HTML + CSS + JS + assets.</div>
+        </div>
+        <iframe id="dev-frame" sandbox="allow-scripts allow-same-origin allow-forms" style="display:none"></iframe>
+      </div>
+    </div>
+    <div id="ext-progress-overlay">
+      <div class="epo-title">EXTRACTING SITE</div>
+      <div class="epo-bar-wrap"><div class="epo-bar" id="epo-bar"></div></div>
+      <div class="epo-stats">
+        <div class="epo-stat"><span class="epo-stat-val" id="epo-done">0</span><span class="epo-stat-lbl">Done</span></div>
+        <div class="epo-stat"><span class="epo-stat-val" id="epo-total">0</span><span class="epo-stat-lbl">Total</span></div>
+        <div class="epo-stat"><span class="epo-stat-val" id="epo-ok">0</span><span class="epo-stat-lbl">OK</span></div>
+        <div class="epo-stat"><span class="epo-stat-val" id="epo-fail">0</span><span class="epo-stat-lbl">Failed</span></div>
+      </div>
+      <div class="epo-current" id="epo-current">Initializing…</div>
+    </div>
+    <div id="dev-source-panel">
+      <div id="dev-source-bar">
+        <span id="dev-panel-title">Source Viewer</span>
+        <button class="devbtn green" onclick="devApplySource()">Apply to Frame</button>
+        <button class="devbtn blue" onclick="devDownloadAll()">&#x21AF; Download All</button>
+        <button class="devbtn" onclick="devSendAllToEditor()">Send All to Editor</button>
+      </div>
+      <div id="dev-tabs-bar"><div class="dev-src-tab active" onclick="devSelectAsset(null)" data-idx="-1">Overview</div></div>
+      <div id="dev-split">
+        <div id="dev-code-view">
+          <div id="dev-code-header"><span id="dev-code-label">No file selected</span></div>
+          <div id="dev-code-content" style="color:var(--txt3);font-style:italic;padding:16px">Select an asset to view source.</div>
+        </div>
+        <div id="dev-asset-col">
+          <div id="dev-asset-col-head"><span id="asset-col-count">Assets (0)</span></div>
+          <div id="dev-asset-list"></div>
+        </div>
+      </div>
+      <div id="dev-source-status"><span id="dev-status-text">Ready</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TITLEBAR -->
+<div id="titlebar">
+  <div class="logo">NYXCODE</div>
+  <div class="menu-bar">
+    <span class="mi" id="mi-file">File
+      <div class="dropdown">
+        <div class="ddi" onclick="openFolderFS()"><span>Open Folder</span><span class="dds">Ctrl+Shift+O</span></div>
+        <div class="ddi" onclick="openFilesFS()"><span>Open File(s)</span><span class="dds">Ctrl+O</span></div>
+        <div class="dddiv"></div>
+        <div class="ddi" onclick="newUntitled()"><span>New Untitled</span><span class="dds">Ctrl+N</span></div>
+        <div class="ddi" onclick="newFilePrompt()">New Named File</div>
+        <div class="dddiv"></div>
+        <div class="ddi" onclick="saveActive()"><span>Save</span><span class="dds">Auto-save</span></div>
+        <div class="ddi" onclick="saveAs()"><span>Save As…</span><span class="dds">Ctrl+Shift+S</span></div>
+        <div class="dddiv"></div>
+        <div class="ddi" onclick="renameActiveFile()"><span>Rename File</span><span class="dds">F2</span></div>
+        <div class="ddi" onclick="deleteActiveFile()"><span>Delete File</span><span class="dds">Del</span></div>
+        <div class="dddiv"></div>
+        <div class="ddi" onclick="closeActiveTab()"><span>Close Tab</span><span class="dds">Ctrl+W</span></div>
+      </div>
+    </span>
+    <div class="title-actions">
+      <button class="titlebtn" title="Toggle Explorer" onclick="toggleSidebar()">
+        <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+      </button>
+      <button class="titlebtn" title="Toggle Terminal" onclick="togglePanel()">
+        <svg viewBox="0 0 24 24"><path d="M4 17h16"/><polyline points="8 7 12 11 8 15"/></svg>
+      </button>
+      <button class="titlebtn" title="Toggle Fullscreen" onclick="toggleFullscreen()">
+        <svg viewBox="0 0 24 24"><path d="M4 4h6M4 4v6M20 20h-6M20 20v-6"/></svg>
+      </button>
+    </div>
+    <span class="mi" id="mi-edit">Edit
+      <div class="dropdown">
+        <div class="ddi" onclick="editorCopy()">Copy <span class="dds">Ctrl+C</span></div>
+        <div class="ddi" onclick="editorCut()">Cut <span class="dds">Ctrl+X</span></div>
+        <div class="ddi" onclick="editorPaste()">Paste <span class="dds">Ctrl+V</span></div>
+        <div class="ddi" onclick="editorSelectAll()">Select All <span class="dds">Ctrl+A</span></div>
+      </div>
+    </span>
+    <span class="mi" id="mi-view">View
+      <div class="dropdown">
+        <div class="ddi" onclick="toggleSidebar()"><span>Toggle Sidebar</span><span class="dds">Ctrl+B</span></div>
+        <div class="ddi" onclick="togglePanel()"><span>Toggle Terminal</span><span class="dds">Ctrl+`</span></div>
+        <div class="dddiv"></div>
+        <div class="ddi" onclick="previewInPane()">Split Live Preview</div>
+        <div class="ddi" onclick="previewInTab()">Open in Browser Tab</div>
+        <div class="dddiv"></div>
+        <div class="ddi" onclick="openDevMode()">Dev Mode Browser</div>
+      </div>
+    </span>
+    <span class="mi" onclick="openExtensions()">Extensions</span>
+    <span class="mi" onclick="openCollab()">Live Share</span>
+    <span class="mi" onclick="openDevMode()" style="color:var(--acc3)">Dev Mode</span>
+  </div>
+  <div class="tb-right">
+    <button id="notif-button" title="Notifications" onclick="toggleNotifDropdown()">
+      <svg viewBox="0 0 24 24"><path d="M15 17h5l-1.5-1.5v-5A5.5 5.5 0 009 5.5V4a3 3 0 10-6 0v1.5A5.5 5.5 0 003 10.5v5L1.5 17H7m4 0a3 3 0 006 0"/></svg>
+      <span class="badge" id="notif-badge"></span>
+    </button>
+    <div id="collab-btn" onclick="openCollab()">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.87"/></svg>
+      Live Share
+    </div>
+    <div id="user-pill" onclick="openUserMenu()">
+      <div id="user-avatar" onclick="openUserMenu()">?</div>
+      <span id="user-name" onclick="openUserMenu()">guest</span>
+    </div>
+  </div>
+</div>
+<div id="notif-popover">
+  <div id="notif-head"><span>Notifications</span></div>
+  <div id="notif-list"><div id="notif-empty" style="padding:12px 14px;color:var(--txt3);font-size:12px;">No notifications yet.</div></div>
+  <div id="notif-actions">
+    <button onclick="loadLatestNotifications()">Refresh</button>
+    <button id="notif-admin-btn" onclick="openBroadcastModal()" style="display:none">Broadcast</button>
+  </div>
+</div>
+<div id="global-toast"></div>
+
+<div id="main">
+  <div id="actbar">
+    <div class="aicon active" id="act-exp" title="Explorer" onclick="setActView('explorer')">
+      <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+    </div>
+    <div class="aicon" id="act-collab" title="Live Share" onclick="setActView('collab')">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.87"/></svg>
+    </div>
+    <div class="aicon" id="act-ext" title="Extensions" onclick="setActView('extensions')">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="13" y="2" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><path d="M13 17.5h9M17.5 13v9"/></svg>
+    </div>
+    <div class="aicon" id="act-dev" title="Dev Mode" onclick="openDevMode()">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    </div>
+    <div class="aicon" id="act-run" title="Run Code" onclick="runActiveCode()">
+      <svg viewBox="0 0 24 24"><polygon points="8 5 19 12 8 19" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+    </div>
+    <div class="act-spacer"></div>
+    <div class="aicon" title="Settings / Themes" onclick="setActView('extensions');openThemes()">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div id="sbhead">
+      <span id="sb-title">EXPLORER</span>
+      <div class="sbbtns">
+        <button class="sbbtn" title="Open Folder" onclick="openFolderFS()">
+          <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+        </button>
+        <button class="sbbtn" title="Open File" onclick="openFilesFS()">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </button>
+        <button class="sbbtn" title="New File" onclick="newFilePrompt()">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button class="sbbtn" title="New Folder" onclick="newFolderPrompt()">
+          <svg viewBox="0 0 24 24"><path d="M3 8a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/><path d="M9 12h6M12 9v6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="filetree"></div>
+  </div>
+
+  <div id="editor-container">
+    <div id="welcome">
+      <div class="wlc-logo">NYXCODE</div>
+      <div class="wlc-sub"></div>
+      <div class="wlc-grid">
+        <button class="wbtn primary" onclick="openFolderFS()">
+          <svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+          Open Folder <span class="fs-badge">FS</span>
+        </button>
+        <button class="wbtn blue" onclick="openFilesFS()">
+          <svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Open File(s) <span class="fs-badge">FS</span>
+        </button>
+        <button class="wbtn" onclick="newUntitled()">
+          <svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Untitled
+        </button>
+        <button class="wbtn green" onclick="openCollab()">
+          <svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          Live Share
+        </button>
+      </div>
+      <div class="wlc-note">
+        <span class="fs-badge">FS</span> = Real file system access • Auto-saves to disk<br>
+        F2 rename • Del delete • Ctrl+P palette • Live Share to collaborate
+      </div>
+    </div>
+
+    <div id="tabs-bar" style="display:none"></div>
+    <div id="toolbar" style="display:none">
+      <button class="tbtn prev" title="Run Code / Preview" onclick="runActiveCode()"><svg viewBox="0 0 24 24"><polygon points="8 5 19 12 8 19" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
+      <button class="tbtn sav" title="Save (Auto-save)" onclick="saveActive()"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
+      <span id="prev-group" style="display:none;gap:2px;align-items:center"></span>
+      <span id="autosave-badge">&#x2713; Saved</span>
+      <span id="lang-badge">—</span>
+    </div>
+
+    <div id="work-area" style="display:none">
+      <div id="cm-wrap">
+        <div class="save-flash" id="save-flash">Saved to disk</div>
+        <div id="editor-wrap">
+          <div id="line-numbers"></div>
+          <div id="highlight-layer"></div>
+          <textarea id="editor-textarea" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+        </div>
+      </div>
+      <div id="split-divider" style="display:none"></div>
+      <div id="preview-pane">
+        <div id="pv-bar">
+          <span id="pv-title">Live Preview</span>
+          <button class="pvbtn" onclick="refreshPreview()">Refresh</button>
+          <button class="pvbtn" onclick="previewInTab()">Open Tab</button>
+          <button class="pvbtn" onclick="closePreviewPane()">&#x2715;</button>
+        </div>
+        <iframe id="pv-frame" sandbox="allow-scripts allow-same-origin allow-forms" style="display:none"></iframe>
+        <div id="pv-placeholder"><svg style="width:28px;height:28px;stroke:var(--txt3);fill:none;stroke-width:1.4" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Open an HTML file to preview</span></div>
+        <div id="side-output" style="display:none;flex:1;padding:10px;white-space:pre-wrap;word-break:break-word;overflow:auto;color:var(--txt2);background:var(--bg)"></div>
+      </div>
+    </div>
+
+    <div id="panel">
+      <div id="ptabbar">
+        <div class="ptab active" onclick="switchPanel(this,'terminal')">TERMINAL</div>
+        <div class="ptab" onclick="switchPanel(this,'problems')">PROBLEMS</div>
+        <div class="ptab" onclick="switchPanel(this,'output')">OUTPUT</div>
+        <span class="panel-close" onclick="togglePanel()">&#x2715;</span>
+      </div>
+      <div id="terminal"></div>
+      <div id="terminput-row">
+        <span class="tp">&#x276F;</span>
+        <span class="tpath" id="tpath">~/</span>
+        <input id="terminput" placeholder="command..." autocomplete="off" spellcheck="false">
+      </div>
+      <div id="probpanel">No problems detected.</div>
+      <div id="outpanel">[NyxCode] Output channel ready.</div>
+    </div>
+  </div>
+
+  <div id="extpanel" class="closed">
+    <div id="ext-head">
+      <svg style="width:14px;height:14px;fill:none;stroke:var(--txt3);stroke-width:1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="13" y="2" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><path d="M13 17.5h9M17.5 13v9"/></svg>
+      <span class="ext-logo">Extensions</span>
+      <button id="ext-close" onclick="closeExtensions()">&#x2715;</button>
+    </div>
+    <input id="ext-search" placeholder="Search extensions..." oninput="renderExtBody()">
+    <div id="ext-tabs">
+      <div class="ext-tab active" onclick="switchExtTab(this,'all')">All</div>
+      <div class="ext-tab" onclick="switchExtTab(this,'themes')">Themes</div>
+      <div class="ext-tab" onclick="switchExtTab(this,'tools')">Tools</div>
+      <div class="ext-tab" onclick="switchExtTab(this,'installed')">Installed</div>
+    </div>
+    <div id="ext-body"></div>
+  </div>
+
+  <div id="collab-panel">
+    <div id="collab-head">
+      <svg style="width:14px;height:14px;fill:none;stroke:var(--acc3);stroke-width:1.8" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.87"/></svg>
+      <span class="collab-logo">Live Share</span>
+      <button id="collab-close" onclick="closeCollab()">&#x2715;</button>
+    </div>
+    <div class="collab-section">
+      <div class="collab-section-title">Share Session</div>
+      <div class="collab-share-row">
+        <input id="collab-link-input" readonly value="Start a session to get a link">
+        <button class="collab-copy-btn" onclick="collabStartOrCopy()">Start</button>
+      </div>
+    </div>
+    <div class="collab-section">
+      <div class="collab-section-title">Users</div>
+      <div class="collab-users" id="collab-users"></div>
+    </div>
+    <div class="collab-section">
+      <div class="collab-section-title">Participants</div>
+      <div class="collab-members" id="collab-members"></div>
+    </div>
+    <div id="collab-chat"></div>
+    <div id="collab-input-row">
+      <input id="collab-input" placeholder="Message team..." autocomplete="off" spellcheck="false">
+      <button id="collab-send" onclick="collabSend()">&#x276F;</button>
+    </div>
+  </div>
+</div>
+
+<div id="statusbar" class="nok">
+  <div class="sitem branch">
+    <svg style="width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 01-9 9"/></svg>
+    main
+  </div>
+  <div class="sright">
+    <div class="sitem" id="st-pos">Ln 1, Col 1</div>
+    <div class="sitem" id="st-lang">—</div>
+    <div class="sitem" id="st-fs">No FS</div>
+    <div class="sitem">UTF-8</div>
+    <div class="sitem rb">NyxCode</div>
+  </div>
+</div>
+
+<div id="filetree-ctx">
+  <div class="fctxdiv"></div>
+<div class="fctxi" id="fctx-new-file">New File</div>
+<div class="fctxi" id="fctx-new-folder">New Folder</div>
+  <div class="fctxi" id="fctx-open">Open</div>
+  <div class="fctxdiv"></div>
+  <div class="fctxi" id="fctx-copy">Copy <span class="fctxs">Ctrl+C</span></div>
+  <div class="fctxi" id="fctx-cut">Cut <span class="fctxs">Ctrl+X</span></div>
+  <div class="fctxi" id="fctx-rename">Rename <span class="fctxs">F2</span></div>
+  <div class="fctxi danger" id="fctx-delete">Delete <span class="fctxs">Del</span></div>
+  <div class="fctxdiv"></div>
+  <div class="fctxi" id="fctx-download">Download</div>
+  <div class="fctxi" id="fctx-save-fs" style="display:none">Save to Disk</div>
+</div>
+<div id="ctxmenu">
+  <div class="ctxi" onclick="editorCopy();hideCtx()">Copy <span class="ctxs">Ctrl+C</span></div>
+  <div class="ctxi" onclick="editorCut();hideCtx()">Cut <span class="ctxs">Ctrl+X</span></div>
+  <div class="ctxi" onclick="editorPaste();hideCtx()">Paste <span class="ctxs">Ctrl+V</span></div>
+  <div class="ctxdiv"></div>
+  <div class="ctxi" onclick="saveActive();hideCtx()">Save <span class="ctxs">Auto-save</span></div>
+</div>
+<div id="cmdpal">
+  <input id="cmdinput" placeholder="Type a command or file name..." autocomplete="off">
+  <div id="cmdlist"></div>
+</div>
+<div id="modal-overlay">
+  <div id="modal-box">
+    <h3 id="modal-title">NEW FILE</h3>
+    <div id="modal-body" style="display:none"></div>
+    <input id="modal-input" placeholder="filename.js" autocomplete="off" spellcheck="false">
+    <div class="modal-btns">
+      <button class="mbtn" onclick="closeModal()">Cancel</button>
+      <button class="mbtn ok" id="modal-ok" onclick="modalConfirm()">Create</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// STATE
+// ================================================================
+var openTabs=[],activeTabId=null,idSeed=0,panelOpen=false,sidebarOpen=true;
+var previewPaneOpen=false,pvTimer=null,untitledCount=0;
+var modalCb=null,isDragging=false;
+var currentTheme='default',extPanelOpen=false,activeExtTab='all';
+var _folderTree=null,autoSaveTimer=null,_focusedTabId=null;
+var devMode=false,devAssets=[],devHistory=[],devHistIdx=-1;
+var _extractAbort=false,_selectedAssetIdx=-1;
+var HAS_FS_API = !!(window.nyxcodeAPI && window.nyxcodeAPI.readFile);
+var currentUser=null;
+var collabSession=null,collabMessages=[];
+var _oauthPollTimer=null,_oauthPopup=null;
+
+function genId(){return 't'+(++idSeed);}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function basename(p){p=String(p).replace(/[/\\]+$/,'');var i=Math.max(p.lastIndexOf('/'),p.lastIndexOf('\\'));return i>=0?p.slice(i+1):p;}
+
+// ================================================================
+// AUTH — Real email/password + OAuth popup flows
+// ================================================================
+var AUTH_TAB='signin';
+
+// ── localStorage account DB ──
+function getAccountsDB(){try{return JSON.parse(localStorage.getItem('nyxcode_accounts')||'{}');}catch(e){return{};}}
+function saveAccountsDB(db){try{localStorage.setItem('nyxcode_accounts',JSON.stringify(db));}catch(e){}}
+
+// Simple SHA-256 via SubtleCrypto
+async function hashPassword(password){
+  try{
+    var buf=new TextEncoder().encode(password);
+    var hash=await crypto.subtle.digest('SHA-256',buf);
+    return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }catch(e){
+    // Fallback simple hash for non-HTTPS contexts
+    var h=0;for(var i=0;i<password.length;i++){h=((h<<5)-h)+password.charCodeAt(i);h|=0;}
+    return'fallback_'+Math.abs(h).toString(16);
+  }
+}
+
+function switchAuthTab(tab){
+  AUTH_TAB=tab;
+  document.getElementById('tab-signin').classList.toggle('active',tab==='signin');
+  document.getElementById('tab-signup').classList.toggle('active',tab==='signup');
+  document.getElementById('auth-user').style.display=tab==='signup'?'block':'none';
+  document.getElementById('auth-submit-btn').textContent=tab==='signin'?'SIGN IN':'CREATE ACCOUNT';
+  document.getElementById('auth-err').textContent='';
+}
+
+function setAuthLoading(loading){
+  var btn=document.getElementById('auth-submit-btn');
+  btn.disabled=loading;
+  btn.innerHTML=loading?'<span class="auth-loading"></span>SIGNING IN…':(AUTH_TAB==='signin'?'SIGN IN':'CREATE ACCOUNT');
+}
+
+async function authSubmit(){
+  var email=document.getElementById('auth-email').value.trim();
+  var pass=document.getElementById('auth-pass').value;
+  var user=document.getElementById('auth-user').value.trim();
+  var err=document.getElementById('auth-err');
+  err.textContent='';
+  if(!email){err.textContent='Email is required.';return;}
+  if(!pass||pass.length<6){err.textContent='Password must be at least 6 characters.';return;}
+  if(AUTH_TAB==='signup'&&!user){err.textContent='Username is required.';return;}
+  setAuthLoading(true);
+  try{
+    if(AUTH_TAB==='signup'){await emailSignUp(email,user,pass);}
+    else{await emailSignIn(email,pass);}
+  }finally{setAuthLoading(false);}
+}
+
+async function emailSignUp(email,username,password){
+  var err=document.getElementById('auth-err');
+  var db=getAccountsDB();
+  if(db[email.toLowerCase()]){err.textContent='Account already exists. Try signing in or use a different email.';return;}
+  var hash=await hashPassword(password);
+  var acct={email:email.toLowerCase(),username,passwordHash:hash,createdAt:Date.now(),provider:'email'};
+  db[email.toLowerCase()]=acct;
+  saveAccountsDB(db);
+  loginUser({email:email.toLowerCase(),username,provider:'email'});
+}
+
+async function emailSignIn(email,password){
+  var err=document.getElementById('auth-err');
+  var db=getAccountsDB();
+  var acct=db[email.toLowerCase()];
+  if(!acct){err.textContent='No account found. Sign up first.';return;}
+  if(acct.provider!=='email'){err.textContent='This email was registered via '+acct.provider+'. Use that button instead.';return;}
+  var hash=await hashPassword(password);
+  if(hash!==acct.passwordHash){err.textContent='Incorrect password.';return;}
+  loginUser({email:acct.email,username:acct.username,provider:'email'});
+}
+
+// ── OAUTH — opens real provider sign-in in a popup ──
+function oauthLogin(provider){
+  var err=document.getElementById('auth-err');err.textContent='';
+  var btn=document.getElementById('btn-'+provider);
+  if(btn)btn.classList.add('loading');
+
+  var urls={
+    google:'https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin',
+    yahoo:'https://login.yahoo.com/',
+    github:'https://github.com/login'
+  };
+
+  var providerUrl=urls[provider];
+  if(!providerUrl){err.textContent='Unknown provider.';if(btn)btn.classList.remove('loading');return;}
+
+  // Open provider sign-in in the user's normal browser for best compatibility.
+  var openResult;
+  if(window.nyxcodeAPI&&typeof window.nyxcodeAPI.openExternal==='function'){
+    openResult=window.nyxcodeAPI.openExternal(providerUrl);
+  }else{
+    var popup=window.open(providerUrl,'_blank');
+    if(popup)popup.opener=null;
+    openResult=Promise.resolve({ok:!!popup});
+  }
+  openResult.then(function(result){
+    if(!result || !result.ok){
+      err.textContent='Unable to open sign-in page. Please try again.';
+      if(btn)btn.classList.remove('loading');
+      return;
+    }
+
+    // Show waiting overlay
+    document.getElementById('ow-title').textContent='SIGNING IN WITH '+provider.toUpperCase();
+    document.getElementById('ow-msg').textContent='A browser window has opened. Complete sign-in there, then return and click "I\'ve signed in" below.';
+    document.getElementById('oauth-waiting').classList.add('open');
+
+    var owBox=document.querySelector('.ow-box');
+    var existing=document.getElementById('ow-confirm');
+    if(existing)existing.remove();
+    var confirmBtn=document.createElement('button');
+    confirmBtn.id='ow-confirm';
+    confirmBtn.className='auth-btn';
+    confirmBtn.style.cssText='font-size:11px;padding:8px;margin-top:4px';
+    confirmBtn.textContent="I've signed in — enter username";
+    confirmBtn.onclick=function(){promptOAuthUsername(provider,btn);};
+    owBox.insertBefore(confirmBtn,owBox.querySelector('.ow-cancel'));
+  }).catch(function(e){
+    err.textContent='Unable to open sign-in page. Please try again.';
+    if(btn)btn.classList.remove('loading');
+  });
+}
+
+function promptOAuthUsername(provider,btn){
+  clearInterval(_oauthPollTimer);
+  document.getElementById('oauth-waiting').classList.remove('open');
+  if(_oauthPopup&&!_oauthPopup.closed){try{_oauthPopup.close();}catch(e){}}
+  if(btn)btn.classList.remove('loading');
+
+  // Ask for the username they want in NyxCode
+  var existing=document.getElementById('ow-confirm');
+  if(existing)existing.remove();
+
+  openModal('COMPLETE SIGN-IN','Your display name',
+    'Enter NyxCode',
+    function(username){
+      if(!username)username=provider+'_user';
+      var email=username.toLowerCase().replace(/\s+/g,'')+'.'+provider+'@nyxcode.local';
+      var db=getAccountsDB();
+      if(!db[email]){
+        db[email]={email,username,provider,createdAt:Date.now()};
+        saveAccountsDB(db);
+      }else{
+        username=db[email].username;
+      }
+      loginUser({email,username,provider});
+    }
+  );
+  document.getElementById('modal-input').placeholder='Display name for NyxCode';
+  document.getElementById('modal-title').textContent='SET YOUR NYXCODE USERNAME';
+  document.getElementById('modal-ok').textContent='Enter NyxCode';
+}
+
+function cancelOAuth(){
+  clearInterval(_oauthPollTimer);
+  if(_oauthPopup&&!_oauthPopup.closed){try{_oauthPopup.close();}catch(e){}}
+  document.getElementById('oauth-waiting').classList.remove('open');
+  var existing=document.getElementById('ow-confirm');if(existing)existing.remove();
+  ['btn-google','btn-yahoo','btn-github'].forEach(function(id){
+    var b=document.getElementById(id);if(b)b.classList.remove('loading');
+  });
+}
+
+function loginUser(user){
+  currentUser=user;
+  try{localStorage.setItem('nyxcode_user',JSON.stringify(user));}catch(e){}
+  var db=getAccountsDB();
+  db[user.email.toLowerCase()]={email:user.email.toLowerCase(),username:user.username,provider:user.provider,createdAt:user.createdAt||Date.now()};
+  saveAccountsDB(db);
+  document.getElementById('auth-screen').classList.add('hidden');
+  document.getElementById('oauth-waiting').classList.remove('open');
+  var existing=document.getElementById('ow-confirm');if(existing)existing.remove();
+  // Update UI
+  document.getElementById('user-name').textContent=user.username;
+  var av=document.getElementById('user-avatar');
+  if(user.avatar){av.innerHTML='<img src="'+escHtml(user.avatar)+'" onerror="this.parentNode.textContent=\''+user.username.slice(0,2).toUpperCase()+'\'">';}
+  else{av.textContent=user.username.slice(0,2).toUpperCase();}
+  renderCollabUsers();
+  renderCollabMembers();
+  refreshAdminUsers();
+  addTermLine('<span class="tok">Signed in as '+escHtml(user.username)+(user.provider!=='email'?' via '+user.provider:'')+'</span>');
+}
+
+var cachedAdminUsers=[];
+var notifState={notifications:[],unread:0};
+
+function isAdminUserName(name){
+  if(!name) return false;
+  return cachedAdminUsers.indexOf(String(name).toLowerCase())!==-1;
+}
+
+function refreshAdminUsers(){
+  var api=window.nyxcodeAPI;
+  if(!api||typeof api.getAdminUsers!=='function'){
+    cachedAdminUsers=[];
+    refreshNotifAdminButton();
+    return Promise.resolve([]);
+  }
+  return api.getAdminUsers().then(function(list){
+    if(Array.isArray(list)){
+      cachedAdminUsers=list.map(function(item){return String(item).toLowerCase();});
+    } else {
+      cachedAdminUsers=[];
+    }
+    refreshNotifAdminButton();
+  }).catch(function(){
+    cachedAdminUsers=[];
+    refreshNotifAdminButton();
+  });
+}
+
+function refreshNotifAdminButton(){
+  var btn=document.getElementById('notif-admin-btn');
+  if(!btn) return;
+  btn.style.display=(currentUser && isAdminUserName(currentUser.username)) ? 'inline-flex' : 'none';
+}
+
+function updateNotificationBadge(){
+  var badge=document.getElementById('notif-badge');
+  if(!badge) return;
+  if(notifState.unread>0){
+    badge.style.display='block';
+  } else {
+    badge.style.display='none';
+  }
+}
+
+function renderNotifications(){
+  var list=document.getElementById('notif-list');
+  if(!list) return;
+  list.innerHTML='';
+  if(!notifState.notifications.length){
+    list.innerHTML='<div id="notif-empty" style="padding:12px 14px;color:var(--txt3);font-size:12px;">No notifications yet.</div>';
+    return;
+  }
+  notifState.notifications.forEach(function(note){
+    var item=document.createElement('div');
+    item.id='notif-item';
+    item.innerHTML='<span class="notif-sender">'+escHtml(note.sender||note.username||'Admin')+'</span><div>'+escHtml(note.message)+'</div><div style="margin-top:6px;font-size:10px;color:var(--txt3);">'+escHtml(new Date(note.createdAt||Date.now()).toLocaleString())+'</div>';
+    list.appendChild(item);
+  });
+}
+
+function showGlobalToast(message){
+  var toast=document.getElementById('global-toast');
+  if(!toast) return;
+  toast.textContent=message;
+  toast.classList.add('show');
+  clearTimeout(window._globalToastTimer);
+  window._globalToastTimer=setTimeout(function(){
+    toast.classList.remove('show');
+  },10000);
+}
+
+function toggleNotifDropdown(){
+  var pop=document.getElementById('notif-popover');
+  if(!pop) return;
+  var open=!pop.classList.contains('open');
+  if(open){
+    pop.classList.add('open');
+    notifState.unread=0;
+    updateNotificationBadge();
+  } else {
+    pop.classList.remove('open');
+  }
+}
+
+async function loadLatestNotifications(){
+  try{
+    var api=window.nyxcodeAPI;
+    var res=api&&typeof api.fetchNotifications==='function'?await api.fetchNotifications():null;
+    if(res && Array.isArray(res.notifications)){
+      notifState.notifications=res.notifications.slice(0,50);
+    }
+  }catch(e){
+  }
+  renderNotifications();
+  updateNotificationBadge();
+}
+
+function openBroadcastModal(){
+  if(!currentUser){
+    addTermLine('<span class="twarn">Sign in as an admin to broadcast notifications.</span>');
+    return;
+  }
+  if(!isAdminUserName(currentUser.username)){
+    addTermLine('<span class="twarn">Only admins can broadcast notifications.</span>');
+    return;
+  }
+  openModal('Broadcast Notification','Message to show to everyone','Send',async function(message){
+    closeModal();
+    if(!message||!message.trim()){
+      addTermLine('<span class="twarn">Enter a message to broadcast.</span>');
+      return;
+    }
+    var result = await window.nyxcodeAPI.sendGlobalNotification({ sender: currentUser.username, username: currentUser.username, message: message.trim() });
+    if(result && result.ok){
+      addTermLine('<span class="tok">Notification broadcasted.</span>');
+      if(result.note){
+        notifState.notifications.unshift(result.note);
+        if(notifState.notifications.length>50) notifState.notifications.length=50;
+      }
+      renderNotifications();
+      showGlobalToast(message.trim());
+    } else {
+      addTermLine('<span class="terr">Notification failed: '+escHtml(result && result.error ? result.error : 'unknown')+'</span>');
+    }
+  });
+  document.getElementById('modal-input').placeholder='Type your announcement here';
+  document.getElementById('modal-title').textContent='SEND GLOBAL NOTIFICATION';
+  document.getElementById('modal-ok').textContent='Send';
+}
+
+function onGlobalNotificationReceived(note){
+  if(!note) return;
+  if(!note.createdAt) note.createdAt=Date.now();
+  notifState.notifications.unshift(note);
+  if(notifState.notifications.length>50) notifState.notifications.length=50;
+  notifState.unread += 1;
+  renderNotifications();
+  updateNotificationBadge();
+  showGlobalToast((note.sender||note.username||'Admin')+': '+note.message);
+}
+
+function initializeNotificationSystem(){
+  refreshAdminUsers();
+  loadLatestNotifications();
+  var api=window.nyxcodeAPI;
+  if(api&&typeof api.onGlobalNotification==='function')api.onGlobalNotification(onGlobalNotificationReceived);
+  document.addEventListener('click', function(event){
+    var pop=document.getElementById('notif-popover');
+    var btn=document.getElementById('notif-button');
+    if(!pop||!btn) return;
+    if(pop.classList.contains('open') && !pop.contains(event.target) && !btn.contains(event.target)){
+      pop.classList.remove('open');
+    }
+  });
+}
+
+function openUserMenu(){
+  if(!currentUser){
+    document.getElementById('auth-screen').classList.remove('hidden');
+    return;
+  }
+  var initials=currentUser.username.slice(0,2).toUpperCase();
+  var avatarHtml=currentUser.avatar
+    ?'<img src="'+escHtml(currentUser.avatar)+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">'
+    :'<span style="font-size:18px;font-weight:700;color:#fff">'+escHtml(initials)+'</span>';
+  var body=
+    '<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:6px 0 14px">'
+      +'<div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#3b82f6);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0">'+avatarHtml+'</div>'
+      +'<div style="font-size:15px;font-weight:700;color:var(--txt);letter-spacing:.5px">'+escHtml(currentUser.username)+'</div>'
+      +'<div style="font-size:11px;color:var(--txt3)">'+escHtml(currentUser.email)+'</div>'
+      +'<div style="display:flex;gap:5px;align-items:center;background:var(--bg5);border:1px solid var(--bdr2);border-radius:20px;padding:3px 10px">'
+        +'<span style="width:7px;height:7px;border-radius:50%;background:#22c55e;display:inline-block"></span>'
+        +'<span style="font-size:10px;color:var(--txt2)">'+escHtml(currentUser.provider==='email'?'Email account':currentUser.provider+' account')+'</span>'
+      +'</div>'
+    +'</div>'
+    +'<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--bdr);padding-top:12px">'
+      +'<button class="mbtn" onclick="triggerAvatarUpload()" style="width:100%;display:flex;align-items:center;gap:8px;padding:8px 12px;justify-content:flex-start;font-size:11.5px">'
+        +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>'
+        +'Upload Avatar'
+      +'</button>'
+      +'<button class="mbtn" onclick="doSignOut()" style="width:100%;display:flex;align-items:center;gap:8px;padding:8px 12px;justify-content:flex-start;font-size:11.5px;border-color:rgba(59,130,246,.4);color:var(--acc2)">'
+        +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>'
+        +'Sign Out'
+      +'</button>'
+      +'<button class="mbtn" onclick="confirmDeleteAccount()" style="width:100%;display:flex;align-items:center;gap:8px;padding:8px 12px;justify-content:flex-start;font-size:11.5px;border-color:rgba(248,113,113,.35);color:#f87171">'
+        +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>'
+        +'Delete Account'
+      +'</button>'
+    +'</div>';
+
+  openModal('ACCOUNT','','',function(){}, body);
+  document.getElementById('modal-input').style.display='none';
+  document.getElementById('modal-title').textContent='MY ACCOUNT';
+  document.getElementById('modal-ok').style.display='none';
+  document.querySelector('.modal-btns .mbtn:first-child').textContent='Close';
+  document.querySelector('.modal-btns .mbtn:first-child').onclick=closeModal;
+}
+
+function doSignOut(){
+  closeModal();
+  currentUser=null;
+  try{localStorage.removeItem('nyxcode_user');}catch(e){}
+  document.getElementById('auth-screen').classList.remove('hidden');
+  document.getElementById('user-name').textContent='guest';
+  var av=document.getElementById('user-avatar');
+  av.innerHTML='?';
+  av.style.background='linear-gradient(135deg,#a855f7,#3b82f6)';
+  renderCollabUsers();
+  addTermLine('<span class="tok">Signed out.</span>');
+}
+
+function confirmDeleteAccount(){
+  closeModal();
+  if(!currentUser)return;
+  var username=currentUser.username;
+  openModal(
+    'DELETE ACCOUNT',
+    'Type your username to confirm',
+    'Delete Forever',
+    function(input){
+      if(input!==username){
+        document.getElementById('auth-err')||addTermLine('<span class="terr">Username did not match. Account not deleted.</span>');
+        return;
+      }
+      var db=getAccountsDB();
+      delete db[currentUser.email.toLowerCase()];
+      saveAccountsDB(db);
+      currentUser=null;
+      try{localStorage.removeItem('nyxcode_user');}catch(e){}
+      document.getElementById('user-name').textContent='guest';
+      var av=document.getElementById('user-avatar');
+      av.innerHTML='?';
+      av.style.background='linear-gradient(135deg,#a855f7,#3b82f6)';
+      document.getElementById('auth-screen').classList.remove('hidden');
+      renderCollabUsers();
+      addTermLine('<span class="tok">Account "'+escHtml(username)+'" deleted.</span>');
+    }
+  );
+  document.getElementById('modal-title').textContent='DELETE "'+username.toUpperCase()+'"?';
+  document.getElementById('modal-ok').textContent='Delete Forever';
+  document.getElementById('modal-ok').className='mbtn danger';
+  var note=document.createElement('div');
+  note.style.cssText='font-size:10.5px;color:var(--txt3);margin-bottom:8px;line-height:1.6;padding:7px 10px;background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.2);border-radius:4px';
+  note.textContent='This permanently removes your account from this browser. Type your username below to confirm.';
+  var inp=document.getElementById('modal-input');
+  inp.parentNode.insertBefore(note,inp);
+}
+
+function doSignOut(){
+  closeModal();
+  currentUser=null;
+  try{localStorage.removeItem('nyxcode_user');}catch(e){}
+  document.getElementById('auth-screen').classList.remove('hidden');
+  document.getElementById('user-name').textContent='guest';
+  var av=document.getElementById('user-avatar');
+  av.innerHTML='?';
+  av.style.background='linear-gradient(135deg,#a855f7,#3b82f6)';
+  renderCollabUsers();
+  addTermLine('<span class="tok">Signed out.</span>');
+}
+
+function confirmDeleteAccount(){
+  closeModal();
+  if(!currentUser)return;
+  var username=currentUser.username;
+  openModal(
+    'DELETE ACCOUNT',
+    'Type your username to confirm',
+    'Delete Forever',
+    function(input){
+      if(input!==username){
+        document.getElementById('auth-err')||addTermLine('<span class="terr">Username did not match. Account not deleted.</span>');
+        return;
+      }
+      var db=getAccountsDB();
+      delete db[currentUser.email.toLowerCase()];
+      saveAccountsDB(db);
+      currentUser=null;
+      try{localStorage.removeItem('nyxcode_user');}catch(e){}
+      document.getElementById('user-name').textContent='guest';
+      var av=document.getElementById('user-avatar');
+      av.innerHTML='?';
+      av.style.background='linear-gradient(135deg,#a855f7,#3b82f6)';
+      document.getElementById('auth-screen').classList.remove('hidden');
+      renderCollabUsers();
+      addTermLine('<span class="tok">Account "'+escHtml(username)+'" deleted.</span>');
+    }
+  );
+  document.getElementById('modal-title').textContent='DELETE "'+username.toUpperCase()+'"?';
+  document.getElementById('modal-ok').textContent='Delete Forever';
+  document.getElementById('modal-ok').className='mbtn danger';
+  var note=document.createElement('div');
+  note.style.cssText='font-size:10.5px;color:var(--txt3);margin-bottom:8px;line-height:1.6;padding:7px 10px;background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.2);border-radius:4px';
+  note.textContent='This permanently removes your account from this browser. Type your username below to confirm.';
+  var inp=document.getElementById('modal-input');
+  inp.parentNode.insertBefore(note,inp);
+}
+
+function triggerAvatarUpload(){
+  var input = document.getElementById('avatar-file-input');
+  if(!input) return;
+  input.value = '';
+  input.click();
+}
+
+document.getElementById('avatar-file-input').addEventListener('change', function(){
+  var file = this.files && this.files[0];
+  if(!file) return;
+  var isImage = file.type.startsWith('image/') || /\.(jpe?g|png|gif|webp|svg|bmp|ico|avif|tiff?|heic?)$/i.test(file.name);
+  if(!isImage){
+    alert('Please select an image file.');
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(){
+    if(currentUser){
+      currentUser.avatar = reader.result;
+      try{localStorage.setItem('nyxcode_user', JSON.stringify(currentUser));}catch(e){}
+      var av = document.getElementById('user-avatar');
+      if(av){
+        av.innerHTML = '<img src="'+escHtml(reader.result)+'" onerror="this.parentNode.textContent=\''+(currentUser.username||'').slice(0,2).toUpperCase()+'\''+'">';
+      }
+      if(document.getElementById('modal-overlay').classList.contains('open')){
+        closeModal();
+      }
+    }
+  };
+  reader.readAsDataURL(file);
+});
+
+// Ensure user pill click registration works even in draggable titlebar mode
+var userPill = document.getElementById('user-pill');
+if(userPill){userPill.addEventListener('click', openUserMenu);}
+var userAvatar = document.getElementById('user-avatar');
+if(userAvatar){userAvatar.addEventListener('click', openUserMenu);}
+var userName = document.getElementById('user-name');
+if(userName){userName.addEventListener('click', openUserMenu);}
+
+// Restore session on load
+(function(){
+  try{
+    var saved=localStorage.getItem('nyxcode_user');
+    if(saved){var u=JSON.parse(saved);if(u&&u.username)loginUser(u);}
+  }catch(e){}
+})();
+
+initializeNotificationSystem();
+
+// Enter key on auth fields
+document.getElementById('auth-email').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('auth-pass').focus();});
+document.getElementById('auth-user').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('auth-pass').focus();});
+document.getElementById('auth-pass').addEventListener('keydown',function(e){if(e.key==='Enter')authSubmit();});
+
+// ================================================================
+// FILE SYSTEM
+// ================================================================
+var _fsFilePaths={},_fsDirPath=null;
+
+async function openFilesFS(){
+  if(!HAS_FS_API){openFilesLegacy();return;}
+  try{
+    var result=await window.nyxcodeAPI.showOpenDialog({properties:['openFile','multiSelections']});
+    if(result.canceled||!result.filePaths.length)return;
+    for(var fp of result.filePaths){var text=await window.nyxcodeAPI.readFile(fp);var name=basename(fp);var id=genId();_fsFilePaths[id]=fp;openTabs.push({id,name,content:text,dirty:false,untitled:false,filePath:fp});activeTabId=id;}
+    renderAll();updateFsStatus();addTermLine('<span class="tok">Opened '+result.filePaths.length+' file(s)</span>');
+  }catch(e){addTermLine('<span class="terr">FS error: '+escHtml(e.message)+'</span>');}
+}
+
+async function buildFolderTree(dirPath){
+  var tree={};
+  async function readDir(dp,node,depth){
+    if(depth>8)return;
+    var entries=await window.nyxcodeAPI.readDirectory(dp);
+    for(var entry of entries){
+      var sep=dp.includes('\\')?'\\':'/';
+      var fullPath=dp+sep+entry.name;
+      if(entry.name.startsWith('.'))continue;
+      if(entry.isDirectory===true){
+        node[entry.name]={__folder:true,__path:fullPath,__children:{}};
+        await readDir(fullPath,node[entry.name].__children,depth+1);
+      }else{
+        node[entry.name]={__file:true,__path:fullPath,__name:entry.name};
+      }
+    }
+  }
+  await readDir(dirPath,tree,0);
+  return tree;
+}
+async function refreshFolderTree(){
+  if(!HAS_FS_API||!_fsDirPath)return;
+  try{_folderTree=await buildFolderTree(_fsDirPath);renderTree();updateFsStatus();}catch(e){}
+}
+async function openFolderFS(){
+  if(!HAS_FS_API){openFolderLegacy();return;}
+  try{
+    var result=await window.nyxcodeAPI.showOpenDialog({properties:['openDirectory']});
+    if(result.canceled||!result.filePaths.length)return;
+    _fsDirPath=result.filePaths[0];
+    var dirName=basename(_fsDirPath);
+    document.getElementById('sb-title').textContent=dirName.toUpperCase();
+    document.getElementById('tpath').textContent='~/'+dirName;
+    _folderTree=await buildFolderTree(_fsDirPath);
+    renderTree();
+    updateFsStatus();
+    addTermLine('<span class="tok">Opened folder: '+escHtml(dirName)+'</span>');
+  }catch(e){addTermLine('<span class="terr">FS error: '+escHtml(e.message)+'</span>');}
+}
+function sanitizeFsName(name){
+  var safe=String(name||'').trim();
+  safe=safe.replace(/[<>:"/\\|?*\x00-\x1f]/g,'');
+  safe=safe.replace(/\s+/g,' ').trim();
+  return safe;
+}
+async function createFileInFolder(name,parentDir){
+  if(!name)return;
+  var safeName=sanitizeFsName(name);
+  if(!safeName){addTermLine('<span class="terr">Invalid file name.</span>');return;}
+  if(!HAS_FS_API||!_fsDirPath){var id=genId();openTabs.push({id,safeName,content:'',dirty:false,untitled:true});activeTabId=id;renderAll();return;}
+  var dir=parentDir||_fsDirPath;
+  var sep=dir.includes('\\')?'\\':'/';
+  var filePath=dir+sep+safeName;
+  try{
+    await window.nyxcodeAPI.writeFile(filePath,'');
+    var id=genId();
+    _fsFilePaths[id]=filePath;
+    openTabs.push({id,safeName,content:'',dirty:false,untitled:false,filePath:filePath});
+    activeTabId=id;
+    await refreshFolderTree();
+    renderAll();
+    addTermLine('<span class="tok">Created file: '+escHtml(safeName)+'</span>');
+  }catch(e){addTermLine('<span class="terr">Could not create file: '+escHtml(e.message)+'</span>');}
+}
+async function createFolderInFolder(name,parentDir){
+  if(!name)return;
+  var safeName=sanitizeFsName(name);
+  if(!safeName){addTermLine('<span class="terr">Invalid folder name.</span>');return;}
+  if(!HAS_FS_API||!_fsDirPath){addTermLine('<span class="twarn">Open a folder first to create directories.</span>');return;}
+  var dir=parentDir||_fsDirPath;
+  var sep=dir.includes('\\')?'\\':'/';
+  var fullPath=dir+sep+safeName;
+  try{
+    await window.nyxcodeAPI.makeDirectory(fullPath);
+    await refreshFolderTree();
+    addTermLine('<span class="tok">Created folder: '+escHtml(safeName)+'</span>');
+  }catch(e){addTermLine('<span class="terr">Could not create folder: '+escHtml(e.message)+'</span>');}
+}
+
+function openFilesLegacy(){var inp=document.getElementById('file-input');inp.value='';inp.onchange=async function(){for(var f of inp.files){var text=await f.text();var id=genId();openTabs.push({id,name:f.name,content:text,dirty:false,untitled:false});activeTabId=id;}renderAll();addTermLine('<span class="twarn">Opened (no FS API)</span>');};inp.click();}
+function openFolderLegacy(){var inp=document.getElementById('folder-input');inp.value='';inp.onchange=async function(){if(!inp.files.length)return;var folderName=inp.files[0].webkitRelativePath.split('/')[0];document.getElementById('sb-title').textContent=folderName.toUpperCase();document.getElementById('tpath').textContent='~/'+folderName;var tree={};for(var f of inp.files){var parts=f.webkitRelativePath.split('/');var text='';try{text=await f.text();}catch(e){}var id=genId();var tab={id,name:parts[parts.length-1],content:text,dirty:false,untitled:false,path:f.webkitRelativePath};openTabs.push(tab);if(!activeTabId)activeTabId=id;var node=tree;for(var i=1;i<parts.length-1;i++){node[parts[i]]=node[parts[i]]||{__folder:true,__children:{}};node=node[parts[i]].__children;}node[parts[parts.length-1]]={__file:true,__name:tab.name,__path:tab.path,__tab:tab};}
+_folderTree=tree;renderAll();addTermLine('<span class="twarn">Opened folder (no FS API)</span>');};inp.click();}
+
+function updateFsStatus(){var el=document.getElementById('st-fs');var hasFs=Object.keys(_fsFilePaths).length>0||_fsDirPath;el.textContent=hasFs?'FS: ON':'No FS';el.style.color=hasFs?'#22c55e':'';}
+
+async function saveActive(){
+  var tab=activeTab();if(!tab)return;tab.content=getEditorContent();
+  var filePath=_fsFilePaths[tab.id]||tab.filePath;
+  if(filePath&&HAS_FS_API){try{await window.nyxcodeAPI.writeFile(filePath,tab.content);tab.dirty=false;renderTabs();renderTree();var fl=document.getElementById('save-flash');fl.textContent='Saved to disk';fl.classList.add('show');clearTimeout(fl._t);fl._t=setTimeout(()=>fl.classList.remove('show'),1600);showAutosaveBadge();addTermLine('<span class="tok">Saved: '+escHtml(tab.name)+'</span>');}catch(e){addTermLine('<span class="terr">Save failed: '+escHtml(e.message)+'</span>');downloadFile(tab.name,tab.content);}}
+  else{tab.dirty=false;renderTabs();downloadFile(tab.name,tab.content);var fl=document.getElementById('save-flash');fl.textContent='Downloaded';fl.classList.add('show');clearTimeout(fl._t);fl._t=setTimeout(()=>fl.classList.remove('show'),1600);}
+}
+
+async function saveAs(){
+  var tab=activeTab();if(!tab)return;
+  if(HAS_FS_API){try{var result=await window.nyxcodeAPI.showSaveDialog({defaultPath:tab.name});if(result.canceled||!result.filePath)return;await window.nyxcodeAPI.writeFile(result.filePath,tab.content||getEditorContent());_fsFilePaths[tab.id]=result.filePath;tab.filePath=result.filePath;tab.name=basename(result.filePath);tab.dirty=false;renderAll();updateFsStatus();addTermLine('<span class="tok">Saved as: '+escHtml(tab.name)+'</span>');}catch(e){addTermLine('<span class="terr">Save As failed: '+escHtml(e.message)+'</span>');}}
+  else{openModal('SAVE AS','filename.txt','Save',function(name){if(!name)return;tab.name=name;downloadFile(name,tab.content||getEditorContent());renderAll();});document.getElementById('modal-input').value=tab.name;}
+}
+
+function downloadFile(name,content){var blob=new Blob([content],{type:'text/plain'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);}
+function downloadBinaryFile(name,blob){var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);}
+
+function triggerAutoSave(){clearTimeout(autoSaveTimer);autoSaveTimer=setTimeout(async function(){var tab=activeTab();if(!tab)return;var content=getEditorContent();tab.content=content;var filePath=_fsFilePaths[tab.id]||tab.filePath;if(filePath&&HAS_FS_API){try{await window.nyxcodeAPI.writeFile(filePath,content);tab.dirty=false;renderTabs();renderTree();showAutosaveBadge();}catch(e){}}},1200);}
+function showAutosaveBadge(){var el=document.getElementById('autosave-badge');el.style.opacity='1';clearTimeout(el._t);el._t=setTimeout(()=>el.style.opacity='0',2000);}
+
+// ================================================================
+// CLIPBOARD
+// ================================================================
+async function editorCopy(){var ta=document.getElementById('editor-textarea');if(!ta)return;var sel=ta.value.substring(ta.selectionStart,ta.selectionEnd);if(!sel)return;try{await navigator.clipboard.writeText(sel);}catch(e){document.execCommand('copy');}}
+async function editorCut(){var ta=document.getElementById('editor-textarea');if(!ta)return;var sel=ta.value.substring(ta.selectionStart,ta.selectionEnd);if(!sel)return;try{await navigator.clipboard.writeText(sel);}catch(e){document.execCommand('copy');}var start=ta.selectionStart,end=ta.selectionEnd;ta.value=ta.value.substring(0,start)+ta.value.substring(end);ta.selectionStart=ta.selectionEnd=start;var tab=activeTab();if(tab){tab.content=ta.value;tab.dirty=true;}updateHighlight();triggerAutoSave();}
+async function editorPaste(){var ta=document.getElementById('editor-textarea');if(!ta)return;ta.focus();try{var text=await navigator.clipboard.readText();var start=ta.selectionStart,end=ta.selectionEnd;ta.value=ta.value.substring(0,start)+text+ta.value.substring(end);ta.selectionStart=ta.selectionEnd=start+text.length;var tab=activeTab();if(tab){tab.content=ta.value;tab.dirty=true;}updateHighlight();triggerAutoSave();}catch(e){document.execCommand('paste');}}
+function editorSelectAll(){var ta=document.getElementById('editor-textarea');if(!ta)return;ta.select();}
+
+// ================================================================
+// DELETE / RENAME
+// ================================================================
+async function deleteFileById(id){
+  var tab=openTabs.find(t=>t.id===id);if(!tab)return;
+  var filePath=_fsFilePaths[id]||tab.filePath;var hasFs=!!(filePath&&HAS_FS_API);
+  openModal('DELETE'+(hasFs?' FROM DISK':'')+' "'+tab.name+'"?','','Delete',async function(){
+    if(hasFs){try{await window.nyxcodeAPI.unlink(filePath);addTermLine('<span class="tok">Deleted: '+escHtml(tab.name)+'</span>');}catch(e){addTermLine('<span class="twarn">Removed from editor only</span>');}delete _fsFilePaths[id];}
+    var idx=openTabs.findIndex(t=>t.id===id);if(idx<0)return;openTabs.splice(idx,1);if(activeTabId===id)activeTabId=openTabs.length?openTabs[Math.max(0,idx-1)].id:null;_focusedTabId=null;renderAll();
+  });
+  document.getElementById('modal-input').style.display='none';document.getElementById('modal-ok').textContent='Delete';document.getElementById('modal-ok').className='mbtn danger';document.getElementById('modal-title').textContent='DELETE '+(hasFs?'FROM DISK ':'')+'"'+tab.name+'"?';
+}
+function deleteActiveFile(){var id=_focusedTabId||activeTabId;if(id)deleteFileById(id);}
+function renameFileById(id){var tab=openTabs.find(t=>t.id===id);if(!tab)return;var fnodes=document.querySelectorAll('.fnode[data-tabid="'+id+'"]');if(fnodes.length>0){startInlineRename(fnodes[0],tab);}else{openModal('RENAME FILE',tab.name,'Rename',function(newName){if(!newName||newName===tab.name)return;doRenameTab(tab,newName);});document.getElementById('modal-input').value=tab.name;}}
+async function doRenameTab(tab,newName){var filePath=_fsFilePaths[tab.id]||tab.filePath;if(filePath&&HAS_FS_API){try{var dir=filePath.substring(0,Math.max(filePath.lastIndexOf('/'),filePath.lastIndexOf('\\'))+1);await window.nyxcodeAPI.rename(filePath,dir+newName);_fsFilePaths[tab.id]=dir+newName;tab.filePath=dir+newName;addTermLine('<span class="tok">Renamed: '+escHtml(tab.name)+' → '+escHtml(newName)+'</span>');}catch(e){addTermLine('<span class="twarn">Renamed in editor only</span>');}}else{addTermLine('<span class="tok">Renamed: '+escHtml(tab.name)+' → '+escHtml(newName)+'</span>');}tab.name=newName;renderAll();}
+function startInlineRename(node,tab){var labelEl=node.querySelector('.fnode-label');if(!labelEl||node._renaming)return;node._renaming=true;var orig=tab.name;var inp=document.createElement('input');inp.className='fnode-rename';inp.value=orig;var dotIdx=orig.lastIndexOf('.');labelEl.replaceWith(inp);inp.focus();inp.setSelectionRange(0,dotIdx>0?dotIdx:orig.length);function commit(){var newName=inp.value.trim();inp.replaceWith(createFnodeLabel(tab));node._renaming=false;if(newName&&newName!==orig)doRenameTab(tab,newName);}function cancel(){inp.replaceWith(createFnodeLabel(tab));node._renaming=false;}inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();commit();}if(e.key==='Escape'){e.preventDefault();cancel();}e.stopPropagation();});inp.addEventListener('blur',commit);inp.addEventListener('click',function(e){e.stopPropagation();});}
+function createFnodeLabel(tab){var span=document.createElement('span');span.className='fnode-label';span.textContent=tab.name;return span;}
+function renameActiveFile(){var id=_focusedTabId||activeTabId;if(id)renameFileById(id);}
+
+// ================================================================
+// EXTENSIONS
+// ================================================================
+var EXTENSIONS=[
+  {id:'theme-github',name:'GitHub Dark',ver:'2.0.1',desc:'GitHub\'s default dark theme.',ic:'GH',cat:'themes',color:'#0d1117',themeId:'default',featured:false},
+  {id:'theme-dracula',name:'Dracula',ver:'3.1.2',desc:'Classic dark theme with vibrant purple/pink accents.',ic:'DR',cat:'themes',color:'#282a36',themeId:'dracula',featured:true},
+  {id:'theme-monokai',name:'Monokai Pro',ver:'1.4.0',desc:'The iconic Monokai color scheme.',ic:'MK',cat:'themes',color:'#272822',themeId:'monokai',featured:false},
+  {id:'theme-light',name:'GitHub Light',ver:'1.2.0',desc:'Clean light theme.',ic:'LT',cat:'themes',color:'#ffffff',themeId:'light',featured:false},
+  {id:'theme-midnight',name:'Midnight Blue',ver:'1.0.3',desc:'Deep midnight blue for late-night coding.',ic:'MB',cat:'themes',color:'#090e1a',themeId:'midnight',featured:false},
+  {id:'theme-nord',name:'Nord',ver:'1.8.1',desc:'Arctic, north-bluish color palette.',ic:'ND',cat:'themes',color:'#2e3440',themeId:'nord',featured:false},
+  {id:'theme-tokyo',name:'Tokyo Night',ver:'1.6.4',desc:'Dark theme inspired by downtown Tokyo.',ic:'TN',cat:'themes',color:'#1a1b26',themeId:'tokyo',featured:true},
+  {id:'theme-catppuccin',name:'Catppuccin Mocha',ver:'2.5.0',desc:'Soothing pastel theme.',ic:'CP',cat:'themes',color:'#1e1e2e',themeId:'catppuccin',featured:true},
+  {id:'tool-prettier',name:'Prettier',ver:'10.4.1',desc:'Opinionated code formatter.',ic:'PR',cat:'tools',color:'#ff6f00',featured:true},
+  {id:'tool-eslint',name:'ESLint',ver:'4.2.0',desc:'JavaScript/TypeScript linting.',ic:'ES',cat:'tools',color:'#4b32c3',featured:false},
+  {id:'tool-gitlens',name:'GitLens',ver:'15.1.0',desc:'Supercharge Git inside NyxCode.',ic:'GL',cat:'tools',color:'#e84393',featured:true},
+  {id:'tool-indent',name:'Indent Rainbow',ver:'8.3.1',desc:'Colorizes indentation levels.',ic:'IR',cat:'tools',color:'#6f42c1',featured:false},
+];
+var extStates={};extStates['theme-github']='active';
+function getExtState(id){return extStates[id]||'uninstalled';}
+async function installExtension(id){var ext=EXTENSIONS.find(e=>e.id===id);if(!ext)return;if(getExtState(id)!=='uninstalled')return;extStates[id]='installing';renderExtBody();await new Promise(r=>setTimeout(r,600+Math.random()*800));extStates[id]='installed';addTermLine('<span class="tok">Installed: '+ext.name+'</span>');renderExtBody();}
+function uninstallExtension(id){var ext=EXTENSIONS.find(e=>e.id===id);if(!ext)return;if(getExtState(id)==='active'&&ext.themeId){applyTheme('default');extStates['theme-github']='active';}delete extStates[id];addTermLine('<span class="twarn">Uninstalled: '+ext.name+'</span>');renderExtBody();}
+function applyExtension(id){var ext=EXTENSIONS.find(e=>e.id===id);if(!ext)return;if(getExtState(id)!=='installed')return;if(ext.themeId){EXTENSIONS.forEach(function(e){if(e.themeId&&extStates[e.id]==='active')extStates[e.id]='installed';});applyTheme(ext.themeId);extStates[id]='active';addTermLine('<span class="tok">Theme applied: '+ext.name+'</span>');}else{extStates[id]='active';addTermLine('<span class="tok">Enabled: '+ext.name+'</span>');}renderExtBody();}
+function renderExtBody(){var body=document.getElementById('ext-body');body.innerHTML='';var tab=activeExtTab,search=(document.getElementById('ext-search').value||'').toLowerCase();if(tab==='themes'){renderThemeGrid(body);return;}var filtered=EXTENSIONS.filter(function(e){if(tab==='installed'&&!['installed','active'].includes(getExtState(e.id)))return false;if(tab==='tools'&&e.cat!=='tools')return false;if(search&&!e.name.toLowerCase().includes(search)&&!e.desc.toLowerCase().includes(search))return false;return true;});if(!filtered.length){body.innerHTML='<div style="padding:18px;color:var(--txt3);font-size:11px;text-align:center">No extensions found</div>';return;}var byCategory={themes:[],tools:[]};filtered.forEach(function(e){byCategory[e.cat]=byCategory[e.cat]||[];byCategory[e.cat].push(e);});['themes','tools'].forEach(function(cat){var list=byCategory[cat];if(!list||!list.length)return;var sec=document.createElement('div');sec.className='ext-section';sec.innerHTML='<div class="ext-section-title">'+(cat==='themes'?'Color Themes':'Tools & Linters')+'</div>';list.forEach(function(ext){renderExtCard(sec,ext);});body.appendChild(sec);});}
+function renderExtCard(container,ext){var state=getExtState(ext.id);var card=document.createElement('div');card.className='ext-card'+(state==='active'?' active-ext':'');var btn='',progress='';if(state==='uninstalled'){btn='<button class="ext-btn btn-install" onclick="installExtension(\''+ext.id+'\')">Install</button>';}else if(state==='installing'){btn='<button class="ext-btn btn-installing" disabled>Installing…</button>';progress='<div class="ext-progress active"><div class="ext-progress-bar" id="pb-'+ext.id+'" style="width:0%"></div></div>';setTimeout(function(){var bar=document.getElementById('pb-'+ext.id);if(!bar)return;var w=0;var iv=setInterval(function(){w+=Math.random()*25;if(w>=100){w=100;clearInterval(iv);}if(bar)bar.style.width=w+'%';},150);},50);}else if(state==='installed'){if(ext.themeId){btn='<button class="ext-btn btn-apply" onclick="applyExtension(\''+ext.id+'\')">Apply</button><button class="ext-btn btn-uninstall" onclick="uninstallExtension(\''+ext.id+'\')" style="margin-left:4px">Uninstall</button>';}else{btn='<button class="ext-btn btn-apply" onclick="applyExtension(\''+ext.id+'\')">Enable</button><button class="ext-btn btn-uninstall" onclick="uninstallExtension(\''+ext.id+'\')" style="margin-left:4px">Uninstall</button>';}}else if(state==='active'){btn='<button class="ext-btn btn-active" disabled>'+(ext.themeId?'Active Theme':'Enabled')+'</button><button class="ext-btn btn-uninstall" onclick="uninstallExtension(\''+ext.id+'\')" style="margin-left:4px;font-size:9px">Uninstall</button>';}var badges='';if(state==='installed')badges+='<span class="ext-badge installed">Installed</span>';if(state==='active')badges+='<span class="ext-badge active">Active</span>';if(state==='installing')badges+='<span class="ext-badge pending">Downloading…</span>';if(ext.featured)badges+='<span class="ext-badge featured">Featured</span>';card.innerHTML='<div class="ext-card-head"><div class="ext-ic" style="background:'+(ext.color||'#333')+'33;border:1px solid '+(ext.color||'#555')+'55;color:'+(ext.color||'var(--txt2)')+'">'+ext.ic+'</div><span class="ext-name">'+escHtml(ext.name)+'</span><span class="ext-ver">v'+ext.ver+'</span></div><div class="ext-desc">'+escHtml(ext.desc)+'</div><div class="ext-footer">'+badges+btn+'</div>'+progress;container.appendChild(card);}
+function renderThemeGrid(body){var SWATCHES={'default':{bg:'#080b0f',kw:'#f97583',fn:'#b392f0',str:'#9ecbff',num:'#79b8ff',cmt:'#6a737d',name:'GitHub Dark'},'dracula':{bg:'#282a36',kw:'#ff79c6',fn:'#50fa7b',str:'#f1fa8c',num:'#bd93f9',cmt:'#6272a4',name:'Dracula'},'monokai':{bg:'#272822',kw:'#f92672',fn:'#a6e22e',str:'#e6db74',num:'#ae81ff',cmt:'#75715e',name:'Monokai Pro'},'light':{bg:'#f0f0f0',kw:'#cf222e',fn:'#6639ba',str:'#0a3069',num:'#0550ae',cmt:'#6e7781',name:'GitHub Light'},'midnight':{bg:'#040810',kw:'#ef9a9a',fn:'#80deea',str:'#a5d6a7',num:'#ffcc80',cmt:'#4a6680',name:'Midnight Blue'},'nord':{bg:'#242932',kw:'#81a1c1',fn:'#88c0d0',str:'#a3be8c',num:'#b48ead',cmt:'#616e88',name:'Nord'},'tokyo':{bg:'#13141f',kw:'#f7768e',fn:'#7aa2f7',str:'#9ece6a',num:'#ff9e64',cmt:'#444b6d',name:'Tokyo Night'},'catppuccin':{bg:'#161621',kw:'#f38ba8',fn:'#89b4fa',str:'#a6e3a1',num:'#fab387',cmt:'#6c7086',name:'Catppuccin'},};var installedThemes=Object.keys(SWATCHES).filter(function(themeId){var extId='theme-'+(themeId==='default'?'github':themeId);var state=getExtState(extId);return state==='installed'||state==='active';});var sec=document.createElement('div');sec.className='ext-section';if(!installedThemes.length){sec.innerHTML='<div class="ext-section-title">Installed Themes</div><div style="padding:14px 0;color:var(--txt3);font-size:11px;text-align:center;line-height:1.8">No themes installed yet.<br>Go to the <strong style="color:var(--txt2)">All</strong> tab to install themes.</div>';body.appendChild(sec);return;}sec.innerHTML='<div class="ext-section-title">Installed Themes</div>';var grid=document.createElement('div');grid.className='theme-grid';installedThemes.forEach(function(themeId){var sw=SWATCHES[themeId];var extId='theme-'+(themeId==='default'?'github':themeId);var card=document.createElement('div');card.className='theme-swatch'+(currentTheme===themeId?' active-theme':'');card.innerHTML='<div class="ts-preview" style="background:'+sw.bg+'"><div class="ts-col"><div class="ts-line" style="background:'+sw.kw+';width:70%"></div><div class="ts-line" style="background:'+sw.fn+';width:90%"></div><div class="ts-line" style="background:'+sw.str+';width:60%"></div><div class="ts-line" style="background:'+sw.cmt+';width:80%"></div><div class="ts-line" style="background:'+sw.num+';width:50%"></div></div></div><div class="ts-name" style="background:'+sw.bg+';color:'+(sw.bg==='#f0f0f0'?'#333':'#ccc')+'">'+sw.name+'</div>';card.onclick=function(){EXTENSIONS.forEach(function(e){if(e.themeId&&extStates[e.id]==='active')extStates[e.id]='installed';});extStates[extId]='active';applyTheme(themeId);renderExtBody();};grid.appendChild(card);});sec.appendChild(grid);body.appendChild(sec);}
+function applyTheme(themeId){var themes=['dracula','monokai','light','midnight','nord','tokyo','catppuccin'];document.body.className=themes.includes(themeId)?'theme-'+themeId:'';currentTheme=themeId;updateHighlight();}
+function switchExtTab(el,tab){document.querySelectorAll('.ext-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');activeExtTab=tab;renderExtBody();}
+function openExtensions(){document.getElementById('extpanel').classList.remove('closed');extPanelOpen=true;renderExtBody();setActIcon('act-ext');}
+function closeExtensions(){document.getElementById('extpanel').classList.add('closed');extPanelOpen=false;}
+function openThemes(){openExtensions();activeExtTab='themes';document.querySelectorAll('.ext-tab').forEach(function(t){t.classList.remove('active');if(t.textContent==='Themes')t.classList.add('active');});renderExtBody();}
+
+// ================================================================
+// COLLAB
+// ================================================================
+var COLLAB_COLORS=['#f43f5e','#f97316','#eab308','#22c55e','#06b6d4','#3b82f6','#a855f7','#ec4899'];
+function openCollab(){document.getElementById('collab-panel').classList.add('open');setActIcon('act-collab');renderCollabUsers();renderCollabMembers();}
+function closeCollab(){document.getElementById('collab-panel').classList.remove('open');}
+function getCollabRequests(){try{return JSON.parse(localStorage.getItem('nyxcode_collab_requests')||'{}');}catch(e){return{};}}
+function saveCollabRequests(data){try{localStorage.setItem('nyxcode_collab_requests',JSON.stringify(data));}catch(e){}}
+function getAllKnownUsers(){var db=getAccountsDB();var users=Object.values(db).sort(function(a,b){return a.username.localeCompare(b.username);});if(currentUser&&currentUser.email&&!users.find(u=>u.email===currentUser.email)){users.unshift({email:currentUser.email,username:currentUser.username,provider:currentUser.provider||'email'});}return users;}
+function renderCollabUsers(){var el=document.getElementById('collab-users');el.innerHTML='';var users=getAllKnownUsers();var requests=getCollabRequests();if(!users.length){el.innerHTML='<div style="color:var(--txt3);font-size:11px;padding:4px 0">No available users yet. Sign in to create accounts.</div>';return;}users.forEach(function(user,i){var isSelf=currentUser&&currentUser.email===user.email;var color=COLLAB_COLORS[i%COLLAB_COLORS.length];var row=document.createElement('div');row.className='collab-user';var left=document.createElement('div');left.className='collab-user-col';left.innerHTML='<div class="collab-avatar" style="background:'+color+'">'+escHtml(user.username.slice(0,2).toUpperCase())+'</div><div><div class="collab-user-name">'+escHtml(user.username)+'</div><div class="collab-user-meta">'+escHtml(user.provider==='email'?'Email':'User')+'</div></div>';
+  row.appendChild(left);
+  var right=document.createElement('div');right.style.display='flex';right.style.gap='6px';
+  if(isSelf){right.innerHTML='<span class="collab-user-status">You</span>';}else if(!currentUser){right.innerHTML='<button class="collab-user-btn request" onclick="showAuthRequired()">Sign in</button>';}else{
+    var requested=(requests[user.email]||[]).includes(currentUser.email);
+    var incoming=(requests[currentUser.email]||[]).includes(user.email);
+    if(incoming){var btn=document.createElement('button');btn.className='collab-user-btn accept';btn.textContent='Accept';btn.onclick=function(){acceptCollabRequest(user.email);};right.appendChild(btn);right.innerHTML+='<span class="collab-user-status">Requested</span>';}else if(requested){var btn=document.createElement('button');btn.className='collab-user-btn request';btn.textContent='Requested';btn.disabled=true;right.appendChild(btn);}else{var btn=document.createElement('button');btn.className='collab-user-btn request';btn.textContent='Request';btn.onclick=function(){sendCollabRequest(user.email);};right.appendChild(btn);} }
+  row.appendChild(right);
+  el.appendChild(row);
+});}
+function showAuthRequired(){openModal('Sign in required','Sign in before requesting collaboration','OK',function(){closeModal();});}
+function sendCollabRequest(targetEmail){if(!currentUser){addTermLine('<span class="twarn">Sign in before requesting collaboration.</span>');return;}if(currentUser.email===targetEmail){addTermLine('<span class="twarn">You cannot request yourself.</span>');return;}var db=getAccountsDB();var target=db[targetEmail.toLowerCase()];if(!target){addTermLine('<span class="twarn">Unknown user.</span>');return;}var requests=getCollabRequests();var key=targetEmail.toLowerCase();requests[key]=requests[key]||[];if(requests[key].includes(currentUser.email)){addTermLine('<span class="twarn">Request already sent.</span>');return;}requests[key].push(currentUser.email);saveCollabRequests(requests);addTermLine('<span class="tok">Collab request sent to '+escHtml(target.username)+'</span>');addCollabMsg('System','Collab request sent to '+target.username+'.');renderCollabUsers();}
+function acceptCollabRequest(senderEmail){if(!currentUser){addTermLine('<span class="twarn">Sign in before accepting requests.</span>');return;}var db=getAccountsDB();var sender=db[senderEmail.toLowerCase()];if(!sender){addTermLine('<span class="twarn">Unknown sender.</span>');return;}var requests=getCollabRequests();var incoming=(requests[currentUser.email]||[]).filter(e=>e===senderEmail);if(!incoming.length){addTermLine('<span class="twarn">No pending request from '+escHtml(sender.username)+'.</span>');return;}requests[currentUser.email]=requests[currentUser.email].filter(e=>e!==senderEmail);if(!requests[currentUser.email].length)delete requests[currentUser.email];saveCollabRequests(requests);var sessionId='nyx-'+Math.random().toString(36).slice(2,8);collabSession={id:sessionId,members:[{username:currentUser.username,email:currentUser.email,color:COLLAB_COLORS[0],online:true},{username:sender.username,email:sender.email,color:COLLAB_COLORS[1],online:true}],link:'nyxcode://liveshare/'+sessionId};document.getElementById('collab-link-input').value=collabSession.link;addTermLine('<span class="tok">Collab accepted: '+escHtml(sender.username)+'</span>');addCollabMsg('System','Collab session started with '+sender.username+'.');renderCollabMembers();renderCollabUsers();}
+function renderCollabMembers(){var el=document.getElementById('collab-members');el.innerHTML='';var members=collabSession?collabSession.members:[];if(currentUser&&!members.find(m=>m.username===currentUser.username)){members=[{username:currentUser.username,email:currentUser.email,color:COLLAB_COLORS[0],online:true},...members];}
+  if(!members.length){el.innerHTML='<div style="color:var(--txt3);font-size:11px;padding:4px 0">Start a session to invite collaborators.</div>';return;}
+  members.forEach(function(m,i){var color=m.color||COLLAB_COLORS[i%COLLAB_COLORS.length];var div=document.createElement('div');div.className='collab-member';div.innerHTML='<div class="collab-avatar" style="background:'+color+'">'+escHtml(m.username.slice(0,2).toUpperCase())+'</div><span class="collab-member-name">'+escHtml(m.username)+'</span>'+(m.online?'<div class="collab-online-dot"></div>':'<span class="collab-member-status">offline</span>');el.appendChild(div);});}
+function collabStartOrCopy(){var inp=document.getElementById('collab-link-input');var btn=document.querySelector('.collab-copy-btn');if(!collabSession){var sessionId='nyx-'+Math.random().toString(36).slice(2,8);collabSession={id:sessionId,members:[],link:'nyxcode://liveshare/'+sessionId};if(currentUser)collabSession.members.push({username:currentUser.username,email:currentUser.email,color:COLLAB_COLORS[0],online:true});inp.value=collabSession.link;btn.textContent='Copy Link';addTermLine('<span class="tok">Live Share started: '+sessionId+'</span>');addCollabMsg('System','Session started. Share the link to invite collaborators.');renderCollabMembers();renderCollabUsers();}else{try{navigator.clipboard.writeText(collabSession.link);}catch(e){}btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy Link',2000);}}
+function addCollabMsg(sender,text){var chat=document.getElementById('collab-chat');var time=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});var d=document.createElement('div');d.className='chat-msg';d.innerHTML='<span class="chat-sender">'+escHtml(sender)+'</span><span class="chat-text">'+escHtml(text)+'</span><span class="chat-time">'+time+'</span>';chat.appendChild(d);chat.scrollTop=chat.scrollHeight;}
+function collabSend(){var inp=document.getElementById('collab-input');var msg=inp.value.trim();if(!msg)return;inp.value='';var name=currentUser?currentUser.username:'You';addCollabMsg(name,msg);}
+document.getElementById('collab-input').addEventListener('keydown',function(e){if(e.key==='Enter')collabSend();});
+
+// ================================================================
+// SYNTAX HIGHLIGHTING
+// ================================================================
+var LANG_PATTERNS={
+  js:[[/\/\/.*$/gm,'sh-cmt'],[/\/\*[\s\S]*?\*\//g,'sh-cmt'],[/(["'`])(?:\\[\s\S]|(?!\1)[^\\])*\1/g,'sh-str'],[/\b(const|let|var|function|class|return|if|else|for|while|do|switch|case|break|continue|new|delete|typeof|instanceof|void|in|of|try|catch|finally|throw|import|export|default|from|async|await|yield|extends|super|this|static|get|set)\b/g,'sh-kw'],[/\b(true|false|null|undefined|NaN|Infinity)\b/g,'sh-bool'],[/\b([A-Z][a-zA-Z0-9_]*)\b/g,'sh-type'],[/\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=\()/g,'sh-fn'],[/\b(\d+\.?\d*(?:[eE][+-]?\d+)?|0x[\da-fA-F]+|0b[01]+|0o[0-7]+)\b/g,'sh-num'],[/(?<![=!<>])([=><!&|+\-*/%^~?:]+)(?![=])/g,'sh-op']],
+  py:[[/#.*$/gm,'sh-cmt'],[/("""[\s\S]*?"""|'''[\s\S]*?'''|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g,'sh-str'],[/\b(def|class|return|if|elif|else|for|while|try|except|finally|with|as|import|from|pass|break|continue|raise|lambda|yield|global|nonlocal|async|await|del|in|not|and|or|is)\b/g,'sh-kw'],[/\b(True|False|None)\b/g,'sh-bool'],[/\b([A-Z][a-zA-Z0-9_]*)\b/g,'sh-type'],[/@[a-zA-Z_][a-zA-Z0-9_.]*/g,'sh-type'],[/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*(?=\()/g,'sh-fn'],[/\b(\d+\.?\d*(?:[eE][+-]?\d+)?)\b/g,'sh-num']],
+  css:[[/\/\*[\s\S]*?\*\//g,'sh-cmt'],[/(["'])(?:\\.|[^"'\\])*\1/g,'sh-str'],[/\b([a-zA-Z-]+)\s*(?=\s*:(?!:))/g,'sh-attr'],[/(#[a-fA-F0-9]{3,8})\b/g,'sh-str'],[/(-?\d+\.?\d*(?:px|em|rem|%|vh|vw|deg|s|ms|fr)?)/g,'sh-num'],[/(@[a-z-]+)/g,'sh-kw'],[/(:{1,2}[a-zA-Z-]+)/g,'sh-fn'],[/\b(inherit|initial|unset|auto|none|block|flex|grid|inline|absolute|relative|fixed|sticky)\b/g,'sh-bool']],
+  html:[[/<!--[\s\S]*?-->/g,'sh-cmt'],[/(["'])(?:\\.|[^"'\\])*\1/g,'sh-str'],[/(<\/?)([a-zA-Z][a-zA-Z0-9-]*)/g,function(m,s,t){return escHtml(s)+'<span class="sh-tag">'+escHtml(t)+'</span>';}],[/\s([a-zA-Z-]+)(?=\s*=)/g,function(m,a){return ' <span class="sh-attr">'+escHtml(a)+'</span>';}],[/(&[a-zA-Z]+;|&#\d+;)/g,'sh-bool']],
+  json:[[/(["'])(?:\\.|[^"'\\])*\1/g,'sh-str'],[/\b(true|false|null)\b/g,'sh-bool'],[/(-?\d+\.?\d*(?:[eE][+-]?\d+)?)/g,'sh-num'],[/[{}[\]:,]/g,'sh-punct']],
+  md:[[/^#{1,6}\s.+$/gm,'sh-kw'],[/\*\*[^*]+\*\*/g,'sh-type'],[/\*[^*]+\*/g,'sh-fn'],[/`[^`]+`/g,'sh-str'],[/```[\s\S]*?```/g,'sh-str'],[/^\s*[-*+]\s/gm,'sh-bool'],[/\[([^\]]+)\]\([^)]+\)/g,'sh-attr']],
+  rs:[[/\/\/.*$/gm,'sh-cmt'],[/\/\*[\s\S]*?\*\//g,'sh-cmt'],[/(["'])(?:\\.|[^"'\\])*\1/g,'sh-str'],[/\b(fn|let|mut|const|struct|enum|impl|trait|for|while|if|else|match|return|use|mod|pub|crate|self|super|type|where|async|await|move|ref|dyn|unsafe|loop|break|continue|in)\b/g,'sh-kw'],[/\b(true|false|None|Some|Ok|Err)\b/g,'sh-bool'],[/\b([A-Z][a-zA-Z0-9_]*)\b/g,'sh-type'],[/\b([a-z_][a-zA-Z0-9_]*)\s*(?=\()/g,'sh-fn'],[/\b(\d+(?:_\d+)*(?:\.\d+)?(?:u8|u16|u32|u64|i8|i16|i32|i64|f32|f64|usize|isize)?)\b/g,'sh-num']],
+  go:[[/\/\/.*$/gm,'sh-cmt'],[/\/\*[\s\S]*?\*\//g,'sh-cmt'],[/(["'`])(?:\\.|[^"'`\\])*\1/g,'sh-str'],[/\b(func|var|const|type|struct|interface|map|chan|go|defer|select|case|default|if|else|for|range|return|break|continue|fallthrough|switch|import|package)\b/g,'sh-kw'],[/\b(true|false|nil)\b/g,'sh-bool'],[/\b([A-Z][a-zA-Z0-9_]*)\b/g,'sh-type'],[/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*(?=\()/g,'sh-fn'],[/\b(\d+\.?\d*)\b/g,'sh-num']],
+};
+LANG_PATTERNS.ts=LANG_PATTERNS.js;LANG_PATTERNS.jsx=LANG_PATTERNS.js;LANG_PATTERNS.tsx=LANG_PATTERNS.js;LANG_PATTERNS.scss=LANG_PATTERNS.css;LANG_PATTERNS.mjs=LANG_PATTERNS.js;LANG_PATTERNS.cjs=LANG_PATTERNS.js;
+
+function getExt(name){return(name||'').split('.').pop().toLowerCase();}
+function highlight(code,ext){var patterns=LANG_PATTERNS[ext];if(!patterns)return escHtml(code);var raw=code,spans=[];patterns.forEach(function(pat){var regex=pat[0],cls=pat[1];var flags='g';if(regex.multiline)flags+='m';if(regex.ignoreCase)flags+='i';var r=new RegExp(regex.source,flags);r.lastIndex=0;var m;while((m=r.exec(raw))!==null){if(m[0].length===0){r.lastIndex++;continue;}if(typeof cls==='function'){spans.push({start:m.index,end:m.index+m[0].length,html:cls.apply(null,[m[0]].concat(Array.prototype.slice.call(m,1)))});}else{spans.push({start:m.index,end:m.index+m[0].length,cls:cls,text:m[0]});}}});if(!spans.length)return escHtml(code);spans.sort(function(a,b){return a.start!==b.start?a.start-b.start:(b.end-b.start)-(a.end-a.start);});var out='',pos=0;for(var i=0;i<spans.length;i++){var s=spans[i];if(s.start<pos)continue;if(s.start>pos)out+=escHtml(raw.slice(pos,s.start));if(s.html)out+=s.html;else out+='<span class="'+s.cls+'">'+escHtml(s.text)+'</span>';pos=s.end;}if(pos<raw.length)out+=escHtml(raw.slice(pos));return out;}
+function updateHighlight(){var hl=document.getElementById('highlight-layer'),ta=document.getElementById('editor-textarea');if(!hl||!ta)return;var tab=activeTab();var ext=tab?getExt(tab.name):'';hl.innerHTML=highlight(ta.value,ext)+'\n';updateLineNumbers(ta.value);syncScroll();}
+function updateLineNumbers(code){var ln=document.getElementById('line-numbers');if(!ln)return;var lines=code.split('\n');var html='';for(var i=1;i<=lines.length;i++)html+=i+'\n';ln.textContent=html;}
+function syncScroll(){var ta=document.getElementById('editor-textarea'),hl=document.getElementById('highlight-layer'),ln=document.getElementById('line-numbers');if(!ta||!hl)return;hl.scrollTop=ta.scrollTop;hl.scrollLeft=ta.scrollLeft;if(ln)ln.scrollTop=ta.scrollTop;}
+function getFileIcon(name, isFolder, open) {
+  if (isFolder) {
+    var folderColor = open ? '#dcb67a' : '#8b949e';
+    var folderFill = open ? '#dcb67a22' : 'none';
+    return '<svg viewBox="0 0 16 16" width="16" height="16" xmlns="http://www.w3.org/2000/svg">'
+      + '<path d="M1.5 4A1.5 1.5 0 013 2.5h3.086a1.5 1.5 0 011.06.44l.915.914A1.5 1.5 0 009.12 4.35H13A1.5 1.5 0 0114.5 5.85v6.3A1.5 1.5 0 0113 13.65H3A1.5 1.5 0 011.5 12.15V4z" fill="' + folderFill + '" stroke="' + folderColor + '" stroke-width="1.1"/></svg>';
+  }
+  var ext = (name || '').split('.').pop().toLowerCase();
+  // Each lang: [bgColor, textColor, label, useCircle]
+  var ICONS = {
+    // JavaScript family
+    js:    ['#f7df1e', '#000000', 'JS', false],
+    mjs:   ['#f7df1e', '#000000', 'JS', false],
+    cjs:   ['#f7df1e', '#000000', 'JS', false],
+    ts:    ['#3178c6', '#ffffff', 'TS', false],
+    tsx:   ['#61dafb', '#0a2540', 'TSX', false],
+    jsx:   ['#61dafb', '#0a2540', 'JSX', false],
+    // Web
+    html:  ['#e34c26', '#ffffff', 'HTML', false],
+    htm:   ['#e34c26', '#ffffff', 'HTML', false],
+    css:   ['#264de4', '#ffffff', 'CSS', false],
+    scss:  ['#cc6699', '#ffffff', 'SCSS', false],
+    sass:  ['#cc6699', '#ffffff', 'SASS', false],
+    less:  ['#1d365d', '#4a90d9', 'LESS', false],
+    // Python
+    py:    ['#3572a5', '#ffd343', 'PY', false],
+    pyw:   ['#3572a5', '#ffd343', 'PY', false],
+    // Rust
+    rs:    ['#dea584', '#000000', 'RS', false],
+    // Go
+    go:    ['#00add8', '#ffffff', 'GO', false],
+    // C family
+    c:     ['#555555', '#a8b9cc', 'C', false],
+    cpp:   ['#00599c', '#ffffff', 'C++', false],
+    cc:    ['#00599c', '#ffffff', 'C++', false],
+    h:     ['#6a9fb5', '#ffffff', 'H', false],
+    hpp:   ['#6a9fb5', '#ffffff', 'H++', false],
+    cs:    ['#9b4993', '#ffffff', 'C#', false],
+    // JVM
+    java:  ['#b07219', '#ffffff', 'Java', false],
+    kt:    ['#f18e33', '#ffffff', 'KT', false],
+    kts:   ['#f18e33', '#ffffff', 'KTS', false],
+    groovy:['#4298b8', '#ffffff', 'GY', false],
+    scala: ['#dc322f', '#ffffff', 'SC', false],
+    // Scripting
+    rb:    ['#cc342d', '#ffffff', 'RB', false],
+    php:   ['#777bb4', '#ffffff', 'PHP', false],
+    lua:   ['#000080', '#ffffff', 'LUA', false],
+    pl:    ['#0298c3', '#ffffff', 'PL', false],
+    r:     ['#276dc3', '#ffffff', 'R', false],
+    // Swift / ObjC
+    swift: ['#fa7343', '#ffffff', 'SW', false],
+    m:     ['#438eff', '#ffffff', 'M', false],
+    // Shell
+    sh:    ['#89e051', '#333333', 'SH', false],
+    bash:  ['#89e051', '#333333', 'SH', false],
+    zsh:   ['#89e051', '#333333', 'ZSH', false],
+    fish:  ['#4aae47', '#ffffff', 'FSH', false],
+    ps1:   ['#012456', '#00a4ef', 'PS', false],
+    // Data / Config
+    json:  ['#a6e22e', '#1e1e1e', '{ }', false],
+    json5: ['#a6e22e', '#1e1e1e', '{ }', false],
+    yaml:  ['#cc1018', '#ffffff', 'YAML', false],
+    yml:   ['#cc1018', '#ffffff', 'YAML', false],
+    toml:  ['#9c4121', '#ffffff', 'TOML', false],
+    xml:   ['#f1502f', '#ffffff', 'XML', false],
+    csv:   ['#16a34a', '#ffffff', 'CSV', false],
+    sql:   ['#e38c00', '#ffffff', 'SQL', false],
+    graphql:['#e535ab', '#ffffff', 'GQL', false],
+    // Markup / Docs
+    md:    ['#083fa1', '#ffffff', 'MD', false],
+    mdx:   ['#1b88be', '#ffffff', 'MDX', false],
+    txt:   ['#8b949e', '#ffffff', 'TXT', false],
+    rst:   ['#141414', '#60a5fa', 'RST', false],
+    tex:   ['#3d6117', '#ffffff', 'TEX', false],
+    // Frontend frameworks
+    vue:   ['#42b883', '#ffffff', 'VUE', false],
+    svelte:['#ff3e00', '#ffffff', 'SV', false],
+    astro: ['#ff5d01', '#ffffff', 'AS', false],
+    // Config files
+    env:   ['#ecd53f', '#333333', 'ENV', false],
+    ini:   ['#6d8086', '#ffffff', 'INI', false],
+    cfg:   ['#6d8086', '#ffffff', 'CFG', false],
+    conf:  ['#6d8086', '#ffffff', 'CONF', false],
+    // Docker
+    dockerfile: ['#2496ed', '#ffffff', 'DR', false],
+    // Images
+    png:   ['#22c55e', '#ffffff', '▣', false],
+    jpg:   ['#22c55e', '#ffffff', '▣', false],
+    jpeg:  ['#22c55e', '#ffffff', '▣', false],
+    gif:   ['#22c55e', '#ffffff', 'GIF', false],
+    webp:  ['#22c55e', '#ffffff', 'IMG', false],
+    svg:   ['#f97316', '#ffffff', 'SVG', false],
+    ico:   ['#22c55e', '#ffffff', 'ICO', false],
+    // Fonts
+    woff:  ['#3b82f6', '#ffffff', 'WF', false],
+    woff2: ['#3b82f6', '#ffffff', 'WF2', false],
+    ttf:   ['#3b82f6', '#ffffff', 'TTF', false],
+    otf:   ['#3b82f6', '#ffffff', 'OTF', false],
+    // Misc
+    pdf:   ['#e74c3c', '#ffffff', 'PDF', false],
+    zip:   ['#f59e0b', '#ffffff', 'ZIP', false],
+    tar:   ['#f59e0b', '#ffffff', 'TAR', false],
+    gz:    ['#f59e0b', '#ffffff', 'GZ', false],
+    mp4:   ['#a855f7', '#ffffff', '▶', false],
+    mp3:   ['#a855f7', '#ffffff', '♪', false],
+    wav:   ['#a855f7', '#ffffff', '♪', false],
+  };
+
+  // Special filenames (no extension or exact match)
+  var FILENAME_ICONS = {
+    'dockerfile':         ['#2496ed', '#ffffff', 'DR', false],
+    '.gitignore':         ['#f1502f', '#ffffff', 'GIT', false],
+    '.gitattributes':     ['#f1502f', '#ffffff', 'GIT', false],
+    '.env':               ['#ecd53f', '#333333', 'ENV', false],
+    '.eslintrc':          ['#4b32c3', '#ffffff', 'ES', false],
+    '.prettierrc':        ['#ea5e5e', '#ffffff', 'PR', false],
+    'package.json':       ['#cb3837', '#ffffff', 'PKG', false],
+    'package-lock.json':  ['#cb3837', '#ffffff', 'PKG', false],
+    'tsconfig.json':      ['#3178c6', '#ffffff', 'TS', false],
+    'jsconfig.json':      ['#f7df1e', '#000000', 'JS', false],
+    'readme.md':          ['#083fa1', '#ffffff', 'MD', false],
+    'makefile':           ['#6d8086', '#ffffff', 'MK', false],
+    'gemfile':            ['#cc342d', '#ffffff', 'GEM', false],
+    'cargo.toml':         ['#dea584', '#000000', 'RS', false],
+  };
+
+  var lname = (name || '').toLowerCase();
+  var cfg = FILENAME_ICONS[lname] || ICONS[ext];
+
+  if (!cfg) {
+    // Generic file icon
+    return '<svg viewBox="0 0 16 16" width="16" height="16" xmlns="http://www.w3.org/2000/svg">'
+      + '<path d="M4 1.5A1.5 1.5 0 015.5 0h4.086a1.5 1.5 0 011.06.44l2.914 2.914A1.5 1.5 0 0114 4.414V13.5A1.5 1.5 0 0112.5 15h-7A1.5 1.5 0 014 13.5v-12z" fill="none" stroke="#484f58" stroke-width="1.1"/>'
+      + '<path d="M9.5 1.5v2.5a.5.5 0 00.5.5h2.5" fill="none" stroke="#484f58" stroke-width="1.1"/>'
+      + '</svg>';
+  }
+
+  var bg = cfg[0], fg = cfg[1], label = cfg[2];
+  // Adjust font size based on label length
+  var fs = label.length <= 2 ? 5.5 : label.length === 3 ? 4.5 : 3.8;
+
+  return '<svg viewBox="0 0 16 16" width="16" height="16" xmlns="http://www.w3.org/2000/svg">'
+    + '<rect x="1" y="1" width="14" height="14" rx="2.5" fill="' + bg + '"/>'
+    + '<text x="8" y="' + (8 + fs * 0.38) + '" text-anchor="middle" dominant-baseline="middle" '
+    + 'font-family="\'JetBrains Mono\',monospace" font-size="' + fs + '" font-weight="700" fill="' + fg + '" '
+    + 'letter-spacing="-0.3">' + label + '</text>'
+    + '</svg>';
+}
+function getLang(name){var ext=getExt(name);var m={js:'JavaScript',ts:'TypeScript',tsx:'TSX',jsx:'JSX',py:'Python',rs:'Rust',go:'Go',css:'CSS',scss:'SCSS',html:'HTML',json:'JSON',yaml:'YAML',yml:'YAML',md:'Markdown',sh:'Bash',sql:'SQL',cpp:'C++',c:'C',java:'Java',php:'PHP',rb:'Ruby',swift:'Swift',kt:'Kotlin',lua:'Lua',xml:'XML',vue:'Vue',svelte:'Svelte',txt:'Text',env:'ENV',mjs:'JavaScript',cjs:'JavaScript'};return m[ext]||ext.toUpperCase()||'Text';}
+
+// ================================================================
+// EDITOR
+// ================================================================
+var editorEl=null;
+function initEditor(){editorEl=document.getElementById('editor-textarea');editorEl.addEventListener('input',function(){var tab=activeTab();if(tab){tab.content=this.value;tab.dirty=true;}updateHighlight();if(previewPaneOpen)schedulePreviewRefresh();triggerAutoSave();});editorEl.addEventListener('blur',function(){triggerAutoSave();});editorEl.addEventListener('scroll',syncScroll);editorEl.addEventListener('keydown',function(e){if(e.key==='Tab'){e.preventDefault();var start=this.selectionStart,end=this.selectionEnd;this.value=this.value.substring(0,start)+'  '+this.value.substring(end);this.selectionStart=this.selectionEnd=start+2;var tab=activeTab();if(tab){tab.content=this.value;tab.dirty=true;}updateHighlight();triggerAutoSave();}updateStatus();});editorEl.addEventListener('click',updateStatus);editorEl.addEventListener('contextmenu',function(e){e.preventDefault();showCtxMenu(e.clientX,e.clientY);});}
+function getEditorContent(){return editorEl?editorEl.value:'';}
+function setEditorContent(text){if(editorEl){editorEl.value=text||'';updateHighlight();}}
+function updateStatus(){if(!editorEl)return;var val=editorEl.value,pos=editorEl.selectionStart;var lines=val.substring(0,pos).split('\n');document.getElementById('st-pos').textContent='Ln '+lines.length+', Col '+(lines[lines.length-1].length+1);}
+function activeTab(){return openTabs.find(t=>t.id===activeTabId)||null;}
+
+// ================================================================
+// FILE TREE
+// ================================================================
+function renderTree(){
+  var ft=document.getElementById('filetree');ft.innerHTML='';
+  if(_folderTree&&Object.keys(_folderTree).length>0){
+    renderTreeNodes(_folderTree,ft,0);
+  }else{
+    openTabs.forEach(function(t){ft.appendChild(createFnodeEl(t,10));});
+  }
+}
+
+function renderTreeNodes(nodes,container,depth){
+  var sorted=Object.keys(nodes).sort(function(a,b){
+    var aIsFolder=nodes[a].__folder?1:0;
+    var bIsFolder=nodes[b].__folder?1:0;
+    if(bIsFolder!==aIsFolder)return bIsFolder-aIsFolder;
+    return a.localeCompare(b);
+  });
+  sorted.forEach(function(key){
+    var node=nodes[key];
+    if(node.__folder){
+      var wrap=document.createElement('div');
+      var header=document.createElement('div');
+      header.className='fnode';
+      header.style.paddingLeft=(10+depth*14)+'px';
+      var iconSpan=document.createElement('span');
+      iconSpan.className='fnode-icon';
+      iconSpan.innerHTML=getFileIcon(key,true,false);
+      var label=document.createElement('span');
+      label.className='fnode-label';
+      label.textContent=key;
+      header.appendChild(iconSpan);
+      header.appendChild(label);
+      var ch=document.createElement('div');
+      ch.style.display='none';
+      var open=false;
+      header.onclick=function(){
+        open=!open;
+        iconSpan.innerHTML=getFileIcon(key,true,open);
+        ch.style.display=open?'block':'none';
+        if(open&&!ch.children.length)renderTreeNodes(node.__children,ch,depth+1);
+      };
+      wrap.appendChild(header);
+      wrap.appendChild(ch);
+      container.appendChild(wrap);
+    }else if(node.__file){
+      var d=document.createElement('div');
+      d.className='fnode';
+      d.style.paddingLeft=(10+depth*14)+'px';
+      var iconSpan=document.createElement('span');
+      iconSpan.className='fnode-icon';
+      iconSpan.innerHTML=getFileIcon(node.__name,false,false);
+      var label=document.createElement('span');
+      label.className='fnode-label';
+      label.textContent=node.__name;
+      d.appendChild(iconSpan);
+      d.appendChild(label);
+      d.onclick=async function(){
+        // find existing tab
+        var existing=openTabs.find(function(t){return t.filePath===node.__path||t.path===node.__path;});
+        if(existing){activeTabId=existing.id;renderAll();return;}
+        // load on click
+        try{
+          var text=await window.nyxcodeAPI.readFile(node.__path);
+          var id=genId();
+          var tab={id,name:node.__name,content:text,dirty:false,untitled:false,filePath:node.__path};
+          _fsFilePaths[id]=node.__path;
+          openTabs.push(tab);
+          activeTabId=id;
+          renderAll();
+        }catch(e){addTermLine('<span class="terr">Could not open: '+escHtml(node.__name)+'</span>');}
+      };
+      container.appendChild(d);
+    }
+  });
+}
+function createFnodeEl(t,paddingLeft){var d=document.createElement('div');d.className='fnode'+(t.id===activeTabId?' selected':'')+(t.dirty?' dirty':'');d.style.paddingLeft=paddingLeft+'px';d.setAttribute('data-tabid',t.id);d.setAttribute('tabindex','0');var iconSpan=document.createElement('span');iconSpan.className='fnode-icon';iconSpan.innerHTML=getFileIcon(t.name,false,false);var label=document.createElement('span');label.className='fnode-label';label.textContent=t.name;var dot=document.createElement('span');dot.className='fnode-dot';d.appendChild(iconSpan);d.appendChild(label);d.appendChild(dot);d.onclick=function(e){if(d._renaming)return;_focusedTabId=t.id;activeTabId=t.id;renderAll();d.focus();};d.addEventListener('focus',function(){_focusedTabId=t.id;});d.addEventListener('contextmenu',function(e){e.preventDefault();e.stopPropagation();_focusedTabId=t.id;showFiletreeCtx(e.clientX,e.clientY,t.id);});d.addEventListener('keydown',function(e){if(e.key==='F2'){e.preventDefault();startInlineRename(d,t);}if((e.key==='Delete'||e.key==='Backspace')&&document.activeElement===d){e.preventDefault();deleteFileById(t.id);}});return d;}
+
+// ================================================================
+// FILE OPS
+// ================================================================
+function newUntitled(){untitledCount++;var id=genId();openTabs.push({id,name:'Untitled-'+untitledCount+'.txt',content:'',dirty:false,untitled:true});activeTabId=id;renderAll();}
+function newFilePrompt(){openModal('NEW FILE','filename.js','Create',function(name){if(!name)return;closeModal();if(HAS_FS_API&&_fsDirPath){createFileInFolder(name);}else{var id=genId();openTabs.push({id,name,content:'',dirty:false,untitled:true});activeTabId=id;renderAll();}});}
+function newFolderPrompt(){if(!HAS_FS_API||!_fsDirPath){openModal('NEW FOLDER','Open a folder first to create directories','OK',function(){closeModal();});return;}openModal('NEW FOLDER','folder-name','Create',function(name){if(!name)return;closeModal();createFolderInFolder(name);});}
+function createFileFromNyx(name,content){var existing=openTabs.find(t=>t.name===name);if(existing){existing.content=content;existing.dirty=false;activeTabId=existing.id;}else{var id=genId();openTabs.push({id,name,content,dirty:false,untitled:true});activeTabId=id;}renderAll();addTermLine('<span class="tok">Nyx created: '+name+'</span>');}
+function writeToActiveFile(content){var tab=activeTab();if(!tab){addTermLine('<span class="terr">No active file.</span>');return;}tab.content=content;tab.dirty=true;setEditorContent(content);renderTabs();triggerAutoSave();addTermLine('<span class="tok">Nyx wrote to: '+tab.name+'</span>');}
+
+var _fctxTabId=null;
+function showFiletreeCtx(x,y,tabId){_fctxTabId=tabId;var ctx=document.getElementById('filetree-ctx');var tab=openTabs.find(t=>t.id===tabId);var hasFsHandle=tab&&(_fsFilePaths[tabId]||tab.filePath);document.getElementById('fctx-save-fs').style.display=hasFsHandle?'':'none';ctx.style.display='block';ctx.style.left=Math.min(x,window.innerWidth-200)+'px';ctx.style.top=Math.min(y,window.innerHeight-200)+'px';}
+function hideFiletreeCtx(){document.getElementById('filetree-ctx').style.display='none';_fctxTabId=null;}
+function showCtxMenu(x,y){var ctx=document.getElementById('ctxmenu');if(!ctx)return;ctx.style.left=Math.min(x,Math.max(0,window.innerWidth-220))+'px';ctx.style.top=Math.min(y,Math.max(0,window.innerHeight-240))+'px';ctx.style.display='block';}
+function hideCtx(){var ctx=document.getElementById('ctxmenu');if(ctx)ctx.style.display='none';}
+document.getElementById('fctx-open').onclick=function(){if(_fctxTabId){activeTabId=_fctxTabId;renderAll();}hideFiletreeCtx();};
+document.getElementById('fctx-copy').onclick=async function(){if(!_fctxTabId)return;var t=openTabs.find(x=>x.id===_fctxTabId);if(t){try{await navigator.clipboard.writeText(t.content);}catch(e){}}hideFiletreeCtx();};
+document.getElementById('fctx-cut').onclick=function(){if(_fctxTabId){activeTabId=_fctxTabId;renderAll();setTimeout(editorCut,50);}hideFiletreeCtx();};
+document.getElementById('fctx-rename').onclick=function(){if(_fctxTabId)renameFileById(_fctxTabId);hideFiletreeCtx();};
+document.getElementById('fctx-delete').onclick=function(){if(_fctxTabId)deleteFileById(_fctxTabId);hideFiletreeCtx();};
+document.getElementById('fctx-download').onclick=function(){if(_fctxTabId){var t=openTabs.find(x=>x.id===_fctxTabId);if(t)downloadFile(t.name,t.content);}hideFiletreeCtx();};
+document.getElementById('fctx-save-fs').onclick=function(){if(_fctxTabId){activeTabId=_fctxTabId;saveActive();}hideFiletreeCtx();};
+document.addEventListener('click',function(e){if(!e.target.closest('#filetree-ctx'))hideFiletreeCtx();if(!e.target.closest('#ctxmenu'))hideCtx();});
+
+function renderAll(){renderTabs();loadEditor();renderTree();updateWelcome();}
+function updateWelcome(){var has=openTabs.length>0;document.getElementById('welcome').style.display=has?'none':'flex';document.getElementById('tabs-bar').style.display=has?'flex':'none';document.getElementById('toolbar').style.display=has?'flex':'none';document.getElementById('work-area').style.display=has?'flex':'none';}
+function renderTabs(){var c=document.getElementById('tabs-bar');c.innerHTML='';openTabs.forEach(function(t){var d=document.createElement('div');d.className='tab'+(t.id===activeTabId?' active':'');var modDot=t.dirty?'<span class="tab-mod"></span>':'';d.innerHTML='<span style="flex-shrink:0;display:flex;align-items:center;width:14px;height:14px">'+getFileIcon(t.name,false,false)+'</span>'+modDot+'<span class="tab-name">'+escHtml(t.name)+'</span><span class="tab-x">&#x2715;</span>';d.querySelector('.tab-x').onclick=function(e){e.stopPropagation();closeTab(t.id);};d.ondblclick=function(){openModal('RENAME FILE',t.name,'Rename',function(newName){if(!newName||newName===t.name)return;doRenameTab(t,newName);});document.getElementById('modal-input').value=t.name;};d.onclick=function(){activeTabId=t.id;_focusedTabId=t.id;renderAll();};c.appendChild(d);});}
+function closeTab(id){var idx=openTabs.findIndex(t=>t.id===id);if(idx<0)return;openTabs.splice(idx,1);delete _fsFilePaths[id];if(activeTabId===id)activeTabId=openTabs.length?openTabs[Math.max(0,idx-1)].id:null;renderAll();}
+function closeActiveTab(){if(activeTabId)closeTab(activeTabId);}
+function loadEditor(){var tab=activeTab();if(!tab){setEditorContent('');return;}setEditorContent(tab.content);updateToolbar(tab);updatePreviewBtn(tab);updateStatus();if(editorEl)editorEl.focus();}
+function updateToolbar(tab){var lang=getLang(tab.name);document.getElementById('lang-badge').textContent=lang;document.getElementById('st-lang').textContent=lang;}
+function updatePreviewBtn(tab){var pg=document.getElementById('prev-group');var isHtml=tab&&tab.name.toLowerCase().match(/\.html?$/);if(isHtml){pg.style.display='flex';pg.innerHTML='<button class="tbtn prev" onclick="previewInPane()" title="Split Preview" style="width:auto;padding:0 7px;font-size:11px">Split</button><button class="tbtn prev" onclick="previewInTab()" title="Open in Tab" style="margin-left:2px;width:auto;padding:0 7px;font-size:11px">Browser</button>';}else{pg.style.display='none';if(previewPaneOpen)closePreviewPane();}}
+function openSidePanel(){previewPaneOpen=true;document.getElementById('work-area').style.display='flex';var pane=document.getElementById('preview-pane');pane.classList.add('visible');document.getElementById('split-divider').style.display='block';pane.style.width='40%';document.getElementById('cm-wrap').style.cssText='width:60%;flex:0 0 60%;overflow:hidden;min-width:0;position:relative;background:var(--bg)';document.getElementById('side-output').style.display='none';setupSplitDrag();}
+function previewInPane(){var tab=activeTab();if(!tab)return;if(!tab.name.toLowerCase().match(/\.html?$/)){addTermLine('<span class="twarn">Split preview: HTML files only.</span>');return;}openSidePanel();document.getElementById('pv-frame').style.display='';document.getElementById('pv-placeholder').style.display='none';document.getElementById('side-output').style.display='none';document.getElementById('pv-title').textContent=tab.name;refreshPreview();}
+function refreshPreview(){var tab=activeTab();if(!tab)return;document.getElementById('pv-frame').srcdoc=getEditorContent()||tab.content;}
+function closePreviewPane(){previewPaneOpen=false;document.getElementById('preview-pane').classList.remove('visible');document.getElementById('split-divider').style.display='none';document.getElementById('cm-wrap').style.cssText='flex:1;overflow:hidden;min-width:0;position:relative;background:var(--bg)';document.getElementById('pv-frame').style.display='none';document.getElementById('pv-placeholder').style.display='flex';document.getElementById('side-output').style.display='none';}
+function schedulePreviewRefresh(){clearTimeout(pvTimer);pvTimer=setTimeout(refreshPreview,400);}
+function previewInTab(){var tab=activeTab();if(!tab)return;var blob=new Blob([getEditorContent()||tab.content],{type:'text/html'});var url=URL.createObjectURL(blob);var w=window.open(url,'_blank');if(!w)return;w.addEventListener('load',()=>URL.revokeObjectURL(url),{once:true});}
+function openOutputPanel(showOutput=true){openSidePanel();if(!showOutput){return;}document.getElementById('pv-frame').style.display='none';document.getElementById('pv-placeholder').style.display='none';document.getElementById('side-output').style.display='block';document.getElementById('pv-title').textContent='Output';}
+function runActiveCode(){var tab=activeTab();if(!tab){addTermLine('<span class="twarn">No active file to run.</span>');return;}var ext=getExt(tab.name);var content=getEditorContent()||tab.content||'';if(ext==='html'){previewInPane();addTermLine('<span class="tok">Previewing HTML file.</span>');return;}var lang=ext||'txt';openOutputPanel(true);executeCode({lang:lang,code:content,stdin:''});}
+function runCodeInBrowser(opts){
+  var lang=(opts.lang||'').toLowerCase();
+  var code=String(opts.code||'');
+  if(lang==='html')return Promise.resolve({type:'html',content:code});
+  if(!['js','javascript','mjs','cjs'].includes(lang)){
+    return Promise.resolve({type:'error',error:'Browser mode supports JavaScript and HTML preview. Use desktop NyxCode to run other languages.'});
+  }
+  return new Promise(function(resolve){
+    var frame=document.createElement('iframe');
+    var runId='nyxcode-'+Date.now()+'-'+Math.random().toString(36).slice(2);
+    var stdout=[],stderr=[],finished=false;
+    frame.setAttribute('sandbox','allow-scripts');
+    frame.style.display='none';
+    function finish(result){
+      if(finished)return;
+      finished=true;
+      clearTimeout(timeout);
+      window.removeEventListener('message',onMessage);
+      frame.remove();
+      resolve(result);
+    }
+    function onMessage(event){
+      if(event.source!==frame.contentWindow||!event.data||event.data.id!==runId)return;
+      if(event.data.type==='output')stdout.push(event.data.value);
+      if(event.data.type==='error')stderr.push(event.data.value);
+      if(event.data.type==='done')finish({type:'text',stdout:stdout.join('\n'),stderr:stderr.join('\n'),exit:stderr.length?1:0});
+    }
+    var timeout=setTimeout(function(){
+      stderr.push('Execution timed out after 5 seconds.');
+      finish({type:'text',stdout:stdout.join('\n'),stderr:stderr.join('\n'),exit:1});
+    },5000);
+    window.addEventListener('message',onMessage);
+    var safeCode=JSON.stringify(code).replace(/</g,'\\u003c');
+    var safeId=JSON.stringify(runId);
+    frame.srcdoc='<!doctype html><script>(function(){var id='+safeId+';var send=function(type,value){parent.postMessage({id:id,type:type,value:value},"*")};["log","info","warn","error"].forEach(function(method){console[method]=function(){var values=Array.prototype.map.call(arguments,function(value){try{return typeof value==="string"?value:JSON.stringify(value)}catch(e){return String(value)}});send("output",values.join(" "))}});try{(0,eval)('+safeCode+')}catch(error){send("error",error&&error.stack||String(error))}send("done","")})()<\/script>';
+    document.body.appendChild(frame);
+  });
+}
+async function executeCode(opts){
+  openOutputPanel(true);
+  document.getElementById('side-output').textContent='Running...';
+  try{
+    var api=window.nyxcodeAPI;
+    var result=api&&typeof api.runCode==='function'
+      ?await api.runCode({lang:opts.lang,code:opts.code,stdin:opts.stdin||''})
+      :await runCodeInBrowser(opts);
+    if(result.type==='html'){
+      previewInPane();
+      document.getElementById('side-output').textContent='Rendered HTML preview.';
+      return;
+    }
+    if(result.type==='text'){
+      var lines=[];
+      if(result.stdout)lines.push(result.stdout);
+      if(result.stderr)lines.push(result.stderr);
+      if(result.exit!=null)lines.push('Exit code: '+result.exit);
+      document.getElementById('side-output').textContent=lines.join('\n')||'[No output]';
+      addTermLine('<span class="tok">Executed '+opts.lang.toUpperCase()+' file.</span>');
+      return;
+    }
+    if(result.type==='error'){
+      document.getElementById('side-output').textContent='Error: '+result.error;
+      return;
+    }
+    document.getElementById('side-output').textContent='Run complete.';
+  }catch(e){
+    document.getElementById('side-output').textContent='Run failed: '+(e.message||e);
+  }
+}
+function setupSplitDrag(){var divider=document.getElementById('split-divider');if(divider._dragSetup)return;divider._dragSetup=true;divider.addEventListener('mousedown',function(e){e.preventDefault();isDragging=true;divider.classList.add('dragging');document.body.style.cursor='col-resize';document.body.style.userSelect='none';});document.addEventListener('mousemove',function(e){if(!isDragging||!previewPaneOpen)return;var wa=document.getElementById('work-area');var rect=wa.getBoundingClientRect();var pct=Math.min(80,Math.max(20,((e.clientX-rect.left)/rect.width)*100));document.getElementById('cm-wrap').style.width=pct+'%';document.getElementById('preview-pane').style.width=(100-pct)+'%';});document.addEventListener('mouseup',function(){if(isDragging){isDragging=false;divider.classList.remove('dragging');document.body.style.cursor='';document.body.style.userSelect='';}});}
+
+// ================================================================
+// DEV MODE
+// ================================================================
+function openDevMode(){document.getElementById('devpanel').classList.add('open');devMode=true;setActIcon('act-dev');setTimeout(()=>{var u=document.getElementById('dev-url-input');if(u){u.focus();u.select();}},0);}
+function closeDevMode(){document.getElementById('devpanel').classList.remove('open');devMode=false;setActIcon('act-exp');}
+function devSetStatus(msg){document.getElementById('dev-status-text').textContent=msg;}
+var PROXIES=[u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),u=>'https://corsproxy.io/?'+encodeURIComponent(u),u=>'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u),u=>'https://thingproxy.freeboard.io/fetch/'+u,u=>'https://api.allorigins.win/get?url='+encodeURIComponent(u)];
+function createQueue(concurrency){var running=0,queue=[];function next(){while(running<concurrency&&queue.length){running++;var item=queue.shift();item().finally(function(){running--;next();});}}return function(fn){return new Promise(function(resolve,reject){queue.push(function(){return fn().then(resolve,reject);});next();});};}
+var fetchQueue=createQueue(6);
+async function fetchText(url,timeoutMs){timeoutMs=timeoutMs||10000;for(var i=0;i<PROXIES.length;i++){try{var ctrl=new AbortController();var tid=setTimeout(()=>ctrl.abort(),timeoutMs);var r=await fetch(PROXIES[i](url),{signal:ctrl.signal});clearTimeout(tid);if(r.ok){var ct=r.headers.get('content-type')||'';if(ct.includes('application/json')){var j=await r.json();if(j&&j.contents!=null&&j.contents!=='')return{ok:true,data:j.contents};}else{var t=await r.text();if(t&&t.length>0&&!t.includes('Error fetching'))return{ok:true,data:t};}}}catch(e){}}return{ok:false};}
+async function fetchBinary(url,timeoutMs){timeoutMs=timeoutMs||12000;for(var i=0;i<PROXIES.length;i++){try{var ctrl=new AbortController();var tid=setTimeout(()=>ctrl.abort(),timeoutMs);var r=await fetch(PROXIES[i](url),{signal:ctrl.signal});clearTimeout(tid);if(r.ok){var ab=await r.arrayBuffer();if(ab.byteLength>0)return{ok:true,data:ab};}}catch(e){}}return{ok:false};}
+function getAssetType(url,ct){var ext=(url.split('?')[0].split('.').pop()||'').toLowerCase().split('#')[0];if(ct){if(/css/i.test(ct))return'css';if(/javascript/i.test(ct))return'js';if(/image/i.test(ct))return'img';if(/font/i.test(ct))return'font';}if(['html','htm'].includes(ext))return'html';if(['css'].includes(ext))return'css';if(['js','mjs','cjs'].includes(ext))return'js';if(['png','jpg','jpeg','gif','webp','svg','ico','bmp','avif'].includes(ext))return'img';if(['woff','woff2','ttf','eot','otf'].includes(ext))return'font';return'other';}
+function makeLocalName(url,idx,type){try{var u=new URL(url);var p=u.pathname.split('#')[0].split('?')[0];var name=p.split('/').filter(Boolean).pop()||'index';if(!name.includes('.')){if(type==='css')name+='.css';else if(type==='js')name+='.js';else if(type==='html')name+='.html';}name=name.replace(/[^a-zA-Z0-9._-]/g,'-');return name||('asset_'+idx+'.bin');}catch(e){return'asset_'+idx;}}
+function resolveUrl(base,rel){if(!rel||rel.startsWith('data:')||rel.startsWith('blob:'))return null;try{return new URL(rel,base).href;}catch(e){return null;}}
+function extractUrlsFromHtml(html,base){var urls=new Set();function add(rel){var full=resolveUrl(base,rel);if(full&&!full.startsWith('data:')&&!full.startsWith('blob:'))urls.add(full);}html.replace(/<link[^>]+>/gi,function(tag){tag.replace(/\bhref=['"]([^'"]+)['"]/i,function(_,u){add(u);});});html.replace(/<script[^>]+src=['"]([^'"]+)['"]/gi,function(_,u){add(u);});html.replace(/<img[^>]+>/gi,function(tag){tag.replace(/\bsrc=['"]([^'"]+)['"]/i,function(_,u){add(u);});});html.replace(/<style[^>]*>([\s\S]*?)<\/style>/gi,function(_,css){css.replace(/url\(['"]?([^'")\s]+)['"]?\)/g,function(_,u){add(u);});});return Array.from(urls);}
+function devSelectAsset(idx){_selectedAssetIdx=idx;var lbl=document.getElementById('dev-code-label');var content=document.getElementById('dev-code-content');if(idx===null||idx===-1){lbl.textContent='Overview / HTML';var html=devAssets.find(a=>a.type==='html');if(html&&html.content){content.innerHTML=highlight(html.content.slice(0,15000),'html');}else{content.textContent='Run Extract All first.';}return;}var a=devAssets[idx];if(!a)return;lbl.textContent=a.name;if(a.content&&typeof a.content==='string')content.innerHTML=highlight(a.content.slice(0,15000),getExt(a.name));else content.innerHTML='<span style="color:var(--txt3)">'+(a.status==='err'?'Failed':'Fetching…')+'</span>';document.querySelectorAll('.dev-src-tab').forEach(function(t){t.classList.remove('active');if(parseInt(t.dataset.idx)===idx)t.classList.add('active');});}
+function updateAssetList(){var al=document.getElementById('dev-asset-list');al.innerHTML='';document.getElementById('asset-col-count').textContent='Assets ('+devAssets.length+')';devAssets.forEach(function(a,i){var item=document.createElement('div');item.className='asset-item';var typeClass=({html:'html',css:'css',js:'js',img:'img',font:'font'})[a.type]||'other';item.innerHTML='<span class="asset-type '+typeClass+'">'+a.type+'</span><span class="asset-name" title="'+escHtml(a.url)+'">'+escHtml(a.name)+'</span><span class="asset-st '+(a.status==='ok'?'ok':a.status==='err'?'err':'pending')+'">'+(a.status==='ok'?'✓':a.status==='err'?'✗':'…')+'</span>';item.onclick=function(){devSelectAsset(i);};al.appendChild(item);});var tb=document.getElementById('dev-tabs-bar');tb.innerHTML='<div class="dev-src-tab active" onclick="devSelectAsset(null)" data-idx="-1">Overview</div>';devAssets.slice(0,10).forEach(function(a,i){var t=document.createElement('div');t.className='dev-src-tab';t.dataset.idx=i;t.textContent=a.name.slice(0,12)+(a.name.length>12?'…':'');t.onclick=function(){devSelectAsset(i);};tb.appendChild(t);});}
+function epoShow(){document.getElementById('ext-progress-overlay').classList.add('active');}
+function epoHide(){document.getElementById('ext-progress-overlay').classList.remove('active');}
+function epoUpdate(done,total,ok,fail,current){var pct=total>0?Math.round((done/total)*100):0;document.getElementById('epo-bar').style.width=pct+'%';document.getElementById('epo-done').textContent=done;document.getElementById('epo-total').textContent=total;document.getElementById('epo-ok').textContent=ok;document.getElementById('epo-fail').textContent=fail;if(current!==undefined)document.getElementById('epo-current').textContent=current;}
+async function devExtractAll(){var url=document.getElementById('dev-url-input').value.trim();if(!url)return;if(!url.startsWith('http'))url='https://'+url;document.getElementById('dev-url-input').value=url;var domain=url.replace(/https?:\/\//,'').split('/')[0];window._devFolderName=domain.replace(/[^a-zA-Z0-9_.-]/g,'-');devAssets=[];_extractAbort=false;var btn=document.getElementById('btn-extract-all');btn.textContent='⬛ Stop';btn.onclick=function(){_extractAbort=true;btn.textContent='⬇ Extract All';btn.onclick=devExtractAll;};epoShow();epoUpdate(0,1,0,0,'Fetching HTML…');devSetStatus('Fetching HTML…');var htmlRes=await fetchText(url);if(!htmlRes.ok){epoHide();devSetStatus('All proxies failed.');btn.textContent='⬇ Extract All';btn.onclick=devExtractAll;return;}var html=htmlRes.data;devAssets.push({url,type:'html',name:'index.html',content:html,status:'ok',size:html.length});document.getElementById('dev-overlay').style.display='none';document.getElementById('dev-address-bar').value=url;document.getElementById('dev-frame').style.display='';document.getElementById('dev-frame').srcdoc=html;devSelectAsset(null);var allUrls=extractUrlsFromHtml(html,url);var seen=new Set([url]);var queue=[];allUrls.forEach(function(u){if(!seen.has(u)){seen.add(u);queue.push(u);}});epoUpdate(0,queue.length,0,0,'Discovered '+queue.length+' assets…');var done=0,okCount=0,failCount=0;var assetObjs={};queue.forEach(function(assetUrl,i){var type=getAssetType(assetUrl,'');var localName=makeLocalName(assetUrl,i,type);var ao={url:assetUrl,type,name:localName,content:null,status:'pending',size:0};devAssets.push(ao);assetObjs[assetUrl]=ao;});updateAssetList();async function processUrl(assetUrl){if(_extractAbort)return;var ao=assetObjs[assetUrl];if(!ao)return;ao.status='fetching';var isBinary=['img','font'].includes(ao.type);var res=isBinary?await fetchBinary(assetUrl):await fetchText(assetUrl);done++;if(res.ok){ao.content=res.data;ao.size=res.data instanceof ArrayBuffer?res.data.byteLength:(res.data||'').length;ao.status='ok';okCount++;}else{ao.status='err';failCount++;}epoUpdate(done,Math.max(done,queue.length),okCount,failCount,ao.name);if(done%3===0||done===queue.length)updateAssetList();}await Promise.all(queue.map(function(u){return fetchQueue(()=>processUrl(u));}));if(_extractAbort){devSetStatus('Stopped.');epoHide();btn.textContent='⬇ Extract All';btn.onclick=devExtractAll;return;}devSetStatus('Done: '+okCount+' OK, '+failCount+' failed');addTermLine('<span class="tok">Extracted: '+okCount+' OK, '+failCount+' failed</span>');updateAssetList();epoHide();btn.textContent='⬇ Extract All';btn.onclick=devExtractAll;}
+function devNavigate(){var url=document.getElementById('dev-url-input').value.trim();if(!url)return;if(!url.startsWith('http'))url='https://'+url;document.getElementById('dev-url-input').value=url;document.getElementById('dev-address-bar').value=url;document.getElementById('dev-overlay').style.display='none';document.getElementById('dev-frame').style.display='';document.getElementById('dev-frame').src=url;if(devHistory[devHistIdx]!==url){if(devHistIdx<devHistory.length-1)devHistory=devHistory.slice(0,devHistIdx+1);devHistory.push(url);devHistIdx=devHistory.length-1;}updateDevNavBtns();}
+function devGoBack(){if(devHistIdx>0){devHistIdx--;var url=devHistory[devHistIdx];document.getElementById('dev-url-input').value=url;document.getElementById('dev-frame').src=url;updateDevNavBtns();}}
+function devGoForward(){if(devHistIdx<devHistory.length-1){devHistIdx++;var url=devHistory[devHistIdx];document.getElementById('dev-url-input').value=url;document.getElementById('dev-frame').src=url;updateDevNavBtns();}}
+function devReload(){var f=document.getElementById('dev-frame');if(f.src)f.src=f.src;else if(f.srcdoc)f.srcdoc=f.srcdoc;}
+function updateDevNavBtns(){document.getElementById('dev-back-btn').disabled=devHistIdx<=0;document.getElementById('dev-fwd-btn').disabled=devHistIdx>=devHistory.length-1;}
+function devOpenInNew(){var url=document.getElementById('dev-url-input').value.trim();if(!url)return;if(!url.startsWith('http'))url='https://'+url;window.open(url,'_blank');}
+function devApplySource(){var main=devAssets.find(a=>a.type==='html');var html=main&&main.content;if(!html)return;document.getElementById('dev-overlay').style.display='none';document.getElementById('dev-frame').style.display='';document.getElementById('dev-frame').srcdoc=html;}
+async function devSendAllToEditor(){var folderName=window._devFolderName||'extracted-site';if(!_folderTree)_folderTree={};if(!_folderTree[folderName]){_folderTree[folderName]={__folder:true,__children:{}};document.getElementById('sb-title').textContent=folderName.toUpperCase();document.getElementById('tpath').textContent='~/'+folderName;}var folder=_folderTree[folderName];var created=0;for(var a of devAssets){if(a.status!=='ok'||!a.content)continue;var content=typeof a.content==='string'?a.content:'[binary]';var id=genId();var tab={id,name:a.name,content,dirty:false,untitled:true};openTabs.push(tab);folder.__children[a.name]={__tab:tab};if(!activeTabId)activeTabId=id;created++;}closeDevMode();renderAll();addTermLine('<span class="tok">'+created+' files sent to editor</span>');}
+function devSendToEditor(){var main=devAssets.find(a=>a.type==='html');if(!main||!main.content){addTermLine('<span class="terr">No HTML extracted yet.</span>');return;}createFileFromNyx((window._devFolderName||'site')+'.html',main.content);closeDevMode();}
+function devDownloadAll(){devAssets.forEach(function(a){if(a.status!=='ok'||!a.content)return;var fn=(window._devFolderName||'site')+'_'+a.name;if(typeof a.content==='string')downloadFile(fn,a.content);else if(a.content instanceof ArrayBuffer){var ext=a.name.split('.').pop()||'bin';var mime={png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',gif:'image/gif',webp:'image/webp',svg:'image/svg+xml',ico:'image/x-icon',woff:'font/woff',woff2:'font/woff2',ttf:'font/ttf'}[ext]||'application/octet-stream';downloadBinaryFile(fn,new Blob([a.content],{type:mime}));}});}
+document.getElementById('dev-url-input').addEventListener('keydown',function(e){if(e.key==='Enter')devNavigate();});
+
+// ================================================================
+// TERMINAL
+// ================================================================
+function addTermLine(html) {
+    if (!panelOpen) togglePanel();
+    var t = document.getElementById('terminal');
+    var d = document.createElement('div');
+    d.className = 'tline';
+    d.innerHTML = html;
+    t.appendChild(d);
+    t.scrollTop = t.scrollHeight;
+}
+
+// Strip ANSI escape sequences
+function stripAnsi(str) {
+    return str
+        .replace(/\x1b\[[0-9;]*[a-zA-Z]/g, '')
+        .replace(/\x1b\][^\x07]*\x07/g, '')
+        .replace(/\x1b[()][AB012]/g, '')
+        .replace(/\x1b[=>]/g, '')
+        .replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '');
+}
+
+var _termLineBuf = { stdout: '', stderr: '' };
+
+function flushTermBuf(stream) {
+    var buf = _termLineBuf[stream];
+    if (!buf) return;
+    var lines = buf.split('\n');
+    _termLineBuf[stream] = lines.pop();
+    var cls = stream === 'stderr' ? 'twarn' : 'tout';
+    lines.forEach(function(line) {
+        line = stripAnsi(line).replace(/\r/g, '');
+        addTermLine('<span class="' + cls + '">' + escHtml(line) + '</span>');
+    });
+}
+
+function flushAllTermBuf() {
+    ['stdout', 'stderr'].forEach(function(s) {
+        if (_termLineBuf[s]) {
+            var line = stripAnsi(_termLineBuf[s]).replace(/\r/g, '');
+            if (line) addTermLine('<span class="' + (s === 'stderr' ? 'twarn' : 'tout') + '">' + escHtml(line) + '</span>');
+            _termLineBuf[s] = '';
+        }
+    });
+}
+
+addTermLine('<span class="tok">NyxCode terminal — Ctrl+C kill • Ctrl+L clear • Ctrl+U clear line • ↑↓ history • Tab complete</span>');
+if (HAS_FS_API) addTermLine('<span class="tok">✓ Shell active — npm, npx, git, node, python all supported</span>');
+
+var termHistory = [], termHistIdx = -1;
+var _currentStreamSession = null;
+
+function getPromptHtml() {
+    var cwd = _fsDirPath || '~';
+    var short = cwd.replace(/\\/g, '/').split('/').filter(Boolean).slice(-2).join('/');
+    if (!short) short = '~';
+    return '<span class="tp">❯</span> <span class="tpath">' + escHtml(short) + '</span> ';
+}
+
+function termKill() {
+    if (!_currentStreamSession) return;
+    if (window.nyxcodeAPI && window.nyxcodeAPI.termKill) {
+        window.nyxcodeAPI.termKill(_currentStreamSession);
+    }
+    flushAllTermBuf();
+    var kr = document.getElementById('term-kill-row');
+    if (kr) kr.remove();
+    addTermLine('<span class="twarn">^C</span>');
+    _currentStreamSession = null;
+}
+
+async function runShellCommand(cmd, cwd) {
+    if (!HAS_FS_API) {
+        addTermLine('<span class="terr">Shell not available — open in the Electron app.</span>');
+        return;
+    }
+
+    _termLineBuf = { stdout: '', stderr: '' };
+
+    if (window.nyxcodeAPI.execStream) {
+        var sessionId = await window.nyxcodeAPI.execStream(cmd, { cwd: cwd });
+        _currentStreamSession = sessionId;
+
+        var killRow = document.createElement('div');
+        killRow.className = 'tline';
+        killRow.id = 'term-kill-row';
+        killRow.innerHTML = '<span style="color:var(--txt3);font-size:10px;font-style:italic">running</span>'
+            + ' <button onclick="termKill()" style="background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);color:#f87171;'
+            + 'font-family:\'JetBrains Mono\',monospace;font-size:9px;padding:1px 8px;border-radius:3px;cursor:pointer;margin-left:6px">'
+            + '■ Kill (Ctrl+C)</button>';
+        document.getElementById('terminal').appendChild(killRow);
+        document.getElementById('terminal').scrollTop = 99999;
+
+        window.nyxcodeAPI.onTermData(sessionId, function(chunk) {
+            _termLineBuf[chunk.type] += chunk.text;
+            flushTermBuf(chunk.type);
+            document.getElementById('terminal').scrollTop = 99999;
+        });
+
+        window.nyxcodeAPI.onTermEnd(sessionId, function(result) {
+            flushAllTermBuf();
+            var kr = document.getElementById('term-kill-row');
+            if (kr) kr.remove();
+            _currentStreamSession = null;
+            if (result.code !== 0) {
+                addTermLine('<span style="color:var(--txt3);font-size:10px">exited with code ' + result.code + '</span>');
+            }
+            document.getElementById('terminal').scrollTop = 99999;
+        });
+
+    } else if (window.nyxcodeAPI.exec) {
+        var spinEl = document.createElement('div');
+        spinEl.className = 'tline';
+        spinEl.innerHTML = '<span style="color:var(--txt3);font-style:italic;animation:pulse 1s ease-in-out infinite">running…</span>';
+        document.getElementById('terminal').appendChild(spinEl);
+        document.getElementById('terminal').scrollTop = 99999;
+        try {
+            var result = await window.nyxcodeAPI.exec(cmd, { cwd: cwd, timeout: 120000 });
+            spinEl.remove();
+            if (result.stdout) {
+                stripAnsi(result.stdout).split('\n').forEach(function(l) {
+                    if (l) addTermLine('<span class="tout">' + escHtml(l) + '</span>');
+                });
+            }
+            if (result.stderr) {
+                stripAnsi(result.stderr).split('\n').forEach(function(l) {
+                    if (l) addTermLine('<span class="' + (result.code !== 0 ? 'terr' : 'twarn') + '">' + escHtml(l) + '</span>');
+                });
+            }
+            if (result.timedOut) addTermLine('<span class="terr">Timed out after 120s</span>');
+            else if (result.code !== 0 && !result.stdout && !result.stderr)
+                addTermLine('<span class="terr">Exited with code ' + result.code + '</span>');
+        } catch(err) {
+            spinEl.remove();
+            addTermLine('<span class="terr">' + escHtml(err.message || String(err)) + '</span>');
+        }
+    } else {
+        addTermLine('<span class="terr">exec not available — update preload.js</span>');
+    }
+}
+
+var BUILTINS = {
+    help: function() {
+        addTermLine('<span class="tout">IDE: ls  cat &lt;file&gt;  edit &lt;file&gt;  new &lt;file&gt;  rename &lt;old&gt; &lt;new&gt;  del &lt;file&gt;  theme &lt;name&gt;  clear  save  open  dev  whoami  accounts  signout</span>');
+        addTermLine('<span class="tout">Cloud: cloud-sync  cloud-info  cloud-clear</span>');
+        addTermLine('<span class="tout">Shortcuts: Ctrl+C kill • Ctrl+L clear • Ctrl+U clear line • Ctrl+W delete word • Ctrl+A start • Ctrl+E end • Ctrl+K delete to end • ↑↓ history • Tab complete</span>');
+    },
+    clear: function() { document.getElementById('terminal').innerHTML = ''; },
+    ls: function() {
+        if (!openTabs.length) return addTermLine('<span class="tout">No files open.</span>');
+        openTabs.forEach(function(t) {
+            addTermLine('<span class="tout">' + (t.dirty ? '* ' : '  ') + escHtml(t.name)
+                + (_fsFilePaths[t.id] || t.filePath ? ' <span style="color:var(--acc3);font-size:10px">[FS]</span>' : '') + '</span>');
+        });
+    },
+    save: function() { saveActive(); },
+    dev: function() { openDevMode(); },
+    open: function() { openFilesFS(); },
+    pwd: function() { addTermLine('<span class="tout">' + escHtml(_fsDirPath || '~') + '</span>'); },
+    date: function() { addTermLine('<span class="tout">' + new Date().toString() + '</span>'); },
+    theme: function(arg) {
+        var themes = ['default','dracula','monokai','light','midnight','nord','tokyo','catppuccin'];
+        if (!arg || !themes.includes(arg)) return addTermLine('<span class="tout">Available themes: ' + themes.join(', ') + '</span>');
+        applyTheme(arg); addTermLine('<span class="tok">Theme applied: ' + arg + '</span>');
+    },
+    rename: function(arg) {
+        var p = arg.split(/\s+/);
+        if (p.length < 2) return addTermLine('<span class="terr">Usage: rename &lt;old&gt; &lt;new&gt;</span>');
+        var t = openTabs.find(function(x) { return x.name === p[0]; });
+        if (!t) return addTermLine('<span class="terr">Not found: ' + escHtml(p[0]) + '</span>');
+        doRenameTab(t, p[1]);
+    },
+    del: function(arg) {
+        var t = openTabs.find(function(x) { return x.name === arg; });
+        if (!t) return addTermLine('<span class="terr">Not found: ' + escHtml(arg) + '</span>');
+        deleteFileById(t.id);
+    },
+    cat: function(arg) {
+        var t = openTabs.find(function(x) { return x.name === arg; });
+        if (t) addTermLine('<pre class="tout" style="white-space:pre-wrap;max-height:300px;overflow:auto;margin:2px 0">' + escHtml(t.content.slice(0, 5000)) + '</pre>');
+        else addTermLine('<span class="terr">file not found: ' + escHtml(arg) + '</span>');
+    },
+    edit: function(arg) {
+        var t = openTabs.find(function(x) { return x.name === arg; });
+        if (t) { activeTabId = t.id; renderAll(); }
+        else addTermLine('<span class="terr">file not found: ' + escHtml(arg) + '</span>');
+    },
+    new: function(arg) {
+        var nm = arg || 'untitled.txt';
+        var nid = genId();
+        openTabs.push({ id: nid, name: nm, content: '', dirty: false, untitled: true });
+        activeTabId = nid; renderAll();
+        addTermLine('<span class="tok">Created: ' + nm + '</span>');
+    },
+    echo: function(arg) { addTermLine('<span class="tout">' + escHtml(arg) + '</span>'); },
+    whoami: function() {
+        addTermLine('<span class="tout">' + (currentUser
+            ? escHtml(currentUser.username) + ' (' + escHtml(currentUser.provider) + ')'
+            : 'not signed in') + '</span>');
+    },
+    accounts: function() {
+        var db = getAccountsDB();
+        var keys = Object.keys(db);
+        addTermLine('<span class="tout">' + keys.length + ' account(s): '
+            + keys.map(function(k) { return escHtml(db[k].username); }).join(', ') + '</span>');
+    },
+    signout: function() {
+        if (currentUser) {
+            currentUser = null;
+            try { localStorage.removeItem('nyxcode_user'); } catch(e) {}
+            document.getElementById('auth-screen').classList.remove('hidden');
+            document.getElementById('user-name').textContent = 'guest';
+            document.getElementById('user-avatar').textContent = '?';
+            if (typeof renderCollabUsers === 'function') renderCollabUsers();
+            addTermLine('<span class="tok">Signed out.</span>');
+        } else {
+            addTermLine('<span class="tout">Not signed in.</span>');
+        }
+    },
+};
+
+function termAutocomplete(inp) {
+    var val = inp.value;
+    var parts = val.split(/\s+/);
+    if (parts.length < 2) return;
+    var partial = parts[parts.length - 1].toLowerCase();
+    if (!partial) return;
+    var candidates = openTabs.map(function(t) { return t.name; }).filter(function(n) {
+        return n.toLowerCase().startsWith(partial);
+    });
+    if (candidates.length === 1) {
+        parts[parts.length - 1] = candidates[0];
+        inp.value = parts.join(' ');
+    } else if (candidates.length > 1) {
+        addTermLine('<span class="tout">' + candidates.map(escHtml).join('  ') + '</span>');
+    }
+}
+
+var terminput = document.getElementById('terminput');
+
+terminput.addEventListener('keydown', async function(e) {
+
+    // Ctrl+C — kill or print ^C
+    if (e.ctrlKey && e.key === 'c') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (_currentStreamSession) {
+            termKill();
+        } else {
+            addTermLine(getPromptHtml() + '<span class="tcmd">' + escHtml(this.value) + '</span><span class="twarn">^C</span>');
+            this.value = '';
+            termHistIdx = -1;
+        }
+        return;
+    }
+
+    // Ctrl+L — clear screen
+    if (e.ctrlKey && e.key === 'l') {
+        e.preventDefault();
+        e.stopPropagation();
+        document.getElementById('terminal').innerHTML = '';
+        return;
+    }
+
+    // Ctrl+U — clear entire line
+    if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+        e.stopPropagation();
+        this.value = '';
+        return;
+    }
+
+    // Ctrl+W — delete word before cursor
+    if (e.ctrlKey && e.key === 'w') {
+        e.preventDefault();
+        e.stopPropagation();
+        var pos = this.selectionStart;
+        var val = this.value;
+        var before = val.substring(0, pos).replace(/\s*\S+\s*$/, '');
+        this.value = before + val.substring(pos);
+        this.selectionStart = this.selectionEnd = before.length;
+        return;
+    }
+
+    // Ctrl+A — jump to start
+    if (e.ctrlKey && e.key === 'a') {
+        e.preventDefault();
+        e.stopPropagation();
+        this.selectionStart = this.selectionEnd = 0;
+        return;
+    }
+
+    // Ctrl+E — jump to end
+    if (e.ctrlKey && e.key === 'e') {
+        e.preventDefault();
+        e.stopPropagation();
+        var len = this.value.length;
+        this.selectionStart = this.selectionEnd = len;
+        return;
+    }
+
+    // Ctrl+K — delete from cursor to end
+    if (e.ctrlKey && e.key === 'k') {
+        e.preventDefault();
+        e.stopPropagation();
+        this.value = this.value.substring(0, this.selectionStart);
+        return;
+    }
+
+    // Ctrl+D — EOF / close panel
+    if (e.ctrlKey && e.key === 'd') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (this.value === '') {
+            if (_currentStreamSession) termKill();
+            else togglePanel();
+        } else {
+            this.value = '';
+        }
+        return;
+    }
+
+    // Arrow Up — history previous
+    if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (termHistIdx < termHistory.length - 1) {
+            termHistIdx++;
+            this.value = termHistory[termHistIdx];
+            var l = this.value.length;
+            setTimeout(function() { terminput.selectionStart = terminput.selectionEnd = l; }, 0);
+        }
+        return;
+    }
+
+    // Arrow Down — history next
+    if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (termHistIdx > 0) {
+            termHistIdx--;
+            this.value = termHistory[termHistIdx];
+        } else {
+            termHistIdx = -1;
+            this.value = '';
+        }
+        var l2 = this.value.length;
+        setTimeout(function() { terminput.selectionStart = terminput.selectionEnd = l2; }, 0);
+        return;
+    }
+
+    // Tab — autocomplete
+    if (e.key === 'Tab') {
+        e.preventDefault();
+        termAutocomplete(this);
+        return;
+    }
+
+    // Enter — execute
+    if (e.key !== 'Enter') return;
+
+    var cmd = this.value.trim();
+    this.value = '';
+    termHistIdx = -1;
+    if (!cmd) return;
+
+    termHistory.unshift(cmd);
+    if (termHistory.length > 200) termHistory.length = 200;
+
+    addTermLine(getPromptHtml() + '<span class="tcmd">' + escHtml(cmd) + '</span>');
+
+    var parts = cmd.match(/(?:[^\s"']+|"[^"]*"|'[^']*')+/g) || [];
+    var base = (parts[0] || '').toLowerCase();
+    var arg = parts.slice(1).join(' ').replace(/^["']|["']$/g, '');
+
+    // Cloud commands
+    if (typeof CLOUD_TERM_CMDS !== 'undefined' && CLOUD_TERM_CMDS[base]) {
+        await CLOUD_TERM_CMDS[base]();
+        return;
+    }
+
+    // IDE built-ins
+    if (BUILTINS[base]) {
+        BUILTINS[base](arg);
+        return;
+    }
+
+    // cd
+    if (base === 'cd') {
+        if (!HAS_FS_API) { addTermLine('<span class="twarn">cd: filesystem not available</span>'); return; }
+        var target = arg.trim() || '';
+        if (!target || target === '~') {
+            try {
+                var hr = await window.nyxcodeAPI.exec(
+                    process.platform === 'win32' ? 'echo %USERPROFILE%' : 'echo $HOME',
+                    { cwd: _fsDirPath }
+                );
+                var home = (hr.stdout || '').trim();
+                if (home && home !== '%USERPROFILE%') {
+                    _fsDirPath = home;
+                    document.getElementById('tpath').textContent = '~';
+                    addTermLine('<span class="tout">' + escHtml(home) + '</span>');
+                    if (typeof refreshFolderTree === 'function') refreshFolderTree();
+                }
+            } catch(e) { addTermLine('<span class="terr">cd: could not resolve home</span>'); }
+            return;
+        }
+        var newPath = target;
+        if (!target.startsWith('/') && !/^[A-Za-z]:[\\/]/.test(target)) {
+            var sep = (_fsDirPath || '').includes('\\') ? '\\' : '/';
+            newPath = (_fsDirPath || '') + sep + target;
+        }
+        try {
+            await window.nyxcodeAPI.readDirectory(newPath);
+            _fsDirPath = newPath;
+            var dirName = newPath.replace(/[/\\]+$/, '').split(/[/\\]/).pop();
+            document.getElementById('tpath').textContent = '~/' + dirName;
+            document.getElementById('sb-title').textContent = dirName.toUpperCase();
+            addTermLine('<span class="tout">' + escHtml(newPath) + '</span>');
+            if (typeof refreshFolderTree === 'function') refreshFolderTree();
+        } catch(cdErr) {
+            addTermLine('<span class="terr">cd: ' + escHtml(target) + ': No such file or directory</span>');
+        }
+        return;
+    }
+
+    // Everything else → real shell
+    await runShellCommand(cmd, _fsDirPath || undefined);
+});
+
+// Click terminal area → focus input
+document.getElementById('terminal').addEventListener('click', function() {
+    document.getElementById('terminput').focus();
+});
+
+function switchPanel(el, id) {
+    document.querySelectorAll('.ptab').forEach(function(t) { t.classList.remove('active'); });
+    el.classList.add('active');
+    ['terminal', 'terminput-row', 'probpanel', 'outpanel'].forEach(function(x) {
+        var e = document.getElementById(x);
+        if (e) e.style.display = 'none';
+    });
+    if (id === 'terminal') {
+        document.getElementById('terminal').style.display = 'flex';
+        document.getElementById('terminput-row').style.display = 'flex';
+        document.getElementById('terminput').focus();
+    } else if (id === 'problems') {
+        document.getElementById('probpanel').style.display = 'block';
+    } else {
+        document.getElementById('outpanel').style.display = 'block';
+    }
+}
+function togglePanel() {
+    panelOpen = !panelOpen;
+    document.getElementById('panel').classList.toggle('open', panelOpen);
+    if (panelOpen) setTimeout(function() { document.getElementById('terminput').focus(); }, 50);
+}
+function toggleSidebar() {
+    sidebarOpen = !sidebarOpen;
+    document.getElementById('sidebar').style.width = sidebarOpen ? '230px' : '0';
+}
+function toggleFullscreen() {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen().catch(function() {});
+}
+
+// ================================================================
+// COMMAND PALETTE
+// ================================================================
+var CMDS=[
+  {label:'Open Folder (FS)',hint:'Ctrl+Shift+O',fn:openFolderFS},{label:'Open File(s) (FS)',hint:'Ctrl+O',fn:openFilesFS},
+  {label:'New Untitled File',hint:'Ctrl+N',fn:newUntitled},{label:'New Named File',fn:newFilePrompt},
+  {label:'Save to Disk',hint:'Auto-save',fn:saveActive},{label:'Save As…',hint:'Ctrl+Shift+S',fn:saveAs},
+  {label:'Rename File',hint:'F2',fn:renameActiveFile},{label:'Delete File',hint:'Del',fn:deleteActiveFile},
+  {label:'Open Extensions',fn:openExtensions},
+  {label:'Color Themes',fn:openThemes},{label:'Live Share',fn:openCollab},
+  {label:'Split Live Preview',fn:previewInPane},{label:'Open Preview in Tab',fn:previewInTab},
+  {label:'Dev Mode Browser',fn:openDevMode},{label:'Toggle Sidebar',hint:'Ctrl+B',fn:toggleSidebar},
+  {label:'Toggle Terminal',hint:'Ctrl+`',fn:togglePanel},
+  {label:'Theme: GitHub Dark',fn:()=>applyTheme('default')},{label:'Theme: Dracula',fn:()=>applyTheme('dracula')},
+  {label:'Theme: Monokai',fn:()=>applyTheme('monokai')},{label:'Theme: Midnight Blue',fn:()=>applyTheme('midnight')},
+  {label:'Theme: Nord',fn:()=>applyTheme('nord')},{label:'Theme: Tokyo Night',fn:()=>applyTheme('tokyo')},
+  {label:'Theme: Catppuccin',fn:()=>applyTheme('catppuccin')},{label:'Theme: Light',fn:()=>applyTheme('light')},
+  {label:'Sign Out',fn:function(){if(currentUser)openUserMenu();}},
+];
+function toggleCmdPal(){var pal=document.getElementById('cmdpal');var open=pal.classList.toggle('open');if(open){var ci=document.getElementById('cmdinput');ci.value='';renderCmdList('');setTimeout(()=>ci.focus(),50);}}
+function renderCmdList(filter){var filtered=CMDS.filter(c=>c.label.toLowerCase().includes(filter.toLowerCase()));document.getElementById('cmdlist').innerHTML=filtered.slice(0,12).map((c,i)=>'<div class="ci'+(i===0?' sel':'')+'" data-idx="'+i+'"><span class="ci-icon">&#x276F;</span>'+escHtml(c.label)+'<span class="ci-hint">'+(c.hint||'')+'</span></div>').join('');}
+document.getElementById('cmdinput').addEventListener('input',function(){renderCmdList(this.value);});
+document.getElementById('cmdinput').addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('cmdpal').classList.remove('open');if(e.key==='Enter'){var sel=document.querySelector('#cmdlist .ci.sel');if(sel)sel.click();document.getElementById('cmdpal').classList.remove('open');}if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();var items=document.querySelectorAll('#cmdlist .ci');var selIdx=Array.from(items).findIndex(i=>i.classList.contains('sel'));if(selIdx>=0)items[selIdx].classList.remove('sel');var next=e.key==='ArrowDown'?selIdx+1:selIdx-1;if(next>=0&&next<items.length)items[next].classList.add('sel');}});
+document.getElementById('cmdlist').addEventListener('click',function(e){var el=e.target.closest('.ci');if(!el)return;var filter=document.getElementById('cmdinput').value;var filtered=CMDS.filter(c=>c.label.toLowerCase().includes(filter.toLowerCase()));var idx=parseInt(el.getAttribute('data-idx'),10);if(filtered[idx])filtered[idx].fn();document.getElementById('cmdpal').classList.remove('open');});
+
+// ================================================================
+// MODAL
+// ================================================================
+function openModal(title,placeholder,okLabel,cb,body){document.getElementById('modal-title').textContent=title;var inp=document.getElementById('modal-input');var bodyEl=document.getElementById('modal-body');bodyEl.style.display=body?'block':'none';bodyEl.innerHTML=body||'';inp.style.display='block';document.getElementById('modal-ok').textContent=okLabel||'OK';document.getElementById('modal-ok').className='mbtn ok';inp.placeholder=placeholder||'';inp.value='';modalCb=function(){cb(inp.value.trim());};document.getElementById('modal-overlay').classList.add('open');setTimeout(()=>inp.focus(),80);}function closeModal(){document.getElementById('modal-overlay').classList.remove('open');document.getElementById('modal-input').style.display='block';document.getElementById('modal-ok').className='mbtn ok';document.getElementById('modal-body').style.display='none';document.getElementById('modal-body').innerHTML='';modalCb=null;}function modalConfirm(){document.getElementById('modal-overlay').classList.remove('open');if(modalCb){modalCb();modalCb=null;}}
+document.getElementById('modal-input').addEventListener('keydown',function(e){if(e.key==='Enter')modalConfirm();if(e.key==='Escape')closeModal();});
+document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ================================================================
+// KEYBOARD SHORTCUTS
+// ================================================================
+document.addEventListener('keydown',function(e){
+  var tag=(document.activeElement||{}).tagName;var inInput=tag==='INPUT'||tag==='TEXTAREA';
+  var ctrl=e.ctrlKey||e.metaKey;
+  if(ctrl&&e.key==='p'){e.preventDefault();toggleCmdPal();return;}
+  if(ctrl&&!e.shiftKey&&e.key==='n'){e.preventDefault();newUntitled();return;}
+  if(ctrl&&!e.shiftKey&&e.key==='o'){e.preventDefault();openFilesFS();return;}
+  if(ctrl&&e.shiftKey&&(e.key==='O'||e.key==='o')){e.preventDefault();openFolderFS();return;}
+  if(ctrl&&!e.shiftKey&&e.key==='s'){e.preventDefault();if(HAS_FS_API){triggerAutoSave();showAutosaveBadge();}else{saveActive();}return;}
+  if(ctrl&&e.shiftKey&&e.key==='S'){e.preventDefault();saveAs();return;}
+  if(ctrl&&e.key==='b'){e.preventDefault();toggleSidebar();return;}
+  if(ctrl&&e.key==='`'){e.preventDefault();togglePanel();return;}
+  if(ctrl&&e.key==='w'){e.preventDefault();closeActiveTab();return;}
+  if(e.key==='Escape'){document.getElementById('cmdpal').classList.remove('open');closeModal();hideCtx();hideFiletreeCtx();cancelOAuth();document.querySelectorAll('.mi').forEach(m=>m.classList.remove('open'));return;}
+  var focusedOnFnode=document.activeElement&&document.activeElement.classList&&document.activeElement.classList.contains('fnode');
+  if(e.key==='F2'){if(focusedOnFnode||!inInput){e.preventDefault();var id=_focusedTabId||activeTabId;if(id)renameFileById(id);}return;}
+  if(e.key==='Delete'){if(focusedOnFnode){e.preventDefault();var id=_focusedTabId||activeTabId;if(id)deleteFileById(id);}return;}
+});
+
+// ================================================================
+// ACTIVITY BAR + MENUS
+// ================================================================
+function setActIcon(id){document.querySelectorAll('.aicon').forEach(a=>a.classList.remove('active'));var el=document.getElementById(id);if(el)el.classList.add('active');}
+function setActView(view){
+  if(view==='explorer'){if(!sidebarOpen){sidebarOpen=true;document.getElementById('sidebar').style.width='230px';}closeExtensions();closeCollab();closeDevMode();setActIcon('act-exp');}
+  else if(view==='collab'){openCollab();closeExtensions();closeDevMode();}
+  else if(view==='extensions'){openExtensions();closeCollab();closeDevMode();setActIcon('act-ext');}
+}
+document.querySelectorAll('.mi[id]').forEach(function(mi){mi.addEventListener('click',function(e){e.stopPropagation();var wasOpen=mi.classList.contains('open');document.querySelectorAll('.mi').forEach(m=>m.classList.remove('open'));if(!wasOpen)mi.classList.add('open');});});
+document.addEventListener('click',function(){document.querySelectorAll('.mi').forEach(m=>m.classList.remove('open'));});
+
+// ================================================================
+// INIT
+// ================================================================
+initEditor();updateWelcome();updateFsStatus();
+
+(function(){
+  var demo='// Welcome to NyxCode!\n// Sign in to access Live Share collaboration.\n// Open a folder or file to get started.\n\nconst greet = (name) => {\n  return `Hello, ${name}! Welcome to NyxCode.`;\n};\n\nconsole.log(greet("Developer"));\n';
+  var id=genId();openTabs.push({id,name:'welcome.js',content:demo,dirty:false,untitled:true});activeTabId=id;renderAll();
+})();
+</script>
+</body>
+</html>
