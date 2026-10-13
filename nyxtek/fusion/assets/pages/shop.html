@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <script type="module" src="../animations/background.js"></script>
+
+    <script type="module" src="../scripts/game/shop.js?v=10"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Isometra&family=Orbitron&family=Cinzel&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/main.css?v=4">
+    <link rel="stylesheet" href="../styles/card.css?v=40">
+    <link rel="stylesheet" href="../styles/utils.css">
+    <link rel="stylesheet" href="../styles/deck.css?v=17">
+    <link rel="stylesheet" href="../styles/levels.css?v=9">
+    <link rel="stylesheet" href="../styles/shop.css?v=9">
+</head>
+    
+<body>
+    <a id="shop-back-to-main" class="button" href="main.html">×</a>
+    <main class="shop-page">
+        <h1 class="title">Shop</h1>
+        <section class="shop-currency-bar" aria-label="Currency balances">
+            <div class="shop-currency-group" aria-label="Main currencies">
+                <div id="coins" class="currency-balance" aria-label="Coin balance">
+                    <img src="../images/icons/coin.png" alt="">
+                    <span id="coin-amount" aria-live="polite">0</span>
+                    <span>Coins</span>
+                </div>
+                <div class="currency-balance" aria-label="Regular gems">
+                    <img src="../images/icons/gem.png" alt="">
+                    <span id="gem-amount" aria-live="polite">0</span>
+                    <span>Gems</span>
+                </div>
+                <div class="currency-balance" aria-label="Fire gems">
+                    <img src="../images/icons/firegem.png" alt="">
+                    <span id="fire-gem-amount" aria-live="polite">0</span>
+                    <span>Fire</span>
+                </div>
+                <div class="currency-balance" aria-label="Water gems">
+                    <img src="../images/icons/watergem.png" alt="">
+                    <span id="water-gem-amount" aria-live="polite">0</span>
+                    <span>Water</span>
+                </div>
+            </div>
+            <div class="shop-currency-group" aria-label="Other elemental gems">
+                <div class="currency-balance" aria-label="Nature gems">
+                    <img src="../images/icons/naturegem.png" alt="">
+                    <span id="nature-gem-amount" aria-live="polite">0</span>
+                    <span>Nature</span>
+                </div>
+                <div class="currency-balance" aria-label="Electric gems">
+                    <img src="../images/icons/lightinggem.png" alt="">
+                    <span id="electric-gem-amount" aria-live="polite">0</span>
+                    <span>Electric</span>
+                </div>
+                <div class="currency-balance" aria-label="Dark gems">
+                    <img src="../images/icons/darkgem.png" alt="">
+                    <span id="dark-gem-amount" aria-live="polite">0</span>
+                    <span>Dark</span>
+                </div>
+                <div class="currency-balance" aria-label="Light gems">
+                    <img src="../images/icons/lightgem.png" alt="">
+                    <span id="light-gem-amount" aria-live="polite">0</span>
+                    <span>Light</span>
+                </div>
+            </div>
+        </section>
+        <nav class="shop-tabs" aria-label="Shop sections">
+            <button class="button shop-tab" id="shop-tab" type="button"
+                aria-controls="shop-view" aria-pressed="true">Shop</button>
+            <button class="button shop-tab" id="trading-tab" type="button"
+                aria-controls="trading-view" aria-pressed="false">Trading</button>
+        </nav>
+        <section id="shop-view" class="shop-content-view" aria-label="Card shop">
+            <div id="items">
+                <button class="button shop-random-card-button" id="coinbox" type="button"
+                    aria-label="Buy a random card for 800 coins">
+                    <span class="coinbox-title">Random Card</span>
+                    <span class="coinbox-price">
+                        <span>800</span>
+                        <img src="../images/icons/coin.png" alt="" aria-hidden="true">
+                    </span>
+                </button>
+                <button class="button shop-random-card-button" id="gembox" type="button"
+                    aria-label="Buy a random card for 30 gems">
+                    <span class="coinbox-title">Random Card</span>
+                    <span class="coinbox-price">
+                        <span>30</span>
+                        <img src="../images/icons/gem.png" alt="" aria-hidden="true">
+                    </span>
+                </button>
+            <button class="button shop-random-card-button shop-stone-fire"
+                data-stone-type="fire" type="button"
+                aria-label="Buy a random fire-type card for 10 fire stones">
+                <span class="coinbox-title">Random Fire Card</span>
+                <span class="coinbox-price">
+                    <span>10</span>
+                    <img src="../images/icons/firegem.png" alt="" aria-hidden="true">
+                </span>
+            </button>
+            <button class="button shop-random-card-button shop-stone-water"
+                data-stone-type="water" type="button"
+                aria-label="Buy a random water-type card for 10 water stones">
+                <span class="coinbox-title">Random Water Card</span>
+                <span class="coinbox-price">
+                    <span>10</span>
+                    <img src="../images/icons/watergem.png" alt="" aria-hidden="true">
+                </span>
+            </button>
+            <button class="button shop-random-card-button shop-stone-nature"
+                data-stone-type="nature" type="button"
+                aria-label="Buy a random nature-type card for 10 nature stones">
+                <span class="coinbox-title">Random Nature Card</span>
+                <span class="coinbox-price">
+                    <span>10</span>
+                    <img src="../images/icons/naturegem.png" alt="" aria-hidden="true">
+                </span>
+            </button>
+            <button class="button shop-random-card-button shop-stone-electric"
+                data-stone-type="electric" type="button"
+                aria-label="Buy a random electric-type card for 10 electric stones">
+                <span class="coinbox-title">Random Electric Card</span>
+                <span class="coinbox-price">
+                    <span>10</span>
+                    <img src="../images/icons/lightinggem.png" alt="" aria-hidden="true">
+                </span>
+            </button>
+            <button class="button shop-random-card-button shop-stone-dark"
+                data-stone-type="dark" type="button"
+                aria-label="Buy a random dark-type card for 10 dark stones">
+                <span class="coinbox-title">Random Dark Card</span>
+                <span class="coinbox-price">
+                    <span>10</span>
+                    <img src="../images/icons/darkgem.png" alt="" aria-hidden="true">
+                </span>
+            </button>
+            <button class="button shop-random-card-button shop-stone-light"
+                data-stone-type="light" type="button"
+                aria-label="Buy a random light-type card for 10 light stones">
+                <span class="coinbox-title">Random Light Card</span>
+                <span class="coinbox-price">
+                    <span>10</span>
+                    <img src="../images/icons/lightgem.png" alt="" aria-hidden="true">
+                </span>
+            </button>
+                <p id="shop-purchase-message" role="status" aria-live="polite"></p>
+            </div>
+        </section>
+        <section id="trading-view" class="shop-content-view" aria-label="Currency trading"
+            hidden>
+            <div class="trading-panel">
+                <h2>Trade currencies</h2>
+                <p class="trading-description">Choose an exchange below. Elemental-stone trades use the stone type you select.</p>
+                <label class="stone-trade-label" for="stone-trade-type">Elemental stone</label>
+                <select id="stone-trade-type">
+                    <option value="fire">Fire</option>
+                    <option value="water">Water</option>
+                    <option value="nature">Nature</option>
+                    <option value="electric">Electric</option>
+                    <option value="dark">Dark</option>
+                    <option value="light">Light</option>
+                </select>
+                <div class="trade-offers">
+                    <button class="button trade-offer" id="trade-coins-for-gem" type="button">
+                        Trade 100 coins for 1 gem
+                    </button>
+                    <button class="button trade-offer" id="trade-gem-for-coins" type="button">
+                        Trade 1 gem for 100 coins
+                    </button>
+                    <button class="button trade-offer" id="trade-coins-for-stone" type="button">
+                        Trade 200 coins for 1 selected stone
+                    </button>
+                    <button class="button trade-offer" id="trade-gems-for-stone" type="button">
+                        Trade 2 gems for 1 selected stone
+                    </button>
+                    <button class="button trade-offer" id="trade-stone-for-gems" type="button">
+                        Trade 1 selected stone for 2 gems
+                    </button>
+                </div>
+                <p id="trade-message" role="status" aria-live="polite"></p>
+            </div>
+        </section>
+    </main>
+    <dialog id="shop-card-dialog" aria-labelledby="shop-card-dialog-heading">
+        <header class="shop-dialog-header">
+            <h2 id="shop-card-dialog-heading">Card purchased</h2>
+            <button class="button shop-dialog-close" type="button"
+                aria-label="Close card details">×</button>
+        </header>
+        <div id="shop-card-result" aria-live="polite"></div>
+    </dialog>
+</body>
+
+</html>
