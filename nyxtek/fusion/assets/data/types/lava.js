@@ -1,5 +1,5 @@
 export const lava = {
-    "emoji": "🔥",
+    "emoji": "🌋",
     "strength": "nature",
     "weakness": "water",
     "color-empty": "hsl(10, 83%, 23%)",

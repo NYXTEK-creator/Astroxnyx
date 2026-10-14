@@ -15,9 +15,10 @@
     <link rel="stylesheet" href="../styles/card.css?v=41">
     <link rel="stylesheet" href="../styles/utils.css">
     <link rel="stylesheet" href="../styles/deck.css?v=17">
+    <link rel="stylesheet" href="../styles/responsive.css?v=1">
 </head>
 
-<body>
+<body class="deck-page">
     <button id="back-to-main" class="button" type="button" data-navigate="main.html" aria-label="Back to main menu">×</button>
     <header class="deck-heading">
         <h1 class="title"><span id="player-name"></span>'s Deck</h1>
@@ -37,18 +38,20 @@
             </div>
         </section>
     </main>
-    <button id="train" class="button" data-navigate="train.html">
-        <p>Train</p>
-    </button>
-    <button id="enhance" class="button" data-navigate="enhance.html">
-        <p>Enhance</p>
-    </button>
-    <button id="fuse" class="button" data-navigate="fuse.html">
-        <p>Fuse</p>
-    </button>
-    <button id="book" class="button" data-navigate="book.html">
-        <p>Book</p>
-    </button>
+    <nav class="deck-actions" aria-label="Card actions">
+        <button id="train" class="button" data-navigate="train.html">
+            <p>Train</p>
+        </button>
+        <button id="enhance" class="button" data-navigate="enhance.html">
+            <p>Enhance</p>
+        </button>
+        <button id="fuse" class="button" data-navigate="fuse.html">
+            <p>Fuse</p>
+        </button>
+        <button id="book" class="button" data-navigate="book.html">
+            <p>Book</p>
+        </button>
+    </nav>
 </body>
 
 </html>

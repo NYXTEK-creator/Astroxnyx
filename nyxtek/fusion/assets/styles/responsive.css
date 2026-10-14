@@ -1,0 +1,667 @@
+:root {
+    --fusion-card-width: clamp(7rem, min(18vw, 22vh), 12rem);
+    --fusion-content-width: 76rem;
+}
+
+html {
+    min-width: 320px;
+    scroll-behavior: smooth;
+}
+
+body {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 320px;
+    margin: 0;
+    overflow-x: clip;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button,
+a {
+    touch-action: manipulation;
+}
+
+img {
+    max-width: 100%;
+}
+
+.button p {
+    margin: 0;
+}
+
+.title {
+    max-width: 100%;
+    margin: 1rem 0;
+    font-size: clamp(2rem, 5vw, 3.75rem);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+}
+
+.subtitle {
+    margin: 0;
+    font-size: clamp(1.35rem, 3.5vw, 2.25rem);
+    line-height: 1.2;
+}
+
+:is(.fireCard, .waterCard, .natureCard, .electricCard, .lightCard, .darkCard,
+    .flowerCard, .dewCard, .demonCard, .solarCard, .psychicCard, .bloodCard, .lavaCard) {
+    box-sizing: border-box;
+    width: var(--fusion-card-width);
+    height: auto;
+    aspect-ratio: 2 / 3;
+    border-radius: clamp(0.7rem, 2vw, 1.25rem);
+}
+
+.cardText {
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
+}
+
+.cardStat img {
+    flex-basis: clamp(1.5rem, 4.5vw, 3rem);
+    width: clamp(1.5rem, 4.5vw, 3rem);
+    height: clamp(1.5rem, 4.5vw, 3rem);
+}
+
+.emoji {
+    font-size: clamp(2rem, 9vw, 4rem);
+}
+
+.darkEmoji {
+    font-size: clamp(2.5rem, 13vw, 6rem);
+}
+
+/* New-player setup */
+body.setup-page {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    align-content: center;
+    justify-items: center;
+    gap: clamp(0.65rem, 2vw, 1.1rem);
+    width: min(100%, 54rem);
+    min-height: 100vh;
+    min-height: 100svh;
+    margin-inline: auto;
+    padding: clamp(1rem, 4vw, 2.5rem);
+}
+
+body.setup-page > :is(.title, .subtitle, #name, #setup-error, #finish) {
+    grid-column: 1 / -1;
+}
+
+body.setup-page > br {
+    display: none;
+}
+
+body.setup-page > .title {
+    margin: 0;
+    font-size: clamp(2.25rem, 7vw, 4rem);
+}
+
+body.setup-page > .subtitle {
+    margin-top: 0.6rem;
+}
+
+body.setup-page > :is(#fireOption, #waterOption, #natureOption, #electricOption, #darkOption, #lightOption) {
+    box-sizing: border-box;
+    width: clamp(4rem, 12vw, 7rem);
+    height: auto;
+    aspect-ratio: 1;
+    margin: 0;
+    border-radius: 1.2rem;
+}
+
+body.setup-page > :is(#fireOption, #waterOption, #natureOption, #electricOption, #darkOption, #lightOption) p {
+    margin: 0;
+    transform: none;
+    font-size: clamp(1.7rem, 5vw, 2.6rem);
+    line-height: 1;
+}
+
+body.setup-page #name {
+    box-sizing: border-box;
+    position: static;
+    width: min(100%, 30rem);
+    height: 3.25rem;
+    padding: 0.5rem 0.8rem;
+    border: 2px solid aliceblue;
+    border-radius: 0.7rem;
+    font-size: 1rem;
+}
+
+body.setup-page #name::placeholder {
+    position: static;
+    font-size: 0.9rem;
+}
+
+body.setup-page #setup-error {
+    margin: 0;
+}
+
+body.setup-page #finish {
+    width: min(100%, 18rem);
+    min-height: 3.25rem;
+    height: auto;
+    padding: 0.5rem 1rem;
+    border-radius: 0.7rem;
+}
+
+body.setup-page #finish p {
+    transform: none;
+    font-size: 1.1rem;
+}
+
+/* Main game menu */
+.game-menu {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-content: center;
+    justify-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    box-sizing: border-box;
+    width: min(100%, var(--fusion-content-width));
+    min-height: 100vh;
+    min-height: 100svh;
+    margin-inline: auto;
+    padding: clamp(2rem, 6vw, 4rem);
+    padding-bottom: 6rem;
+}
+
+.game-menu > .title {
+    grid-column: 1 / -1;
+    margin: 0 0 1rem;
+    text-align: center;
+}
+
+.game-menu > :is(#deck, #shop, #adventure) {
+    position: static;
+    width: min(100%, clamp(7rem, 20vw, 13rem));
+    height: auto;
+    aspect-ratio: 1;
+    margin: 0;
+    border-radius: 1.2rem;
+}
+
+.game-menu > :is(#deck, #shop, #adventure) p {
+    margin: 0;
+    transform: none;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+
+.game-menu > #profile_image {
+    box-sizing: border-box;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    left: auto;
+    width: clamp(3.5rem, 9vw, 5rem);
+    height: clamp(3.5rem, 9vw, 5rem);
+    aspect-ratio: 1;
+    padding: 0;
+    transform: none;
+    border-radius: 50%;
+}
+
+.game-menu > #profile_image img {
+    position: static;
+    width: 100%;
+    height: 100%;
+    transform: none;
+    border-radius: 50%;
+}
+
+.game-menu > #player-level {
+    position: absolute;
+    top: 1.35rem;
+    right: clamp(5rem, 12vw, 6.5rem);
+    bottom: auto;
+    left: auto;
+}
+
+.game-menu > #profile {
+    position: absolute;
+    top: auto;
+    right: 5rem;
+    bottom: 1rem;
+    left: 1rem;
+    font-size: clamp(1.25rem, 4vw, 2rem);
+    overflow-wrap: anywhere;
+    text-align: left;
+}
+
+/* Deck and card book */
+body.deck-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 1rem;
+}
+
+.deck-page .deck-heading {
+    box-sizing: border-box;
+    width: min(100%, var(--fusion-content-width));
+    margin-inline: auto;
+    padding-inline: 3.5rem;
+}
+
+.deck-page .deck-heading .title {
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    overflow-wrap: anywhere;
+}
+
+.deck-page #inventory {
+    width: min(100%, var(--fusion-content-width));
+    max-width: none;
+    margin-inline: auto;
+    padding: clamp(0.6rem, 2vw, 1.5rem);
+    border-radius: 1rem;
+}
+
+.deck-page #card-container {
+    min-height: clamp(13rem, 36svh, 27rem);
+}
+
+.deck-page #card-container > :is(.fireCard, .waterCard, .natureCard, .electricCard, .lightCard, .darkCard,
+    .flowerCard, .dewCard, .demonCard, .solarCard, .psychicCard, .bloodCard, .lavaCard) {
+    width: var(--fusion-card-width);
+    height: auto;
+    aspect-ratio: 2 / 3;
+}
+
+.deck-page #deck-editor {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.deck-page .deck-actions {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.5rem, 2vw, 1rem);
+    width: min(100%, var(--fusion-content-width));
+    margin: 0 auto;
+}
+
+.deck-page .deck-actions > :is(#train, #enhance, #fuse, #book) {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 3.5rem;
+    height: auto;
+    aspect-ratio: auto;
+    margin: 0;
+    padding: 0.6rem;
+    transform: none;
+    border-radius: 0.8rem;
+}
+
+.deck-page .deck-actions > :is(#train, #enhance, #fuse, #book) p {
+    transform: none;
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+}
+
+body.book-page {
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 1rem;
+}
+
+.book-page > .title {
+    margin: 1rem auto;
+    text-align: center;
+}
+
+.book-page #card-book {
+    width: min(100%, 82rem);
+    height: min(74svh, 56rem);
+    margin-inline: auto;
+    border-radius: 1rem;
+}
+
+.book-page #book-container {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 8rem), 1fr));
+}
+
+.book-page #book-container > :is(.fireCard, .waterCard, .natureCard, .electricCard, .lightCard, .darkCard,
+    .flowerCard, .dewCard, .demonCard, .solarCard, .psychicCard, .bloodCard, .lavaCard, .book-undiscovered-card) {
+    width: min(100%, 12rem);
+    height: auto;
+    aspect-ratio: 2 / 3;
+}
+
+/* Enhancement and training screens */
+body.enhance-page,
+body.training-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 1rem;
+}
+
+.enhance-page > #enhance-title {
+    order: 1;
+    margin: 2.5rem 0 0;
+    text-align: center;
+}
+
+.enhance-page > #enhance-stones {
+    position: static;
+    order: 2;
+    width: min(100%, 70rem);
+    transform: none;
+}
+
+.enhance-page > #enhanceDiv {
+    position: static;
+    order: 3;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    width: min(100%, 70rem);
+    height: auto;
+    transform: none;
+}
+
+.enhance-page :is(#enhanceCards, #enhanceChanges) {
+    height: auto;
+    min-height: clamp(13rem, 34svh, 23rem);
+}
+
+.enhance-page > #enhance-collections {
+    position: static;
+    order: 4;
+    width: min(100%, 70rem);
+    height: auto;
+    transform: none;
+}
+
+.enhance-page .training-collection-container {
+    min-height: 10rem;
+}
+
+.training-page #train-coins {
+    position: static;
+    align-self: flex-start;
+    margin-left: max(0px, calc((100% - 70rem) / 2));
+}
+
+.training-page #trainDiv {
+    position: static;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1fr);
+    width: min(100%, 70rem);
+    height: auto;
+    transform: none;
+}
+
+.training-page :is(#trainCards, #changes, #sacrificeCards) {
+    height: auto;
+    min-height: clamp(13rem, 34svh, 23rem);
+}
+
+.training-page #training-collections {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    width: min(100%, 70rem);
+    height: auto;
+}
+
+.training-page .training-collection-container {
+    min-height: 12rem;
+}
+
+/* Adventure cards */
+.adventure-page #adventureDiv {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 4vw, 3.5rem);
+    width: min(100%, 90rem);
+    min-height: 0;
+    padding: 2rem clamp(1rem, 4vw, 3rem);
+}
+
+.adventure-page :is(#floral, #coral) {
+    width: min(100%, 24rem);
+    height: auto;
+    min-height: 21rem;
+}
+
+.adventure-page :is(#floralImg, #coralImg) {
+    width: min(100vw, 34rem);
+    height: min(100vw, 34rem);
+}
+
+/* Battle board */
+html.battle-page,
+body.battle-page {
+    height: 100vh;
+    height: 100svh;
+    min-height: 32rem;
+}
+
+body.battle-page {
+    overflow: hidden;
+}
+
+.battle-page #opponentCards,
+.battle-page #playerCards {
+    box-sizing: border-box;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(0.1rem, 1vw, 0.75rem);
+    width: min(calc(100vw - 1rem), 76rem);
+    height: clamp(8rem, 23svh, 13rem);
+}
+
+.battle-page #opponentCards {
+    top: clamp(4.25rem, 12svh, 7rem);
+}
+
+.battle-page #playerCards {
+    top: clamp(14rem, 43svh, 25rem);
+}
+
+.battle-page .battle-slot {
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
+}
+
+.battle-page .battle-slot > img {
+    width: min(55%, 3rem);
+    height: auto;
+    aspect-ratio: 1;
+}
+
+/* Fusion workspace and shared dialogs */
+.fuse-page > .title {
+    margin: 2.5rem auto 1rem;
+    padding-inline: 1rem;
+    text-align: center;
+}
+
+.fuse-page #fuse-workspace {
+    width: min(100% - 1rem, 76rem);
+    margin-inline: auto;
+}
+
+.fuse-page .fuse-available-cards {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 8rem), 1fr));
+}
+
+.fuse-page .fuse-available-card > :is(.fireCard, .waterCard, .natureCard, .electricCard, .lightCard, .darkCard,
+    .flowerCard, .dewCard, .demonCard, .solarCard, .psychicCard, .bloodCard, .lavaCard) {
+    width: min(100%, var(--fusion-card-width));
+    height: auto;
+    aspect-ratio: 2 / 3;
+}
+
+.profile-panel,
+.card-level-up-dialog,
+.card-details-panel {
+    max-width: calc(100vw - 1rem);
+}
+
+@media (max-width: 760px) {
+    :root {
+        --fusion-card-width: clamp(6.5rem, 25vw, 9rem);
+    }
+
+    .game-menu {
+        gap: 1rem;
+        padding: 5rem 1rem 6rem;
+    }
+
+    .game-menu > :is(#deck, #shop, #adventure) {
+        width: min(100%, 8rem);
+    }
+
+    .deck-page .deck-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .deck-page #deck-editor {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .enhance-page > #enhanceDiv {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .enhance-page > #enhance-collections,
+    .training-page #training-collections {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .training-page #trainDiv {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .training-page :is(#trainCards, #changes, #sacrificeCards) {
+        grid-column: auto;
+        min-height: 11rem;
+    }
+
+    .adventure-page #adventureDiv {
+        grid-template-columns: minmax(0, 1fr);
+        gap: clamp(2rem, 8vw, 3.5rem);
+        padding: 1.5rem 1rem 3rem;
+    }
+
+    .adventure-page :is(#floral, #coral) {
+        min-height: 19rem;
+    }
+
+    .battle-page #playerCards {
+        top: 42svh;
+        height: clamp(7rem, 19svh, 9.5rem);
+    }
+
+    .battle-page #opponentCards {
+        top: 13svh;
+        height: clamp(7rem, 19svh, 9.5rem);
+    }
+
+    .battle-page #player-hand-area {
+        bottom: 0.5rem;
+        width: calc(100vw - 1rem);
+    }
+
+    .battle-page .battle-hand-card {
+        flex-basis: clamp(3.75rem, 15vw, 5rem);
+        width: clamp(3.75rem, 15vw, 5rem);
+        height: auto;
+        aspect-ratio: 2 / 3;
+    }
+}
+
+@media (max-width: 480px) {
+    body.setup-page {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.7rem;
+        padding: 1.25rem;
+    }
+
+    body.setup-page > :is(.title, .subtitle, #name, #setup-error, #finish) {
+        grid-column: 1 / -1;
+    }
+
+    body.setup-page > :is(#fireOption, #waterOption, #natureOption, #electricOption, #darkOption, #lightOption) {
+        width: min(100%, 5rem);
+    }
+
+    .game-menu {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-content: center;
+    }
+
+    .game-menu > .title {
+        grid-column: 1 / -1;
+        max-width: 12ch;
+    }
+
+    .game-menu > :is(#deck, #shop, #adventure) {
+        width: min(100%, 9rem);
+    }
+
+    .deck-page {
+        padding: 0.65rem;
+    }
+
+    .deck-page .deck-heading {
+        padding-inline: 2.75rem;
+    }
+
+    .deck-page #card-container {
+        min-height: 12rem;
+    }
+
+    .book-page #card-book {
+        height: 72svh;
+        padding: 0.6rem;
+    }
+
+    .fuse-page .fuse-equation {
+        gap: 0.35rem;
+    }
+
+    .fuse-page .fuse-card-section h2 {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+    body.setup-page {
+        align-content: start;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .game-menu {
+        padding-block: 1rem 5rem;
+    }
+
+    .battle-page #playerCards {
+        top: 43svh;
+    }
+
+    .battle-page #opponentCards {
+        top: 10svh;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}

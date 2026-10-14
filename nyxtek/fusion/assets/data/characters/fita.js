@@ -8,9 +8,9 @@ export let fitaChar = {
     "health": 60,
     "special": {
         "name": "Ecotherapy",
-        "type": "aoe-heal",
-        "charge": 2,
-        "damage": -20
+        "type": "rand-heal",
+        "charge": 1,
+        "damage": -9
     },
     "possibleFusions": {
         "dewey": "mari"
