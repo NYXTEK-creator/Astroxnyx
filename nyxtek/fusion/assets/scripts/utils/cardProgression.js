@@ -7,7 +7,7 @@ import { flambaeChar } from '../../data/characters/flambae.js';
 import { floraChar } from '../../data/characters/flora.js';
 import { keraChar } from '../../data/characters/kera.js';
 import { lumiChar } from '../../data/characters/lumi.js';
-import { magmoChar } from '../../data/characters/magmo.js';
+import { emberChar } from '../../data/characters/ember.js';
 import { mariChar } from '../../data/characters/mari.js';
 import { necroChar } from '../../data/characters/necro.js';
 import { noraChar } from '../../data/characters/nora.js';
@@ -21,13 +21,13 @@ import { hydroChar } from '../../data/characters/hydro.js';
 
 const characterRatings = new Map([
     aquaChar, astriChar, eliChar, fitaChar, floriChar, flambaeChar, floraChar,
-    keraChar, lumiChar, magmoChar, mariChar, necroChar, noraChar, deweyChar,
+    keraChar, lumiChar, emberChar, mariChar, necroChar, noraChar, deweyChar,
     demoniChar, solareChar, voltiChar, hemoChar, lavaeChar, hydroChar
 ].map(character => [character.charName, character.rating]));
 
 const characters = [
     aquaChar, astriChar, eliChar, fitaChar, floriChar, flambaeChar, floraChar,
-    keraChar, lumiChar, magmoChar, mariChar, necroChar, noraChar, deweyChar,
+    keraChar, lumiChar, emberChar, mariChar, necroChar, noraChar, deweyChar,
     demoniChar, solareChar, voltiChar, hemoChar, lavaeChar, hydroChar
 ];
 const charactersByName = new Map(
