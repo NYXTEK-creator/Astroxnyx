@@ -12,7 +12,6 @@ import {
 } from './saves.js';
 import renderCharacter from '../utils/renderCharacter.js';
 import {
-    characterNames,
     getCardMaxLevel
 } from '../utils/cardProgression.js';
 import { initializeCardDetails } from '../utils/cardDetails.js';
@@ -113,6 +112,11 @@ async function loadCardBook() {
     }
 
     const discoveredCards = new Set(getDiscoveredCards());
+    const characterNames = [
+        'aqua', 'astri', 'demoni', 'dewey', 'eli', 'fita', 'flambae',
+        'flora', 'flori', 'hemo', 'kera', 'lavae', 'lumi', 'ember',
+        'mari', 'necro', 'nora', 'solare', 'volti'
+    ];
     container.replaceChildren();
     for (const name of characterNames) {
         if (discoveredCards.has(name)) {

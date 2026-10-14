@@ -14,6 +14,7 @@ export let emberChar = {
     },
     "possibleFusions": {
         "solare": "astri",
-        "flambo": "flambae"
+        "flambo": "flambae",
+        "vapora": "aqua"
     }
 }

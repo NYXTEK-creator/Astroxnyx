@@ -14,6 +14,7 @@ export let aquaChar = {
     },
     "possibleFusions": {
         "hemo": "nora",
-        "hydro": "mari"
+        "hydro": "mari",
+        "vapora": "ember"
     }
 }
