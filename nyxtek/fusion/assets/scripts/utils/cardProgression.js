@@ -83,6 +83,22 @@ for (let index = 0; index < characterModules.length; index += 1) {
     }
 
     const characterName = characterNames[index].toLowerCase();
+export function registerCharacter(character) {
+    if (!character || typeof character.charName !== 'string' ||
+        !/^[a-z][a-z0-9-]*$/i.test(character.charName) ||
+        !Number.isSafeInteger(character.rating) || character.rating < 1 ||
+        !rankValues.includes(character.value)) {
+        throw new TypeError('Character progression data is invalid.');
+    }
+
+    const characterName = character.charName.toLowerCase();
+    charactersByName.set(characterName, character);
+    characterRatings.set(characterName, character.rating);
+    if (!characters.some(entry => entry.charName.toLowerCase() === characterName)) {
+        characters.push(character);
+    }
+}
+
     characters.push(character);
     charactersByName.set(characterName, character);
     if (Number.isSafeInteger(character.rating) && character.rating > 0) {

@@ -75,35 +75,50 @@
             color: #111;
             font-family: "Orbitron", sans-serif;
             text-align: center;
-        }
+                    let card;
+                    for (let attempt = 0; attempt < 3 && !card; attempt += 1) {
+                        try {
+                            const dataModule = await import(
+                                `./assets/data/characters/${characterName}.js`
+                            );
+                            const character = dataModule[`${characterName}Char`];
+                            const requiredText = [
+                                character?.charName,
+                                character?.charType,
+                                character?.value,
+                                character?.special?.name,
+                                character?.special?.type
+                            ];
+                            const requiredNumbers = [
+                                character?.rating,
+                                character?.level,
+                                character?.damage,
+                                character?.health,
+                                character?.special?.charge,
+                                character?.special?.damage
+                            ];
+                            if (requiredText.some(value => typeof value !== 'string' || !value.trim()) ||
+                                requiredNumbers.some(value => typeof value !== 'number' || !Number.isFinite(value))) {
+                                throw new Error(`Character data for "${characterName}" is incomplete.`);
+                            }
 
-        .preview-fallback-name {
-            max-width: 100%;
-            margin: 0;
-            overflow-wrap: anywhere;
-            font-size: clamp(0.8rem, 2vw, 1rem);
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
-        .preview-fallback-symbol {
-            margin: 0;
-            color: #000;
-            font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            line-height: 1;
-        }
-
-        .preview-fallback-note {
-            margin: 0;
-            color: #171717;
-            font-size: 0.65rem;
-            font-weight: 700;
-        }
-
+                            if (typeof progression.registerCharacter === 'function') {
+                                progression.registerCharacter(character);
+                            }
+                            card = await renderCharacter(characterName, grid);
+                        } catch (error) {
+                            const isModuleLoadError = error instanceof TypeError &&
+                                /failed to fetch dynamically imported module|networkerror|load failed/i
+                                    .test(error.message);
+                            if (!isModuleLoadError || attempt === 2) {
+                                throw error;
+                            }
+                            await new Promise(resolve => setTimeout(resolve, 350 * (attempt + 1)));
+                        }
         @media (max-width: 520px) {
-            .preview-header {
-                align-items: start;
+                    if (!card) {
+                        throw new Error(`Card renderer returned no card for "${characterName}".`);
+                    }
                 flex-direction: column;
             }
 
