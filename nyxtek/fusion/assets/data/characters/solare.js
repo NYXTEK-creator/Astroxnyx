@@ -7,7 +7,7 @@ export let solareChar = {
     "level": 1,
     "damage": 100,
     "health": 70,
-    "fusion": ["magmo", "astri"],
+    "fusion": ["ember", "astri"],
     "special":{
         "name": "Scorch",
         "type": "rand",

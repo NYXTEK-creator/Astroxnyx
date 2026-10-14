@@ -1,5 +1,5 @@
-export let magmoChar = {
-    "charName": "magmo",
+export let emberChar = {
+    "charName": "ember",
     "charType": "fire",
     "rating": 1,
     "value": "bronze",
