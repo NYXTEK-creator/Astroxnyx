@@ -116,6 +116,7 @@ async function loadCardBook() {
         'aqua', 'astri', 'demoni', 'dewey', 'eli', 'fita', 'flambae',
         'flora', 'flori', 'hemo', 'kera', 'lavae', 'lumi', 'ember',
         'mari', 'necro', 'nora', 'solare', 'volti', 'electro'
+        , 'zyth'
     ];
     container.replaceChildren();
     for (const name of characterNames) {
