@@ -7,7 +7,7 @@ export let electroChar = {
     "level": 1,
     "damage": 100,
     "health": 70,
-    "fusion": ["necro", "flambae"],
+    "fusion": ["eli", "kera"],
     "special":{
         "name": "defibrilator",
         "type": "direct",
