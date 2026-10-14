@@ -13,6 +13,7 @@ export let necroChar = {
         "damage": 10,
     },
     "possibleFusions": {
-        "demoni": "flambae"
+        "demoni": "flambae",
+        "zyth": "nora"
     }
 }

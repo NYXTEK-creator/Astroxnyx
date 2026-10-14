@@ -15,5 +15,6 @@ export let noraChar = {
     "possibleFusions": {
         "volti": "eli",
         "hemo": "aqua",
+        "zyth": "necro"
     }
 }
