@@ -1,53 +1,92 @@
-import { aquaChar } from '../../data/characters/aqua.js';
-import { astriChar } from '../../data/characters/astri.js';
-import { eliChar } from '../../data/characters/eli.js';
-import { fitaChar } from '../../data/characters/fita.js';
-import { floriChar } from '../../data/characters/flori.js';
-import { flambaeChar } from '../../data/characters/flambae.js';
-import { floraChar } from '../../data/characters/flora.js';
-import { keraChar } from '../../data/characters/kera.js';
-import { lumiChar } from '../../data/characters/lumi.js';
-import { emberChar } from '../../data/characters/ember.js';
-import { mariChar } from '../../data/characters/mari.js';
-import { necroChar } from '../../data/characters/necro.js';
-import { noraChar } from '../../data/characters/nora.js';
-import { deweyChar } from '../../data/characters/dewey.js';
-import { demoniChar } from '../../data/characters/demoni.js';
-import { solareChar } from '../../data/characters/solare.js';
-import { voltiChar } from '../../data/characters/volti.js';
-import { hemoChar } from '../../data/characters/hemo.js';
-import { lavaeChar } from '../../data/characters/lavae.js';
-import { hydroChar } from '../../data/characters/hydro.js';
-
-const characterRatings = new Map([
-    aquaChar, astriChar, eliChar, fitaChar, floriChar, flambaeChar, floraChar,
-    keraChar, lumiChar, emberChar, mariChar, necroChar, noraChar, deweyChar,
-    demoniChar, solareChar, voltiChar, hemoChar, lavaeChar, hydroChar
-].map(character => [character.charName, character.rating]));
-
-const characters = [
-    aquaChar, astriChar, eliChar, fitaChar, floriChar, flambaeChar, floraChar,
-    keraChar, lumiChar, emberChar, mariChar, necroChar, noraChar, deweyChar,
-    demoniChar, solareChar, voltiChar, hemoChar, lavaeChar, hydroChar
-];
-const charactersByName = new Map(
-    characters.map(character => [character.charName.toLowerCase(), character])
-);
 const rankValues = ['bronze', 'silver', 'gold'];
+const characterDirectoryUrl =
+    'https://api.github.com/repos/NYXTEK-creator/Astroxnyx/contents/nyxtek/fusion/assets/data/characters?ref=main';
+const characterCacheKey = 'fusion-character-files';
+const characterCacheDuration = 30_000;
 
-export function registerCharacter(character) {
-    if (!character || typeof character.charName !== 'string' ||
-        !/^[a-z][a-z0-9-]*$/i.test(character.charName) ||
-        !Number.isSafeInteger(character.rating) || character.rating < 1 ||
-        !rankValues.includes(character.value)) {
-        throw new TypeError('Character progression data is invalid.');
+async function loadCharacterNames() {
+    let cachedNames;
+    try {
+        const cached = JSON.parse(sessionStorage.getItem(characterCacheKey) ?? 'null');
+        if (Array.isArray(cached?.names) && Number.isFinite(cached.savedAt)) {
+            cachedNames = cached.names.filter(name =>
+                typeof name === 'string' && /^[a-z][a-z0-9-]*$/i.test(name)
+            );
+            if (Date.now() - cached.savedAt < characterCacheDuration) {
+                return cachedNames;
+            }
+        }
+    } catch {
+        cachedNames = undefined;
     }
 
-    const characterName = character.charName.toLowerCase();
-    characterRatings.set(characterName, character.rating);
+    try {
+        const response = await fetch(characterDirectoryUrl, {
+            headers: { Accept: 'application/vnd.github+json' }
+        });
+        if (!response.ok) {
+            throw new Error(`Character directory request failed (${response.status}).`);
+        }
+
+        const entries = await response.json();
+        if (!Array.isArray(entries)) {
+            throw new Error('Character directory response was invalid.');
+        }
+
+        const characterNames = entries
+            .filter(entry => entry.type === 'file' && /^[a-z][a-z0-9-]*\.js$/i.test(entry.name))
+            .map(entry => entry.name.replace(/\.js$/i, ''))
+            .sort((first, second) => first.localeCompare(second));
+        if (characterNames.length === 0) {
+            throw new Error('No character modules were found.');
+        }
+
+        try {
+            sessionStorage.setItem(characterCacheKey, JSON.stringify({
+                names: characterNames,
+                savedAt: Date.now()
+            }));
+        } catch {
+            // Storage can be disabled without preventing character loading.
+        }
+        return characterNames;
+    } catch (error) {
+        if (cachedNames?.length) {
+            console.warn('Using cached character files because discovery failed.', error);
+            return cachedNames;
+        }
+        throw error;
+    }
+}
+
+export const characterNames = await loadCharacterNames();
+const characters = [];
+const characterRatings = new Map();
+const charactersByName = new Map();
+
+const characterModules = await Promise.all(characterNames.map(async characterName => {
+    try {
+        return await import(`../../data/characters/${characterName}.js`);
+    } catch (error) {
+        console.error(`Could not load character data for "${characterName}".`, error);
+        return null;
+    }
+}));
+
+for (let index = 0; index < characterModules.length; index += 1) {
+    const characterModule = characterModules[index];
+    const character = Object.values(characterModule ?? {}).find(value =>
+        value && typeof value === 'object' && typeof value.charName === 'string'
+    );
+    if (!character) {
+        continue;
+    }
+
+    const characterName = characterNames[index].toLowerCase();
+    characters.push(character);
     charactersByName.set(characterName, character);
-    if (!characters.some(entry => entry.charName.toLowerCase() === characterName)) {
-        characters.push(character);
+    if (Number.isSafeInteger(character.rating) && character.rating > 0) {
+        characterRatings.set(characterName, character.rating);
     }
 }
 

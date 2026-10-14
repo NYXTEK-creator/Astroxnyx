@@ -13,6 +13,7 @@ export let emberChar = {
         "damage": 20,
     },
     "possibleFusions": {
-        "solare": "astri"
+        "solare": "astri",
+        "flambo": "flambae"
     }
 }

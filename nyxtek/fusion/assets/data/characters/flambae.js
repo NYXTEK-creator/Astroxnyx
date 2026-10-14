@@ -15,6 +15,6 @@ export let flambaeChar = {
     "possibleFusions": {
         "demoni": "necro",
         "lavae": "flora",
-        "flambo": "magmo"
+        "flambo": "ember"
     }
 }
