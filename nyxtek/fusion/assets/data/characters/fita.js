@@ -13,6 +13,7 @@ export let fitaChar = {
         "damage": -9
     },
     "possibleFusions": {
-        "dewey": "mari"
+        "dewey": "mari",
+        "fysi": "flora"
     }
 }

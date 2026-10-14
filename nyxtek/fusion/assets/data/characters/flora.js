@@ -14,6 +14,7 @@ export let floraChar = {
     },
     "possibleFusions": {
         "flori": "lumi",
-        "lavae": "flambae"
+        "lavae": "flambae",
+        "fysi": "fita"
     }
 }
