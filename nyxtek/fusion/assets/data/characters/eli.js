@@ -13,6 +13,7 @@ export let eliChar = {
         "damage": 14
     },
     "possibleFusions": {
-        "volti": "nora"
+        "volti": "nora",
+        "electro": "kera"
     }
 }

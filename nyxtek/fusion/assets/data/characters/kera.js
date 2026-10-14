@@ -11,5 +11,8 @@ export let keraChar = {
         "type": "direct",
         "charge": 2,
         "damage": 28,
+    },
+    "possibleFusions": {
+        "electro": "eli"
     }
 }
