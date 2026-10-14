@@ -5,6 +5,7 @@
 
 html {
     min-width: 320px;
+    overflow-x: clip;
     scroll-behavior: smooth;
 }
 
@@ -287,6 +288,8 @@ body.deck-page {
 .deck-page .deck-actions {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    justify-items: center;
     gap: clamp(0.5rem, 2vw, 1rem);
     width: min(100%, var(--fusion-content-width));
     margin: 0 auto;
@@ -294,19 +297,18 @@ body.deck-page {
 
 .deck-page .deck-actions > :is(#train, #enhance, #fuse, #book) {
     box-sizing: border-box;
-    width: 100%;
+    width: min(100%, clamp(5.5rem, 13vw, 9rem));
     min-width: 0;
-    min-height: 3.5rem;
     height: auto;
-    aspect-ratio: auto;
+    aspect-ratio: 1;
     margin: 0;
     padding: 0.6rem;
-    transform: none;
+    transform: rotate(45deg);
     border-radius: 0.8rem;
 }
 
 .deck-page .deck-actions > :is(#train, #enhance, #fuse, #book) p {
-    transform: none;
+    transform: rotate(315deg);
     font-size: clamp(0.9rem, 2vw, 1.2rem);
 }
 
@@ -424,17 +426,28 @@ body.training-page {
 
 /* Adventure cards */
 .adventure-page #adventureDiv {
+    box-sizing: border-box;
+    justify-content: center;
+    justify-items: center;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(1rem, 4vw, 3.5rem);
-    width: min(100%, 90rem);
+    width: min(100%, 52rem);
     min-height: 0;
+    margin-inline: auto;
     padding: 2rem clamp(1rem, 4vw, 3rem);
 }
 
 .adventure-page :is(#floral, #coral) {
-    width: min(100%, 24rem);
+    box-sizing: border-box;
+    width: min(75%, 18rem);
     height: auto;
-    min-height: 21rem;
+    min-height: 0;
+    aspect-ratio: 1;
+    padding: clamp(0.7rem, 3vw, 1rem);
+}
+
+.adventure-page :is(#floral, #coral) h2 {
+    font-size: clamp(1.2rem, 5vw, 1.7rem);
 }
 
 .adventure-page :is(#floralImg, #coralImg) {
@@ -473,6 +486,8 @@ body.battle-page {
 
 .battle-page .battle-slot {
     box-sizing: border-box;
+    align-self: center;
+    justify-self: center;
     width: 100%;
     height: auto;
     aspect-ratio: 2 / 3;
@@ -482,6 +497,13 @@ body.battle-page {
     width: min(55%, 3rem);
     height: auto;
     aspect-ratio: 1;
+}
+
+.battle-page .battle-slot > :is(.fireCard, .waterCard, .natureCard, .electricCard, .lightCard, .darkCard,
+    .flowerCard, .dewCard, .demonCard, .solarCard, .psychicCard, .bloodCard, .lavaCard) {
+    width: auto;
+    height: 100%;
+    aspect-ratio: 2 / 3;
 }
 
 /* Fusion workspace and shared dialogs */
@@ -560,7 +582,7 @@ body.battle-page {
     }
 
     .adventure-page :is(#floral, #coral) {
-        min-height: 19rem;
+        width: min(75%, 16.5rem);
     }
 
     .battle-page #playerCards {
