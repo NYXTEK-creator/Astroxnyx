@@ -19,19 +19,20 @@ import { hemoChar } from '../../data/characters/hemo.js';
 import { lavaeChar } from '../../data/characters/lavae.js';
 import { hydroChar } from '../../data/characters/hydro.js';
 import { electroChar } from '../../data/characters/electro.js';
+import { zythChar } from '../../data/characters/zyth.js';
 
 const characterRatings = new Map([
     aquaChar, astriChar, eliChar, fitaChar, floriChar, flambaeChar, floraChar,
     keraChar, lumiChar, emberChar, mariChar, necroChar, noraChar, deweyChar,
     demoniChar, solareChar, voltiChar, hemoChar, lavaeChar, hydroChar,
-    electroChar
+    electroChar, zythChar
 ].map(character => [character.charName, character.rating]));
 
 const characters = [
     aquaChar, astriChar, eliChar, fitaChar, floriChar, flambaeChar, floraChar,
     keraChar, lumiChar, emberChar, mariChar, necroChar, noraChar, deweyChar,
     demoniChar, solareChar, voltiChar, hemoChar, lavaeChar, hydroChar,
-    electroChar
+    electroChar, zythChar
 ];
 const charactersByName = new Map(
     characters.map(character => [character.charName.toLowerCase(), character])
