@@ -115,7 +115,7 @@ async function loadCardBook() {
     const characterNames = [
         'aqua', 'astri', 'demoni', 'dewey', 'eli', 'fita', 'flambae',
         'flora', 'flori', 'hemo', 'kera', 'lavae', 'lumi', 'ember',
-        'mari', 'necro', 'nora', 'solare', 'volti'
+        'mari', 'necro', 'nora', 'solare', 'volti', 'electro'
     ];
     container.replaceChildren();
     for (const name of characterNames) {
