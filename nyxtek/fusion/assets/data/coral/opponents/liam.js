@@ -20,7 +20,7 @@ export const liam = {
         exp: 352,
         value: 4,
         firstTime: 'necro',
-        reward: ['nora', 'magmo', '3 darkgems'],
+        reward: ['nora', 'ember', '3 darkgems'],
         inventory: createRandomInventory([
             { name: 'necro', minLevel: 8, maxLevel: 10, minCards: 1, maxCards: 'none' },
             { name: 'nora', minLevel: 8, maxLevel: 10, minCards: 1, maxCards: 'none' },

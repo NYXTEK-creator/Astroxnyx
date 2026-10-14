@@ -7,11 +7,11 @@ export const zach = {
         coins: 306,
         exp: 237,
         value: 3,
-        firstTime: 'magmo',
+        firstTime: 'ember',
         reward: ['flambae', 'aqua', '2 firegems'],
         inventory: createRandomInventory([
             { name: 'flambae', minLevel: 5, maxLevel: 7, minCards: 1, maxCards: 'none' },
-            { name: 'magmo', minLevel: 5, maxLevel: 7, minCards: 1, maxCards: 'none' },
+            { name: 'ember', minLevel: 5, maxLevel: 7, minCards: 1, maxCards: 'none' },
             { name: 'lavae', minLevel: 1, maxLevel: 3, minCards: 1, maxCards: 1}
         ], 5)
     },
@@ -21,10 +21,10 @@ export const zach = {
         exp: 402,
         value: 4,
         firstTime: 'flambae',
-        reward: ['magmo', 'eli', '3 firegems'],
+        reward: ['ember', 'eli', '3 firegems'],
         inventory: createRandomInventory([
             { name: 'flambae', minLevel: 8, maxLevel: 10, minCards: 1, maxCards: 'none' },
-            { name: 'magmo', minLevel: 8, maxLevel: 10, minCards: 1, maxCards: 'none' },
+            { name: 'ember', minLevel: 8, maxLevel: 10, minCards: 1, maxCards: 'none' },
             { name: 'lavae', minLevel: 1, maxLevel: 3, minCards: 1, maxCards: 1},
             { name: 'demoni', minLevel: 1, maxLevel: 3, minCards: 1, maxCards: 1},
         ], 5)
@@ -38,7 +38,7 @@ export const zach = {
         reward: ['flambae', 'lumi', '4 firegems'],
         inventory: createRandomInventory([
             { name: 'flambae', minLevel: 8, maxLevel: 10, minCards: 1, maxCards: 'none' },
-            { name: 'magmo', minLevel: 8, maxLevel: 10, minCards: 1, maxCards: 'none' },
+            { name: 'ember', minLevel: 8, maxLevel: 10, minCards: 1, maxCards: 'none' },
             { name: 'lavae', minLevel: 1, maxLevel: 3, minCards: 1, maxCards: 'none'},
             { name: 'demoni', minLevel: 1, maxLevel: 3, minCards: 1, maxCards: 'none'},
         ], 5)

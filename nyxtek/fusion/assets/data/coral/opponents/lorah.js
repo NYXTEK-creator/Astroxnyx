@@ -34,7 +34,7 @@ export const lorah = {
         exp: 647,
         value: 5,
         firstTime: ['volti', '3 lightgems'],
-        reward: ['magmo', 'aqua', '4 electricgems'],
+        reward: ['ember', 'aqua', '4 electricgems'],
         inventory: createRandomInventory([
             { name: 'eli', minLevel: 8, maxLevel: 10, minCards: 1, maxCards: 'none' },
             { name: 'kera', minLevel: 8, maxLevel: 10, minCards: 1, maxCards: 'none' },

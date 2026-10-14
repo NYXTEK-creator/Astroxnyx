@@ -13,6 +13,7 @@ export let astriChar = {
         "damage": -10
     },
     "possibleFusions": {
-        "solare": "ember"
+        "solare": "ember",
+        "siri": "lumi"
     }
 }

@@ -7,7 +7,7 @@ export let flamboChar = {
     "level": 1,
     "damage": 90,
     "health": 80,
-    "fusion": ["magmo", "flambae"],
+    "fusion": ["ember", "flambae"],
     "special":{
         "name": "firewall",
         "type": "AOE",

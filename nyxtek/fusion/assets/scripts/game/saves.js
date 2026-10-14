@@ -345,7 +345,7 @@ function getPlayerProgress() {
 }
 
 const starterInventories = {
-    fire: ['flambae', 'flambae', 'magmo', 'magmo'],
+    fire: ['flambae', 'flambae', 'ember', 'ember'],
     water: ['mari', 'mari', 'aqua', 'aqua'],
     nature: ['flora', 'flora', 'fita', 'fita'],
     electric: ['eli', 'eli', 'kera', 'kera'],

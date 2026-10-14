@@ -13,6 +13,7 @@ export let lumiChar = {
         "damage": -7,
     },
     "possibleFusions": {
-        "flori": "flora"
+        "flori": "flora",
+        "siri": "astri",
     }
 }
