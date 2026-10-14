@@ -1,28 +1,7 @@
-import { aquaChar } from '../../data/characters/aqua.js';
-import { astriChar } from '../../data/characters/astri.js';
-import { demoniChar } from '../../data/characters/demoni.js';
-import { deweyChar } from '../../data/characters/dewey.js';
-import { eliChar } from '../../data/characters/eli.js';
-import { fitaChar } from '../../data/characters/fita.js';
-import { flambaeChar } from '../../data/characters/flambae.js';
-import { floraChar } from '../../data/characters/flora.js';
-import { floriChar } from '../../data/characters/flori.js';
-import { hemoChar } from '../../data/characters/hemo.js';
-import { keraChar } from '../../data/characters/kera.js';
-import { lavaeChar } from '../../data/characters/lavae.js';
-import { lumiChar } from '../../data/characters/lumi.js';
-import { magmoChar } from '../../data/characters/magmo.js';
-import { mariChar } from '../../data/characters/mari.js';
-import { necroChar } from '../../data/characters/necro.js';
-import { noraChar } from '../../data/characters/nora.js';
-import { solareChar } from '../../data/characters/solare.js';
-import { voltiChar } from '../../data/characters/volti.js';
-
-const charactersByName = new Map([
-    aquaChar, astriChar, demoniChar, deweyChar, eliChar, fitaChar,
-    flambaeChar, floraChar, floriChar, hemoChar, keraChar, lavaeChar,
-    lumiChar, magmoChar, mariChar, necroChar, noraChar, solareChar, voltiChar
-].map(character => [character.charName.toLowerCase(), character]));
+import {
+    getCardMaxLevel,
+    getCharacterByName
+} from './cardProgression.js';
 
 export function createRandomInventory(possibleCards, count) {
     if (!Number.isSafeInteger(count) || count < 1) {
@@ -39,14 +18,14 @@ export function createRandomInventory(possibleCards, count) {
                 'Each opponent card must specify a name and level range.'
             );
         }
-        const character = charactersByName.get(candidate.name.toLowerCase());
+        const character = getCharacterByName(candidate.name);
         if (!character) {
             throw new Error(`Unknown opponent card: "${candidate.name}".`);
         }
         if (!Number.isSafeInteger(candidate.minLevel) || candidate.minLevel < 1 ||
             !Number.isSafeInteger(candidate.maxLevel) ||
             candidate.maxLevel < candidate.minLevel ||
-            candidate.maxLevel > character.rating * 10) {
+            candidate.maxLevel > getCardMaxLevel(candidate.name)) {
             throw new RangeError(
                 `Opponent level range for "${candidate.name}" is invalid.`
             );

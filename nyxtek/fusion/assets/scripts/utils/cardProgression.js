@@ -90,6 +90,13 @@ for (let index = 0; index < characterModules.length; index += 1) {
     }
 }
 
+export function getCharacterByName(characterName) {
+    if (typeof characterName !== 'string') {
+        throw new TypeError('Character name must be a string.');
+    }
+    return charactersByName.get(characterName.toLowerCase());
+}
+
 export function getCardNamesByRating(rating) {
     if (!Number.isSafeInteger(rating) || rating < 1) {
         throw new TypeError('Card rating must be a positive safe integer.');
