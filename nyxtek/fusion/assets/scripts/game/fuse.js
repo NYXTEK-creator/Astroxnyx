@@ -11,7 +11,7 @@ import {
     getCardEnhancementTotal,
     getCardMaxLevel,
     getFusionStarRanks
-} from '../utils/cardProgression.js?v=7';
+} from '../utils/cardProgression.js?v=10';
 
 const firstSlot = document.querySelector('#fuse-first-card');
 const secondSlot = document.querySelector('#fuse-second-card');

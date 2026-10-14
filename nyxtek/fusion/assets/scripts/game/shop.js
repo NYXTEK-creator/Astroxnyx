@@ -10,7 +10,7 @@ import renderCharacter from '../utils/renderCharacter.js?v=20';
 import {
     getCardNamesByRating,
     getCardNamesByType
-} from '../utils/cardProgression.js?v=9';
+} from '../utils/cardProgression.js?v=10';
 
 const SHOP_CARD_COST = 800;
 const SHOP_CARD_GEM_COST = 30;

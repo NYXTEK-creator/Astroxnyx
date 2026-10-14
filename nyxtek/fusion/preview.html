@@ -122,12 +122,8 @@
 
     <script type="module">
         import renderCharacter from './assets/scripts/utils/renderCharacter.js?v=20';
+        import { registerCharacter } from './assets/scripts/utils/cardProgression.js?v=10';
 
-        const characterNames = [
-            'aqua', 'astri', 'demoni', 'dewey', 'eli', 'fita', 'flambae',
-            'flora', 'flori', 'hemo', 'kera', 'lavae', 'lumi', 'magmo',
-            'mari', 'necro', 'nora', 'solare', 'volti'
-        ];
         const grid = document.querySelector('#preview-grid');
         const status = document.querySelector('#preview-status');
         let fallbackCount = 0;
@@ -155,44 +151,64 @@
             grid.append(card);
         }
 
-        for (const characterName of characterNames) {
-            try {
-                const dataModule = await import(
-                    `./assets/data/characters/${characterName}.js`
-                );
-                const character = dataModule[`${characterName}Char`];
-                const requiredText = [
-                    character?.charName,
-                    character?.charType,
-                    character?.value,
-                    character?.special?.name,
-                    character?.special?.type
-                ];
-                const requiredNumbers = [
-                    character?.rating,
-                    character?.level,
-                    character?.damage,
-                    character?.health,
-                    character?.special?.charge,
-                    character?.special?.damage
-                ];
-                if (requiredText.some(value => typeof value !== 'string' || !value.trim()) ||
-                    requiredNumbers.some(value => typeof value !== 'number' || !Number.isFinite(value))) {
-                    throw new Error(`Character data for "${characterName}" is incomplete.`);
-                }
-
-                const card = await renderCharacter(characterName, grid);
-                card.removeAttribute('role');
-                card.removeAttribute('tabindex');
-                card.removeAttribute('aria-label');
-            } catch (error) {
-                fallbackCount += 1;
-                appendFallback(characterName);
-                console.warn(`Could not render ${characterName}; using its fallback card.`, error);
+        try {
+            const response = await fetch(
+                'https://api.github.com/repos/NYXTEK-creator/Astroxnyx/contents/nyxtek/fusion/assets/data/characters?ref=main',
+                { headers: { Accept: 'application/vnd.github+json' } }
+            );
+            if (!response.ok) {
+                throw new Error(`Character directory request failed (${response.status}).`);
             }
-        }
 
-        status.textContent = `${characterNames.length} cards | ${fallbackCount} missing-data fallbacks`;
+            const entries = await response.json();
+            const characterNames = entries
+                .filter(entry => entry.type === 'file' && /^[a-z][a-z0-9-]*\.js$/i.test(entry.name))
+                .map(entry => entry.name.replace(/\.js$/i, ''))
+                .sort((first, second) => first.localeCompare(second));
+
+            for (const characterName of characterNames) {
+                try {
+                    const dataModule = await import(
+                        `./assets/data/characters/${characterName}.js`
+                    );
+                    const character = dataModule[`${characterName}Char`];
+                    const requiredText = [
+                        character?.charName,
+                        character?.charType,
+                        character?.value,
+                        character?.special?.name,
+                        character?.special?.type
+                    ];
+                    const requiredNumbers = [
+                        character?.rating,
+                        character?.level,
+                        character?.damage,
+                        character?.health,
+                        character?.special?.charge,
+                        character?.special?.damage
+                    ];
+                    if (requiredText.some(value => typeof value !== 'string' || !value.trim()) ||
+                        requiredNumbers.some(value => typeof value !== 'number' || !Number.isFinite(value))) {
+                        throw new Error(`Character data for "${characterName}" is incomplete.`);
+                    }
+
+                    registerCharacter(character);
+                    const card = await renderCharacter(characterName, grid);
+                    card.removeAttribute('role');
+                    card.removeAttribute('tabindex');
+                    card.removeAttribute('aria-label');
+                } catch (error) {
+                    fallbackCount += 1;
+                    appendFallback(characterName);
+                    console.warn(`Could not render ${characterName}; using its fallback card.`, error);
+                }
+            }
+
+            status.textContent = `${characterNames.length} cards | ${fallbackCount} missing-data fallbacks`;
+        } catch (error) {
+            status.textContent = 'Could not load character data';
+            console.error('Could not discover character data files.', error);
+        }
     </script>
 </body>
 </html>

@@ -34,6 +34,22 @@ const charactersByName = new Map(
 );
 const rankValues = ['bronze', 'silver', 'gold'];
 
+export function registerCharacter(character) {
+    if (!character || typeof character.charName !== 'string' ||
+        !/^[a-z][a-z0-9-]*$/i.test(character.charName) ||
+        !Number.isSafeInteger(character.rating) || character.rating < 1 ||
+        !rankValues.includes(character.value)) {
+        throw new TypeError('Character progression data is invalid.');
+    }
+
+    const characterName = character.charName.toLowerCase();
+    characterRatings.set(characterName, character.rating);
+    charactersByName.set(characterName, character);
+    if (!characters.some(entry => entry.charName.toLowerCase() === characterName)) {
+        characters.push(character);
+    }
+}
+
 export function getCardNamesByRating(rating) {
     if (!Number.isSafeInteger(rating) || rating < 1) {
         throw new TypeError('Card rating must be a positive safe integer.');

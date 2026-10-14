@@ -3,7 +3,7 @@ import {
     getCardMaxEnhancement,
     getCardMaxLevel,
     getCardStarRanks
-} from './cardProgression.js?v=7';
+} from './cardProgression.js?v=10';
 import { getCardExperienceForLevel } from '../game/saves.js?v=20';
 
 export default async function renderCharacter(
