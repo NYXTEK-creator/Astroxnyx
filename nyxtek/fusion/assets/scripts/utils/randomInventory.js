@@ -3,6 +3,7 @@ import { astriChar } from '../../data/characters/astri.js';
 import { demoniChar } from '../../data/characters/demoni.js';
 import { deweyChar } from '../../data/characters/dewey.js';
 import { eliChar } from '../../data/characters/eli.js';
+import { electroChar } from '../../data/characters/electro.js';
 import { fitaChar } from '../../data/characters/fita.js';
 import { flambaeChar } from '../../data/characters/flambae.js';
 import { floraChar } from '../../data/characters/flora.js';
@@ -19,7 +20,7 @@ import { solareChar } from '../../data/characters/solare.js';
 import { voltiChar } from '../../data/characters/volti.js';
 
 const charactersByName = new Map([
-    aquaChar, astriChar, demoniChar, deweyChar, eliChar, fitaChar,
+    aquaChar, astriChar, demoniChar, deweyChar, eliChar, electroChar, fitaChar,
     flambaeChar, floraChar, floriChar, hemoChar, keraChar, lavaeChar,
     lumiChar, emberChar, mariChar, necroChar, noraChar, solareChar, voltiChar
 ].map(character => [character.charName.toLowerCase(), character]));

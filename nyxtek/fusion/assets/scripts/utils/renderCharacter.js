@@ -29,9 +29,33 @@ export default async function renderCharacter(
         await import(`../../data/characters/${characterName}.js`);
     const character = characterDataModule[`${characterName}Char`];
 
-    if (!character || typeof character.charName !== 'string' ||
-        typeof character.charType !== 'string') {
+    if (!character || typeof character !== 'object') {
         throw new Error(`Character data for "${characterName}" is missing or invalid.`);
+    }
+    const missingCharacterFields = [
+        'charName', 'charType', 'rating', 'value', 'level',
+        'damage', 'health', 'special'
+    ].filter(field => character[field] === undefined || character[field] === null);
+    if (missingCharacterFields.length > 0) {
+        throw new Error(
+            `Character data for "${characterName}" is missing required fields: ${missingCharacterFields.join(', ')}.`
+        );
+    }
+    if (typeof character.charName !== 'string' ||
+        typeof character.charType !== 'string') {
+        throw new Error(
+            `Character data for "${characterName}" has invalid fields: charName, charType.`
+        );
+    }
+
+    const missingSpecialFields = ['type', 'charge', 'damage'].filter(
+        field => character.special[field] === undefined ||
+            character.special[field] === null
+    );
+    if (missingSpecialFields.length > 0) {
+        throw new Error(
+            `Special data for "${characterName}" is missing required fields: ${missingSpecialFields.map(field => `special.${field}`).join(', ')}.`
+        );
     }
 
     if (!/^[a-z][a-z0-9-]*$/i.test(character.charType)) {
@@ -107,19 +131,45 @@ export default async function renderCharacter(
     const typeDataModule = await import(`../../data/types/${typeName}.js`);
     const type = typeDataModule[typeName];
 
-    if (!type || typeof type.emoji !== 'string' ||
+    if (!type || typeof type !== 'object') {
+        throw new Error(`Type data for "${typeName}" is missing or invalid.`);
+    }
+    const missingTypeFields = ['emoji', 'color-empty', 'color-full'].filter(
+        field => type[field] === undefined || type[field] === null
+    );
+    if (missingTypeFields.length > 0) {
+        throw new Error(
+            `Type data for "${typeName}" is missing required fields: ${missingTypeFields.join(', ')}.`
+        );
+    }
+    if (typeof type.emoji !== 'string' ||
         typeof type['color-empty'] !== 'string' ||
         typeof type['color-full'] !== 'string') {
-        throw new Error(`Type data for "${typeName}" is missing or invalid.`);
+        throw new Error(
+            `Type data for "${typeName}" has invalid fields: emoji, color-empty, color-full.`
+        );
     }
     const mainTypeDataModule = enhancementType.toLowerCase() === typeName
         ? typeDataModule
         : await import(`../../data/types/${enhancementType.toLowerCase()}.js`);
     const mainTypeData = mainTypeDataModule[enhancementType.toLowerCase()];
-    if (!mainTypeData || typeof mainTypeData.strength !== 'string' ||
-        typeof mainTypeData.weakness !== 'string') {
+    if (!mainTypeData || typeof mainTypeData !== 'object') {
         throw new Error(
             `Combat type data for "${enhancementType.toLowerCase()}" is missing or invalid.`
+        );
+    }
+    const missingCombatTypeFields = ['strength', 'weakness'].filter(
+        field => mainTypeData[field] === undefined || mainTypeData[field] === null
+    );
+    if (missingCombatTypeFields.length > 0) {
+        throw new Error(
+            `Combat type data for "${enhancementType.toLowerCase()}" is missing required fields: ${missingCombatTypeFields.join(', ')}.`
+        );
+    }
+    if (typeof mainTypeData.strength !== 'string' ||
+        typeof mainTypeData.weakness !== 'string') {
+        throw new Error(
+            `Combat type data for "${enhancementType.toLowerCase()}" has invalid fields: strength, weakness.`
         );
     }
 
