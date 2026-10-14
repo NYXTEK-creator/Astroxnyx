@@ -34,7 +34,7 @@ import {
     recordCoralVictory,
     recordFloralVictory
 } from './progression.js?v=3';
-import renderCharacter, { fitCardTitle } from '../utils/renderCharacter.js?v=20';
+import renderCharacter, { fitCardTitle } from '../utils/renderCharacter.js?v=21';
 
 initializeCardDetails();
 import { parseRewardChoice } from './rewardChoices.js?v=1';

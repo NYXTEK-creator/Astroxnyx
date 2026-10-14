@@ -10,7 +10,7 @@ import {
     getStorageCards,
     moveCardToCollection
 } from './saves.js?v=21';
-import renderCharacter from '../utils/renderCharacter.js?v=20';
+import renderCharacter from '../utils/renderCharacter.js?v=21';
 import { getCardMaxLevel } from '../utils/cardProgression.js?v=10';
 import { initializeCardDetails } from '../utils/cardDetails.js?v=3';
 

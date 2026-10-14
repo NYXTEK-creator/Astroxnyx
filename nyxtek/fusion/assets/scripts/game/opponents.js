@@ -7,7 +7,7 @@ import { liam } from '../../data/coral/opponents/liam.js?v=7';
 import { lorah } from '../../data/coral/opponents/lorah.js?v=7';
 import { marie } from '../../data/coral/opponents/marie.js?v=7';
 import { zach } from '../../data/coral/opponents/zach.js?v=7';
-import renderCharacter from '../utils/renderCharacter.js?v=20';
+import renderCharacter from '../utils/renderCharacter.js?v=21';
 import { parseRewardChoice } from './rewardChoices.js?v=1';
 import {
     getCoralDefeatedCount,

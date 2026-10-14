@@ -6,7 +6,7 @@ import {
     purchaseCardFromShop,
     tradeCurrencies
 } from './saves.js?v=24';
-import renderCharacter from '../utils/renderCharacter.js?v=20';
+import renderCharacter from '../utils/renderCharacter.js?v=21';
 import {
     getCardNamesByRating,
     getCardNamesByType
