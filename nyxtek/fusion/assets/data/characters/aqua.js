@@ -7,12 +7,13 @@ export let aquaChar = {
     "damage": 35,
     "health": 60,
     "special": {
-        "name": "marine gun",
+        "name": "bubble gun",
         "type": "rand",
         "charge": 1,
         "damage": 14,
     },
     "possibleFusions": {
-        "hemo": "nora"
+        "hemo": "nora",
+        "hydro": "mari"
     }
 }

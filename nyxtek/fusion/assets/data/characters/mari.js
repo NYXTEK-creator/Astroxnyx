@@ -13,6 +13,7 @@ export let mariChar = {
         "damage": -20,
     },
     "possibleFusions": {
-        "dewey": "fita"
+        "dewey": "fita",
+        "hydro": "aqua"
     }
 }
