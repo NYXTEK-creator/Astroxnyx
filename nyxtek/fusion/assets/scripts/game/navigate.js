@@ -11,7 +11,7 @@ import {
     saveStarterInventory,
     getCurrencies,
     resetPlayerAccount
-} from './saves.js?v=20';
+} from './saves.js';
 import { resetCoralProgress, resetFloralProgress } from './progression.js';
 import { level as levelConfig } from '../../data/game/level.js';
 

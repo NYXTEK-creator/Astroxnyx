@@ -1,21 +1,21 @@
 import { order as floralOrder } from '../../data/floral/order.js';
-import { issac } from '../../data/floral/opponents/issac.js?v=7';
-import { lucas } from '../../data/floral/opponents/lucas.js?v=7';
-import { lucy } from '../../data/floral/opponents/lucy.js?v=7';
+import { issac } from '../../data/floral/opponents/issac.js';
+import { lucas } from '../../data/floral/opponents/lucas.js';
+import { lucy } from '../../data/floral/opponents/lucy.js';
 import { order as coralOrder } from '../../data/coral/order.js';
-import { liam } from '../../data/coral/opponents/liam.js?v=7';
-import { lorah } from '../../data/coral/opponents/lorah.js?v=7';
-import { marie } from '../../data/coral/opponents/marie.js?v=7';
-import { zach } from '../../data/coral/opponents/zach.js?v=7';
-import renderCharacter from '../utils/renderCharacter.js?v=21';
-import { parseRewardChoice } from './rewardChoices.js?v=1';
+import { liam } from '../../data/coral/opponents/liam.js';
+import { lorah } from '../../data/coral/opponents/lorah.js';
+import { marie } from '../../data/coral/opponents/marie.js';
+import { zach } from '../../data/coral/opponents/zach.js';
+import renderCharacter from '../utils/renderCharacter.js';
+import { parseRewardChoice } from './rewardChoices.js';
 import {
     getCoralDefeatedCount,
     getFloralDefeatedCount,
     isCoralOpponentUnlocked,
     isCoralStageUnlocked,
     isFloralOpponentUnlocked
-} from './progression.js?v=3';
+} from './progression.js';
 
 const opponentData = {
     floral: {

@@ -9,10 +9,10 @@ import {
     getPlayerName,
     getStorageCards,
     moveCardToCollection
-} from './saves.js?v=21';
-import renderCharacter from '../utils/renderCharacter.js?v=21';
-import { getCardMaxLevel } from '../utils/cardProgression.js?v=10';
-import { initializeCardDetails } from '../utils/cardDetails.js?v=3';
+} from './saves.js';
+import renderCharacter from '../utils/renderCharacter.js';
+import { getCardMaxLevel } from '../utils/cardProgression.js';
+import { initializeCardDetails } from '../utils/cardDetails.js';
 
 initializeCardDetails();
 

@@ -1,4 +1,4 @@
-import { createRandomInventory } from '../../../scripts/utils/randomInventory.js?v=4';
+import { createRandomInventory } from '../../../scripts/utils/randomInventory.js';
 
 export const lucy = {
     "type": "water",

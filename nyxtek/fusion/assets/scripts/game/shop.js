@@ -5,12 +5,12 @@ import {
     getPlayerLevel,
     purchaseCardFromShop,
     tradeCurrencies
-} from './saves.js?v=24';
-import renderCharacter from '../utils/renderCharacter.js?v=21';
+} from './saves.js';
+import renderCharacter from '../utils/renderCharacter.js';
 import {
     getCardNamesByRating,
     getCardNamesByType
-} from '../utils/cardProgression.js?v=10';
+} from '../utils/cardProgression.js';
 
 const SHOP_CARD_COST = 800;
 const SHOP_CARD_GEM_COST = 30;

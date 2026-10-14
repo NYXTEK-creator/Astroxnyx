@@ -6,7 +6,7 @@ import {
     getPlayerLevel,
     getStorageCards,
     sellCard
-} from '../game/saves.js?v=21';
+} from '../game/saves.js';
 
 const effectLabels = {
     aoe: 'Area attack',

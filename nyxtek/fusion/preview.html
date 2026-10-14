@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Isometra&family=Orbitron&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles/main.css">
-    <link rel="stylesheet" href="assets/styles/card.css?v=42">
-    <link rel="stylesheet" href="assets/styles/responsive.css?v=5">
+    <link rel="stylesheet" href="assets/styles/card.css">
+    <link rel="stylesheet" href="assets/styles/responsive.css">
     <style>
         body.preview-page {
             min-height: 100vh;
@@ -121,8 +121,8 @@
     <main id="preview-grid" class="preview-grid" aria-label="All Fusion character cards"></main>
 
     <script type="module">
-        import renderCharacter from './assets/scripts/utils/renderCharacter.js?v=21';
-        import { registerCharacter } from './assets/scripts/utils/cardProgression.js?v=10';
+        import renderCharacter from './assets/scripts/utils/renderCharacter.js';
+        import { registerCharacter } from './assets/scripts/utils/cardProgression.js';
 
         const grid = document.querySelector('#preview-grid');
         const status = document.querySelector('#preview-status');

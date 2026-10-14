@@ -3,8 +3,8 @@ import {
     getCardMaxEnhancement,
     getCardMaxLevel,
     getCardStarRanks
-} from './cardProgression.js?v=10';
-import { getCardExperienceForLevel } from '../game/saves.js?v=20';
+} from './cardProgression.js';
+import { getCardExperienceForLevel } from '../game/saves.js';
 
 export default async function renderCharacter(
     name,
@@ -26,7 +26,7 @@ export default async function renderCharacter(
     }
 
     const characterDataModule =
-        await import(`../../data/characters/${characterName}.js?v=2`);
+        await import(`../../data/characters/${characterName}.js`);
     const character = characterDataModule[`${characterName}Char`];
 
     if (!character || typeof character.charName !== 'string' ||

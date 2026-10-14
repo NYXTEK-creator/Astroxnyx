@@ -3,9 +3,9 @@ import {
     getElementalStones,
     getInventoryCards,
     getStorageCards
-} from './saves.js?v=20';
-import renderCharacter from '../utils/renderCharacter.js?v=21';
-import { initializeCardDetails } from '../utils/cardDetails.js?v=2';
+} from './saves.js';
+import renderCharacter from '../utils/renderCharacter.js';
+import { initializeCardDetails } from '../utils/cardDetails.js';
 
 initializeCardDetails();
 

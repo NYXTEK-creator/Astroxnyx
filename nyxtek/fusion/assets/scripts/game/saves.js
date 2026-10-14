@@ -6,8 +6,8 @@ import {
     getCardMaxLevel,
     getCardStarRanks,
     getFusionStarRanks
-} from '../utils/cardProgression.js?v=10';
-import { parseRewardChoice } from './rewardChoices.js?v=1';
+} from '../utils/cardProgression.js';
+import { parseRewardChoice } from './rewardChoices.js';
 
 const PROFILE_KEY = 'fusion-profile';
 const PLAYER_NAMES_KEY = 'fusion-player-names';

@@ -4,14 +4,14 @@ import {
     getCoins,
     getInventoryCards,
     getPlayerName
-} from './saves.js?v=20';
-import renderCharacter from '../utils/renderCharacter.js?v=21';
+} from './saves.js';
+import renderCharacter from '../utils/renderCharacter.js';
 import {
     findFusionResult,
     getCardEnhancementTotal,
     getCardMaxLevel,
     getFusionStarRanks
-} from '../utils/cardProgression.js?v=10';
+} from '../utils/cardProgression.js';
 
 const firstSlot = document.querySelector('#fuse-first-card');
 const secondSlot = document.querySelector('#fuse-second-card');
