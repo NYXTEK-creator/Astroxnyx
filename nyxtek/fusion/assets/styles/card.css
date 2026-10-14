@@ -363,8 +363,8 @@
      justify-items: center;
      background: linear-gradient(
         hsl(24, 93%, 22%),
-        hsl(355, 93%, 22%)
-        hsl(22, 64%, 15%),
+        hsl(355, 93%, 22%),
+        hsl(22, 64%, 15%)
     );
 }
 .fireCard,
