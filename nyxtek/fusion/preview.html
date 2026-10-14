@@ -121,9 +121,6 @@
     <main id="preview-grid" class="preview-grid" aria-label="All Fusion character cards"></main>
 
     <script type="module">
-        import renderCharacter from './assets/scripts/utils/renderCharacter.js';
-        import { characterNames } from './assets/scripts/utils/cardProgression.js';
-
         const grid = document.querySelector('#preview-grid');
         const status = document.querySelector('#preview-status');
         let fallbackCount = 0;
@@ -152,6 +149,26 @@
         }
 
         try {
+            const progression = await import('./assets/scripts/utils/cardProgression.js');
+            let characterNames = progression.characterNames;
+            if (!Array.isArray(characterNames)) {
+                const response = await fetch(
+                    'https://api.github.com/repos/NYXTEK-creator/Astroxnyx/contents/nyxtek/fusion/assets/data/characters?ref=main',
+                    { headers: { Accept: 'application/vnd.github+json' } }
+                );
+                if (!response.ok) {
+                    throw new Error(`Character directory request failed (${response.status}).`);
+                }
+                const entries = await response.json();
+                characterNames = entries
+                    .filter(entry => entry.type === 'file' && /^[a-z][a-z0-9-]*\.js$/i.test(entry.name))
+                    .map(entry => entry.name.replace(/\.js$/i, ''))
+                    .sort((first, second) => first.localeCompare(second));
+            }
+
+            const { default: renderCharacter } = await import(
+                './assets/scripts/utils/renderCharacter.js'
+            );
             for (const characterName of characterNames) {
                 try {
                     const dataModule = await import(
@@ -178,6 +195,9 @@
                         throw new Error(`Character data for "${characterName}" is incomplete.`);
                     }
 
+                    if (typeof progression.registerCharacter === 'function') {
+                        progression.registerCharacter(character);
+                    }
                     const card = await renderCharacter(characterName, grid);
                     card.removeAttribute('role');
                     card.removeAttribute('tabindex');
