@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0e1b">
+    <title>Fusion Card Preview</title>
+    <link rel="icon" type="image/x-icon" href="/assets/images/icons/gameicon.png">
+    <script type="module" src="assets/scripts/utils/cardDetailsBootstrap.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Isometra&family=Orbitron&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/main.css">
+    <link rel="stylesheet" href="assets/styles/card.css">
+    <link rel="stylesheet" href="assets/styles/responsive.css">
+    <style>
+        body.preview-page {
+            min-height: 100vh;
+            padding: clamp(1rem, 3vw, 2rem);
+        }
+
+        .preview-header,
+        .preview-grid {
+            width: min(100%, 90rem);
+            margin-inline: auto;
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .preview-header .title {
+            margin: 0;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        .preview-status {
+            flex: 0 0 auto;
+            margin: 0;
+            color: #c0c6d5;
+            font-family: "Orbitron", sans-serif;
+            font-size: 0.8rem;
+            text-align: right;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+            justify-items: center;
+            align-items: start;
+            gap: clamp(0.75rem, 2vw, 1.4rem);
+        }
+
+        .preview-grid > :is(.fireCard, .waterCard, .natureCard, .electricCard, .lightCard, .darkCard,
+            .flowerCard, .dewCard, .demonCard, .solarCard, .psychicCard, .bloodCard, .lavaCard, .steamCard, .duality_darkCard, .duality_lightCard, .plasmaCard, .angelCard,
+            .preview-fallback) {
+            width: min(100%, var(--fusion-card-width));
+            height: auto;
+            aspect-ratio: 2 / 3;
+        }
+
+        .preview-grid > .preview-fallback {
+            box-sizing: border-box;
+            display: grid;
+            align-content: center;
+            justify-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            border: 3px solid #a7a7a7;
+            border-radius: clamp(0.7rem, 2vw, 1.25rem);
+            background: linear-gradient(145deg, #858585, #555, #292929);
+            box-shadow: 0 0 0 3.5px #000, 0 0 5px #aaa;
+            color: #f5f5f5;
+            font-family: "Orbitron", sans-serif;
+            text-align: center;
+            overflow-wrap: anywhere;
+            text-shadow: 0 1px 2px #111;
+        }
+
+        .preview-fallback-name,
+        .preview-fallback-note,
+        .preview-fallback-reason {
+            margin: 0;
+        }
+
+        .preview-fallback-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+
+        .preview-fallback-symbol {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .preview-fallback-reason {
+            font-family: sans-serif;
+            font-size: 0.8rem;
+            overflow-wrap: anywhere;
+        }
+
+        .preview-grid .cardHeader {
+            left: 8%;
+            right: 4%;
+            gap: 0.25rem;
+        }
+
+        .preview-grid .cardLevel {
+            padding: 0.1rem 0.35rem;
+            font-size: 0.65rem;
+        }
+
+        .preview-grid .cardText {
+            font-size: clamp(0.8rem, 1.8vw, 1rem);
+            letter-spacing: -0.035em;
+        }
+
+        @media (max-width: 520px) {
+            .preview-header {
+                align-items: start;
+                flex-direction: column;
+            }
+
+            .preview-status {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body class="preview-page">
+    <header class="preview-header">
+        <h1 class="title">Fusion Card Preview</h1>
+        <p id="preview-status" class="preview-status" role="status" aria-live="polite">Loading cards</p>
+    </header>
+    <main id="preview-grid" class="preview-grid" aria-label="All Fusion character cards"></main>
+
+    <script type="module">
+        import renderCharacter from './assets/scripts/utils/renderCharacter.js';
+        import { initializeCardDetails } from './assets/scripts/utils/cardDetails.js';
+        import { registerCharacter } from './assets/scripts/utils/cardProgression.js';
+        import { charactersByName } from './assets/data/characters/index.js';
+        import { typesByName } from './assets/data/types/index.js';
+
+        const grid = document.querySelector('#preview-grid');
+        const status = document.querySelector('#preview-status');
+        let fallbackCount = 0;
+
+        function appendFallback(characterName, error) {
+            const card = document.createElement('article');
+            card.className = 'preview-fallback';
+            card.setAttribute('role', 'img');
+            card.setAttribute(
+                'aria-label',
+                `${characterName}: missing card data. ${error.message}`
+            );
+
+            const name = document.createElement('p');
+            name.className = 'preview-fallback-name';
+            name.textContent = characterName;
+
+            const symbol = document.createElement('p');
+            symbol.className = 'preview-fallback-symbol';
+            symbol.setAttribute('aria-hidden', 'true');
+            symbol.textContent = 'ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Âº';
+
+            const note = document.createElement('p');
+            note.className = 'preview-fallback-note';
+            const message = error?.message ?? String(error ?? 'Unknown card error');
+            note.textContent = message.includes('Missing card CSS rule')
+                ? 'Missing card CSS'
+                : message.includes('Missing type data file') || message.includes('Missing type data fields')
+                    ? 'Missing type data'
+                    : 'Missing card data';
+
+            const reason = document.createElement('p');
+            reason.className = 'preview-fallback-reason';
+            reason.textContent = error.message;
+
+            card.append(name, symbol, note, reason);
+            grid.append(card);
+        }
+
+        function hasCardTypeCss(typeName) {
+            const classPattern = new RegExp(`\\.${typeName}Card\\b`);
+
+            function hasMatchingRule(rules) {
+                return [...rules].some(rule => {
+                    if (typeof rule.selectorText === 'string' &&
+                        rule.selectorText.split(',').some(selector =>
+                            classPattern.test(selector)
+                        )) {
+                        return true;
+                    }
+                    return rule.cssRules && hasMatchingRule(rule.cssRules);
+                });
+            }
+
+            for (const stylesheet of document.styleSheets) {
+                try {
+                    if (hasMatchingRule(stylesheet.cssRules)) {
+                        return true;
+                    }
+                } catch {
+                    // Ignore cross-origin stylesheets that the browser will not expose.
+                }
+            }
+            return false;
+        }
+
+        try {
+            const characterNames = [...charactersByName.keys()].sort(
+                (first, second) => first.localeCompare(second)
+            );
+            if (characterNames.length === 0) {
+                throw new Error('The static character list is empty.');
+            }
+
+            initializeCardDetails();
+
+            for (const characterName of characterNames) {
+                try {
+                    const character = charactersByName.get(characterName);
+                    const requiredFields = [
+                        ['charName', character?.charName, 'text'],
+                        ['charType', character?.charType, 'text'],
+                        ['value', character?.value, 'text'],
+                        ['special.name', character?.special?.name, 'text'],
+                        ['special.type', character?.special?.type, 'text'],
+                        ['rating', character?.rating, 'number'],
+                        ['level', character?.level, 'number'],
+                        ['damage', character?.damage, 'number'],
+                        ['health', character?.health, 'number'],
+                        ['special.charge', character?.special?.charge, 'number'],
+                        ['special.damage', character?.special?.damage, 'number']
+                    ];
+                    const missingFields = requiredFields
+                        .filter(([, value, type]) => type === 'text'
+                            ? typeof value !== 'string' || !value.trim()
+                            : typeof value !== 'number' || !Number.isFinite(value))
+                        .map(([field]) => field);
+                    if (missingFields.length > 0) {
+                        throw new Error(`Missing or invalid fields: ${missingFields.join(', ')}.`);
+                    }
+
+                    const characterType = character.charType.toLowerCase();
+                    const mainType = (character.mainType ?? characterType).toLowerCase();
+                    const typeRequirements = [
+                        { name: characterType, fields: ['emoji', 'color-empty', 'color-full'] },
+                        { name: mainType, fields: ['strength', 'weakness'] }
+                    ];
+                    const checkedTypes = new Set();
+                    for (const requirement of typeRequirements) {
+                        if (checkedTypes.has(requirement.name)) {
+                            continue;
+                        }
+                        checkedTypes.add(requirement.name);
+                        const typeData = typesByName.get(requirement.name);
+                        if (!typeData) {
+                            throw new Error(
+                                `Missing type data: data/types/${requirement.name}.js.`
+                            );
+                        }
+                        const missingTypeFields = requirement.fields.filter(
+                            field => typeData?.[field] === undefined || typeData?.[field] === null
+                        );
+                        if (missingTypeFields.length > 0) {
+                            throw new Error(
+                                `Missing type data fields for "${requirement.name}": ${missingTypeFields.join(', ')}.`
+                            );
+                        }
+                    }
+                    if (!hasCardTypeCss(characterType)) {
+                        throw new Error(
+                            `Missing card CSS rule: .${characterType}Card in assets/styles/card.css.`
+                        );
+                    }
+                    registerCharacter(character, characterName);
+                    await renderCharacter(characterName, grid);
+                } catch (error) {
+                    fallbackCount += 1;
+                    appendFallback(characterName, error);
+                    console.warn(`Could not render ${characterName}; using its fallback card.`, error);
+                }
+            }
+
+            status.textContent = `${characterNames.length} cards | ${fallbackCount} fallback cards (data or CSS issue)`;
+        } catch (error) {
+            status.textContent = 'Could not load character data';
+            console.error('Could not discover character data files.', error);
+        }
+    </script>
+</body>
+</html>

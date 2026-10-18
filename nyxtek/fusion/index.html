@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusion Cards</title>
+    <link rel="icon" type="image/x-icon" href="/assets/images/icons/gameicon.png">
+    <script type="module" src="assets/scripts/utils/cardDetailsBootstrap.js"></script>
+    <script type="module" src="assets/animations/background.js"></script>
+    <script type="module" src="assets/scripts/game/navigate.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&Alex+Brush&family=Isometra&family=Orbitron&family=Cinzel&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/main.css">
+        <link rel="stylesheet" href="assets/styles/card.css">
+    <link rel="stylesheet" href="assets/styles/utils.css">
+        <link rel="stylesheet" href="assets/styles/responsive.css">
+</head>
+    
+<body class="setup-page">
+    <h1 class="title">
+        Pick your type!
+    </h1>
+    <button id="fireOption" class="button" type="button" data-starter="fire" aria-pressed="false">
+        <p>🔥</p>
+    </button>
+    <button id="waterOption" class="button" type="button" data-starter="water" aria-pressed="false">
+        <p>💧</p>
+    </button>
+    <button id="natureOption" class="button" type="button" data-starter="nature" aria-pressed="false">
+        <p>🌳</p>
+    </button>
+    <button id="electricOption" class="button" type="button" data-starter="electric" aria-pressed="false">
+        <p>⚡</p>
+    </button>
+    <button id="darkOption" class="button" type="button" data-starter="dark" aria-pressed="false">
+        <p>♣</p>
+    </button>
+    <button id="lightOption" class="button" type="button" data-starter="light" aria-pressed="false">
+        <p>⭐</p>
+    </button>
+    <br>
+    <h2 class="subtitle">Enter your name!</h2>
+    <br>
+    <input type="text" id="name" maxlength="24" autocomplete="nickname" placeholder="Make this name tuff">
+    <br>
+    <p id="setup-error" role="alert" aria-live="polite"></p>
+    <button id="finish" class="button" type="button"><p>Finish!</p></button>
+</body>
+
+</html>
