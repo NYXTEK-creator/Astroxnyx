@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusion Cards</title>
+    <link rel="icon" type="image/x-icon" href="/assets/images/icons/gameicon.png">
+    <script type="module" src="../animations/background.js"></script>
+    <script type="module" src="../scripts/game/navigate.js"></script>
+    <script type="module" src="../scripts/utils/cardDetailsBootstrap.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Isometra&family=Orbitron&family=Cinzel&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/card.css">
+    <link rel="stylesheet" href="../styles/utils.css">
+    <link rel="stylesheet" href="../styles/responsive.css">
+</head>
+    
+<body data-stage="floral">
+    <div id="main" class="game-menu">
+        <h1 class="title">Fusion Cards</h1>
+        <button id="deck" class="button" data-navigate="deck.html"><p>Deck</p></button>
+        <button id="shop" class="button" data-navigate="shop.html"><p>Shop</p></button>
+        <button id="adventure" class="button" data-navigate="adventure.html"><p>Adventure</p></button>
+        <button id="profile_image" class="button" type="button" aria-label="Open profile" aria-haspopup="dialog" aria-expanded="false">
+            <img id="profile-picture" src="../images/profile.jpg" class="transImg" alt="Profile picture">
+        </button>
+        <span id="profile"></span>
+        <span id="player-level" class="player-level-badge" aria-label="Player level"></span>
+    </div>
+    <div id="profileDiv" role="dialog" aria-modal="true" aria-labelledby="profile-title" hidden>
+        <div class="profile-panel">
+            <button id="close-profile" class="button" type="button" aria-label="Close profile">×</button>
+            <h1 id="profile-title" class="title">Profile</h1>
+            <img id="profile-preview" class="transImg profile-preview" src="../images/profile.jpg" alt="Profile picture preview">
+            <p id="profile-name" class="profile-detail"></p>
+            <p id="profile-type" class="profile-detail"></p>
+            <p id="profile-level" class="profile-detail"></p>
+            <p id="experience-label" class="profile-detail">Experience to next level</p>
+            <div id="profile-experience" class="experience-bar" role="progressbar" aria-labelledby="experience-label" aria-valuemin="0" aria-valuemax="16" aria-valuenow="0">
+                <div id="experience-fill" class="experience-fill"></div>
+                <span id="experience-progress" aria-live="polite"></span>
+            </div>
+            <button id="profile-upload" class="button" type="button">Upload profile picture</button>
+            <input id="profile-image-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+            <p id="profile-image-status" role="status" aria-live="polite"></p>
+            <section class="profile-settings" aria-labelledby="profile-settings-title">
+                <h2 id="profile-settings-title">Settings</h2>
+                <p>Start a new game by deleting this account and all saved progress.</p>
+                <button id="reset-account" class="reset-account-button" type="button">Start Over</button>
+                <p id="reset-account-status" role="status" aria-live="polite"></p>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="place.png" width="1254" height="1254">
+    <SubTexture name="place0000" x="0" y="0" width="313.5" height="313.5" />
+    <SubTexture name="place0001" x="313.5" y="0" width="313.5" height="313.5" />
+    <SubTexture name="place0002" x="627" y="0" width="313.5" height="313.5" />
+    <SubTexture name="place0003" x="940.5" y="0" width="313.5" height="313.5" />
+    <SubTexture name="place0004" x="0" y="313.5" width="313.5" height="313.5" />
+    <SubTexture name="place0005" x="313.5" y="313.5" width="313.5" height="313.5" />
+    <SubTexture name="place0006" x="627" y="313.5" width="313.5" height="313.5" />
+    <SubTexture name="place0007" x="940.5" y="313.5" width="313.5" height="313.5" />
+    <SubTexture name="place0008" x="0" y="627" width="313.5" height="313.5" />
+    <SubTexture name="place0009" x="313.5" y="627" width="313.5" height="313.5" />
+    <SubTexture name="place0010" x="627" y="627" width="313.5" height="313.5" />
+    <SubTexture name="place0011" x="940.5" y="627" width="313.5" height="313.5" />
+    <SubTexture name="place0012" x="0" y="940.5" width="313.5" height="313.5" />
+    <SubTexture name="place0013" x="313.5" y="940.5" width="313.5" height="313.5" />
+    <SubTexture name="place0014" x="627" y="940.5" width="313.5" height="313.5" />
+    <SubTexture name="place0015" x="940.5" y="940.5" width="313.5" height="313.5" />
+</TextureAtlas>
