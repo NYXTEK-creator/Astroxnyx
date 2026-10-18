@@ -1,0 +1,875 @@
+.cardText {
+    color: aliceblue;
+    font-family: "Isometra", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2.5vh;
+}
+.fireCard,
+.waterCard,
+.natureCard,
+.vineCard,
+.electricCard,
+.lightCard,
+.darkCard,
+.flowerCard,
+.dewCard,
+.demonCard,
+.solarCard,
+.psychicCard,
+.bloodCard,
+.lavaCard,
+.steamCard,
+.duality_darkCard,
+.duality_lightCard,
+.plasmaCard,
+.angelCard{
+     box-sizing: border-box;
+     position: relative;
+     overflow: hidden;
+     width: 22.5vh;
+     height: 33.75vh;
+}
+.cardHeader {
+     position: absolute;
+     top: 4%;
+     left: 12%;
+     right: 5%;
+     z-index: 2;
+     display: flex;
+     align-items: center;
+     gap: 0.5vh;
+}
+.cardText{
+     flex: 1 1 auto;
+     min-width: 0;
+     margin: 0;
+     overflow: hidden;
+     font-size: 2.5vh;
+     line-height: 1.2;
+     text-overflow: clip;
+     white-space: nowrap;
+}
+.electricCard .cardText,
+.lightCard .cardText,
+.duality_lightCard .cardText,
+.plasmaCard .cardText,
+.solarCard .cardText,
+.angelCard .cardText {
+     color: #171717;
+     text-shadow: 0 1px 1px rgb(255 255 255 / 65%);
+}
+.cardLevel {
+     flex: 0 0 auto;
+     padding: 0.2vh 0.55vh;
+     border: 1px solid rgb(255 255 255 / 65%);
+     border-radius: 999px;
+     background: rgb(0 0 0 / 62%);
+     color: #ffe58c;
+     font-family: "Orbitron", sans-serif;
+     font-size: clamp(0.6rem, 1.2vh, 0.8rem);
+     font-weight: 800;
+     line-height: 1.2;
+     text-shadow: 0 1px 2px #000;
+     pointer-events: none;
+}
+.rankStars{
+     position: absolute;
+     top: 50%;
+     left: 0.75vh;
+     z-index: 1;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 0.15vh;
+     transform: translateY(-50%);
+     pointer-events: none;
+}
+.rankStars img{
+     display: block;
+     width: 3vh;
+     height: 3vh;
+     object-fit: cover;
+}
+.cardStat{
+     box-sizing: border-box;
+     position: absolute;
+     bottom: 1vh;
+     z-index: 1;
+     display: flex;
+     align-items: center;
+     gap: 0;
+     width: 9vh;
+     max-width: calc(50% - 0.75vh);
+     height: auto;
+     padding: 0.2vh 0;
+     border: 1px solid rgb(255 255 255 / 55%);
+     border-radius: 1vh;
+     background: rgb(0 0 0 / 55%);
+     pointer-events: none;
+}
+.damageStat{
+     left: 0.75vh;
+}
+.healthStat{
+     right: 0.75vh;
+}
+.cardStat img{
+     display: block;
+     flex: 0 0 5vh;
+     width: 5vh;
+     height: 5vh;
+     margin-right: -0.35vh;
+     object-fit: contain;
+}
+.specialStat{
+     position: absolute;
+     top: 50%;
+     right: 0.75vh;
+     z-index: 1;
+     display: flex;
+     align-items: center;
+     gap: 0.4vh;
+     transform: translateY(-50%);
+     pointer-events: none;
+}
+.chargeBar{
+     display: flex;
+     flex-direction: column;
+     gap: 0.35vh;
+}
+.chargeSegment{
+     position: relative;
+     box-sizing: border-box;
+     display: block;
+     width: 2vh;
+     height: 2.5vh;
+     overflow: hidden;
+     border: 0.2vh solid var(--charge-fill-color);
+     border-radius: 0.4vh;
+     background-color: var(--charge-empty-color);
+     box-shadow: 0 0 0.15vh var(--charge-fill-color);
+     transition: box-shadow 300ms ease;
+}
+.chargeSegment::before{
+     position: absolute;
+     inset: 0;
+     border-radius: inherit;
+     background-color: var(--charge-fill-color);
+     content: '';
+     transform: scaleY(0);
+     transform-origin: bottom;
+     transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.chargeSegment.filled{
+     box-shadow: 0 0 0.65vh var(--charge-fill-color);
+}
+.chargeSegment.filled::before{
+     transform: scaleY(1);
+}
+@media (prefers-reduced-motion: reduce){
+     .chargeSegment,
+     .chargeSegment::before{
+          transition-duration: 1ms;
+     }
+}
+.cardStat span{
+     box-sizing: border-box;
+     flex: 0 1 auto;
+     min-width: 0;
+     max-width: calc(100% - 5vh);
+     overflow: hidden;
+     color: #fff;
+     font-family: "Orbitron", sans-serif;
+     font-size: clamp(0.65rem, 1.35vh, 0.9rem);
+     font-weight: 700;
+     text-align: left;
+     white-space: nowrap;
+     text-shadow: 0 1px 2px #000;
+}
+.fireCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(12, 93%, 22%),
+        hsl(4, 93%, 22%),
+        hsl(345, 93%, 22%)
+    );
+}
+.solarCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(345, 93%, 82%),
+        hsl(30, 93%, 82%),
+        hsl(50, 93%, 82%)
+    );
+}
+.waterCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(183, 93%, 22%),
+        hsl(202, 93%, 22%),
+        hsl(231, 93%, 22%)
+    );
+}
+.natureCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(101, 93%, 22%),
+        hsl(106, 93%, 11%),
+        hsl(25, 78%, 16%)
+    );
+}
+.electricCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(57, 75%, 62%),
+        hsl(180, 48%, 81%),
+        hsl(268, 69%, 79%)
+    );
+}
+.lightCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(57, 100%, 84%),
+        hsl(56, 94%, 93%),
+        hsl(268, 69%, 79%)
+    );
+}
+.darkCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(246, 67%, 12%),
+        hsl(252, 83%, 9%),
+        hsl(268, 82%, 15%)
+    );
+}
+.flowerCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(126, 70%, 34%),
+        hsl(60, 81%, 68%),
+        hsl(327, 67%, 67%)
+    );
+}
+.demonCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(257, 80%, 14%),
+        hsl(0, 70%, 28%),
+        hsl(0, 69%, 19%)
+    );
+}
+.dewCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(126, 70%, 34%),
+        hsl(214, 68%, 41%),
+        hsl(233, 84%, 20%)
+    );
+}
+.psychicCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(260, 66%, 52%),
+        hsl(260, 66%, 58%),
+        hsl(286, 66%, 58%)
+    );
+}
+.bloodCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(0, 71%, 32%),
+        hsl(0, 71%, 27%),
+        hsl(350, 71%, 27%)
+    );
+}
+.lavaCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(24, 93%, 22%),
+        hsl(355, 93%, 22%),
+        hsl(22, 64%, 15%)
+    );
+}
+.steamCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(171, 11%, 36%),
+        hsl(216, 19%, 48%),
+        hsl(237, 33%, 69%)
+    );
+}
+.duality_darkCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(261, 57%, 15%),
+        hsl(244, 31%, 44%),
+        hsl(54, 67%, 94%)
+    );
+}
+.duality_lightCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(54, 67%, 94%),
+        hsl(244, 31%, 44%),
+        hsl(261, 57%, 15%)
+    );
+}
+.plasmaCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid white;
+     box-shadow: 0 0 5px white;
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(57, 100%, 84%),
+        hsl(56, 94%, 93%),
+        hsl(0, 68%, 79%)
+    );
+}
+.angelCard {
+     height: 33.75vh;
+     width: 22.5vh;
+     border: 3px solid hsl(50, 80%, 76%);
+     border-radius: 3vh;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+     background: linear-gradient(
+        hsl(50, 64%, 29%),
+        hsl(50, 80%, 61%),
+        hsl(46, 100%, 88%)
+    );
+}
+.fireCard,
+.waterCard,
+.natureCard,
+.vineCard,
+.electricCard,
+.lightCard,
+.darkCard,
+.flowerCard,
+.dewCard,
+.demonCard,
+.solarCard,
+.psychicCard,
+.bloodCard,
+.lavaCard,
+.steamCard,
+.duality_darkCard,
+.duality_lightCard,
+.angelCard{
+     box-shadow: 0 0 0 3.5px #000, 0 0 5px white;
+}
+.angelCard {
+     box-shadow: 0 0 0 3.5px #000, 0 0 12px hsl(50, 90%, 68%);
+}
+.emoji{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    font-size: 6vh;
+}
+.darkEmoji.dualityDarkEmoji {
+    transform: translate(-50%, -50%) rotate(180deg);
+}.darkEmoji{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    font-size: 10vh;
+    color: #000;
+    -webkit-text-fill-color: #000;
+    -webkit-text-stroke: 0.75px white;
+}
+
+.card-details-dialog {
+     box-sizing: border-box;
+     width: min(92vw, 34rem);
+     max-width: none;
+     max-height: min(88dvh, 42rem);
+     padding: 0;
+     overflow: visible;
+     border: 0;
+     background: transparent;
+     color: #fff;
+}
+.card-details-dialog::backdrop {
+     background: rgb(0 0 0 / 78%);
+     backdrop-filter: blur(0.35rem);
+}
+.card-details-panel {
+     box-sizing: border-box;
+     position: relative;
+     max-height: min(88dvh, 42rem);
+     padding: clamp(1.5rem, 5vw, 2.5rem);
+     overflow-y: auto;
+     border: 3px solid #fff;
+     border-radius: clamp(1.25rem, 5vw, 2rem);
+     box-shadow: 0 0 0 3.5px #000, 0 0 1.5rem rgb(255 255 255 / 45%);
+     font-family: "Orbitron", sans-serif;
+     text-shadow: 0 1px 3px #000;
+}
+.card-details-panel h2 {
+     margin: 0 2.75rem 1.5rem 0;
+     color: #fff;
+     font-family: "Isometra", serif;
+     font-size: clamp(1.4rem, 5vw, 2.2rem);
+     text-align: center;
+}
+.card-details-close {
+     position: absolute;
+     top: 0.75rem;
+     right: 0.75rem;
+     width: 2.5rem;
+     height: 2.5rem;
+     border: 1px solid rgb(255 255 255 / 75%);
+     border-radius: 50%;
+     background: rgb(0 0 0 / 68%);
+     color: #fff;
+     font-size: 1.75rem;
+     line-height: 1;
+     cursor: pointer;
+}
+.card-details-list {
+     display: grid;
+     gap: 0.75rem;
+     margin: 0;
+}
+.card-details-list > div {
+     display: flex;
+     align-items: baseline;
+     justify-content: space-between;
+     gap: 1rem;
+     padding: 0.75rem 0;
+     border-bottom: 1px solid rgb(255 255 255 / 38%);
+}
+.card-details-list dt {
+     color: rgb(255 255 255 / 78%);
+     font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+}
+.card-details-list dd {
+     margin: 0;
+     color: #fff4a8;
+     font-size: clamp(0.8rem, 3vw, 1rem);
+     font-weight: 700;
+     text-align: right;
+     text-transform: capitalize;
+}
+.card-fusion-button {
+     display: block;
+     width: 100%;
+     margin-top: 1.25rem;
+     padding: 0.85rem 1rem;
+     border: 2px solid #9deaff;
+     border-radius: 0.75rem;
+     background: linear-gradient(135deg, #125a76, #35b9dc 52%, #164a78);
+     color: #08151c;
+     font: inherit;
+     font-weight: 700;
+     text-shadow: none;
+     cursor: pointer;
+}
+.card-fusion-button[hidden],
+.card-fusion-results[hidden] {
+     display: none;
+}
+.card-fusion-button:hover { filter: brightness(1.12); }
+.card-fusion-results {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(min(100%, 7rem), 1fr));
+     justify-items: center;
+     column-gap: clamp(1.25rem, 4vw, 2.5rem);
+     row-gap: clamp(1.5rem, 4vh, 2.5rem);
+     margin-top: 1.5rem;
+}
+.card-fusion-results > :is(.fireCard, .waterCard, .natureCard, .vineCard, .electricCard,
+     .lightCard, .darkCard, .flowerCard, .dewCard, .demonCard, .solarCard,
+     .psychicCard, .bloodCard, .lavaCard, .steamCard, .duality_darkCard, .duality_lightCard, .plasmaCard, .angelCard) {
+     width: min(100%, 8rem);
+     height: auto;
+     aspect-ratio: 2 / 3;
+}.card-sell-button {
+     display: block;
+     width: 100%;
+     margin-top: 1.25rem;
+     padding: 0.85rem 1rem;
+     border: 2px solid #ffe58a;
+     border-radius: 0.75rem;
+     background: linear-gradient(135deg, #a86512, #f3ca4d 52%, #9a5b0a);
+     color: #241400;
+     font: inherit;
+     font-weight: 700;
+     text-shadow: none;
+     cursor: pointer;
+}
+.card-sell-button[hidden] {
+     display: none;
+}
+.card-sell-button:hover {
+     filter: brightness(1.12);
+}
+.card-sale-message {
+     margin: 0.75rem 0 0;
+     color: #fff4a8;
+}
+.card-sale-message:empty {
+     display: none;
+}
+#playerCards{
+     box-sizing: border-box;
+     display: grid;
+     grid-template-columns: repeat(5, minmax(0, 1fr));
+     align-items: center;
+     gap: clamp(0.25rem, 1vw, 1rem);
+     height: 27vh;
+     width: min(130vh, calc(100vw - 2rem));
+     position: absolute;
+     top: 50vh;
+     left: 50%;
+     padding: 0.5rem;
+     overflow: visible;
+     transform: translateX(-50%);
+}
+#opponentCards{
+     box-sizing: border-box;
+     display: grid;
+     grid-template-columns: repeat(5, minmax(0, 1fr));
+     align-items: center;
+     gap: clamp(0.25rem, 1vw, 1rem);
+     height: 27vh;
+     width: min(130vh, calc(100vw - 2rem));
+     position: absolute;
+     top: 20vh;
+     left: 50%;
+     padding: 0.5rem;
+     overflow: visible;
+     transform: translateX(-50%);
+}
+.emptyCard{
+     box-sizing: border-box;
+     display: grid;
+     width: 22.5vh;
+     height: 33.75vh;
+     place-items: center;
+     border: 0.75px solid white;
+     border-radius: 3vh;
+     box-shadow: 0 0 5px white;
+     text-align: center;
+     justify-content: center;
+     justify-items: center;
+}
+.addCard{
+     display: grid;
+     place-items: center;
+}
+.emptyCard > img,
+.addCardIcon{
+     display: block;
+     width: 13vh;
+     height: 13vh;
+     object-fit: contain;
+}
+.battle-slot{
+     position: relative;
+     justify-self: center;
+     min-width: 0;
+     width: auto;
+     height: 100%;
+     aspect-ratio: 2 / 3;
+     padding: 0;
+     background: rgb(0 0 0 / 18%);
+     color: inherit;
+}
+.battle-slot[aria-label^="Empty"]{
+     cursor: pointer;
+}
+.battle-slot.battle-target-selectable{
+     cursor: crosshair;
+     outline: 3px solid #ffd45a;
+     outline-offset: 3px;
+     filter: brightness(1.2);
+}
+.battle-slot.battle-touch-drop-target {
+     outline: 3px solid #9cffb6;
+     outline-offset: 3px;
+     filter: brightness(1.25);
+}
+#playerCards:not(.player-turn) .battle-slot:not([data-occupied]){
+     visibility: hidden;
+}
+#opponentCards:not(.opponent-turn) .battle-slot:not([data-occupied]){
+     visibility: hidden;
+}
+.battle-slot > .fireCard,
+.battle-slot > .waterCard,
+.battle-slot > .natureCard,
+.battle-slot > .vineCard,
+.battle-slot > .electricCard,
+.battle-slot > .lightCard,
+.battle-slot > .darkCard,
+.battle-slot > .flowerCard,
+.battle-slot > .dewCard,
+.battle-slot > .demonCard,
+.battle-slot > .solarCard,
+.battle-slot > .psychicCard,
+.battle-slot > .bloodCard,
+.battle-slot > .lavaCard,
+.battle-slot > .steamCard,
+.battle-slot > .duality_darkCard,
+.battle-slot > .duality_lightCard,
+.battle-slot > .plasmaCard,
+.battle-slot > .angelCard{
+     box-sizing: border-box;
+     position: absolute;
+     top: 0;
+     left: 50%;
+     width: auto;
+     height: 100%;
+     aspect-ratio: 2 / 3;
+     transform: translateX(-50%);
+}
+.battle-slot > .battle-attacking {
+     z-index: 20;
+}
+#player-hand-area{
+     position: fixed;
+     z-index: 4;
+     top: auto;
+     bottom: 0vh;
+     left: 50%;
+     width: min(90vw, 70vh);
+     transform: translateX(-50%);
+}
+#battle-turn-status{
+     position: absolute;
+     width: 1px;
+     height: 1px;
+     padding: 0;
+     margin: -1px;
+     overflow: hidden;
+     clip: rect(0, 0, 0, 0);
+     white-space: nowrap;
+     border: 0;
+}
+#player-hand{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 0.75rem;
+     max-width: 100%;
+     overflow-x: auto;
+     overflow-y: hidden;
+     padding: 0.35rem;
+}
+#player-hand[hidden]{
+     display: none;
+}
+.battle-hand-card{
+     position: relative;
+     flex: 0 0 12.4vh;
+     width: 12.4vh;
+     height: 18.6vh;
+     outline: 0;
+     cursor: grab;
+     touch-action: none;
+     user-select: none;
+}
+.battle-hand-card.battle-touch-dragging {
+     z-index: 30;
+     pointer-events: none;
+     transition: none;
+}
+.battle-hand-card[aria-pressed="true"]{
+     outline: 2px solid #ffe58c;
+     outline-offset: 2px;
+}
+.battle-hand-card:focus-visible{
+     outline: 2px solid aliceblue;
+     outline-offset: 3px;
+}
+.battle-hand-card:active{
+     cursor: grabbing;
+}
+.battle-hand-card > .fireCard,
+.battle-hand-card > .waterCard,
+.battle-hand-card > .natureCard,
+.battle-hand-card > .vineCard,
+.battle-hand-card > .electricCard,
+.battle-hand-card > .lightCard,
+.battle-hand-card > .darkCard,
+.battle-hand-card > .flowerCard,
+.battle-hand-card > .dewCard,
+.battle-hand-card > .demonCard,
+.battle-hand-card > .solarCard,
+.battle-hand-card > .psychicCard,
+.battle-hand-card > .bloodCard,
+.battle-hand-card > .lavaCard,
+.battle-hand-card > .steamCard,
+.battle-hand-card > .duality_darkCard,
+.battle-hand-card > .duality_lightCard,
+.battle-hand-card > .plasmaCard,
+.battle-hand-card > .angelCard{
+     position: absolute;
+     top: 0;
+     left: 0;
+     transform: scale(0.55);
+     transform-origin: top left;
+}
+@media (max-width: 640px){
+     #playerCards{
+          top: 42vh;
+     }
+     #opponentCards{
+          top: 13vh;
+     }
+     #player-hand-area{
+          top: auto;
+          bottom: 7vh;
+          width: calc(100vw - 1rem);
+     }
+     .battle-hand-card{
+          flex-basis: 10vh;
+          width: 10vh;
+          height: 15vh;
+     }
+     .battle-hand-card > .fireCard,
+     .battle-hand-card > .waterCard,
+     .battle-hand-card > .natureCard,
+     .battle-hand-card > .vineCard,
+     .battle-hand-card > .electricCard,
+     .battle-hand-card > .lightCard,
+     .battle-hand-card > .darkCard,
+     .battle-hand-card > .flowerCard,
+     .battle-hand-card > .demonCard,
+     .battle-hand-card > .dewCard,
+     .battle-hand-card > .solarCard,
+     .battle-hand-card > .psychicCard,
+     .battle-hand-card > .bloodCard,
+     .battle-hand-card > .lavaCard,
+     .battle-hand-card > .steamCard,
+     .battle-hand-card > .duality_darkCard,
+     .battle-hand-card > .duality_lightCard,
+     .battle-hand-card > .plasmaCard,
+     .battle-hand-card > .angelCard{
+          transform: scale(0.44);
+     }
+}
