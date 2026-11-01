@@ -28,9 +28,7 @@ A modern code editor with live collaboration.
 
 ## Sign In
 
-Sign in with your email or OAuth (Google, GitHub, Yahoo) to:
-- Access cloud file storage
-- Enable live collaboration
+Create an email/password account to access per-installation account and file storage. Account data is stored locally in your app profile; it is not synchronized to a remote service. Google, GitHub, and Yahoo sign-in are unavailable until OAuth provider credentials and a callback service are configured.
 
 ## Support
 

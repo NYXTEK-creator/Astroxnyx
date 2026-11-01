@@ -453,8 +453,8 @@ body{background:var(--bg);color:var(--txt);font-family:'JetBrains Mono',monospac
       </button>
     </div>
     <div class="auth-note">
-      OAuth opens a real sign-in window from the provider.<br>
-      Email/password is stored locally in your browser.
+      Provider sign-in is unavailable until OAuth is configured.<br>
+      Email/password accounts are stored locally in this app profile.
     </div>
   </div>
 </div>
@@ -918,54 +918,7 @@ async function emailSignIn(email,password){
 
 // ── OAUTH — opens real provider sign-in in a popup ──
 function oauthLogin(provider){
-  var err=document.getElementById('auth-err');err.textContent='';
-  var btn=document.getElementById('btn-'+provider);
-  if(btn)btn.classList.add('loading');
-
-  var urls={
-    google:'https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin',
-    yahoo:'https://login.yahoo.com/',
-    github:'https://github.com/login'
-  };
-
-  var providerUrl=urls[provider];
-  if(!providerUrl){err.textContent='Unknown provider.';if(btn)btn.classList.remove('loading');return;}
-
-  // Open provider sign-in in the user's normal browser for best compatibility.
-  var openResult;
-  if(window.nyxcodeAPI&&typeof window.nyxcodeAPI.openExternal==='function'){
-    openResult=window.nyxcodeAPI.openExternal(providerUrl);
-  }else{
-    var popup=window.open(providerUrl,'_blank');
-    if(popup)popup.opener=null;
-    openResult=Promise.resolve({ok:!!popup});
-  }
-  openResult.then(function(result){
-    if(!result || !result.ok){
-      err.textContent='Unable to open sign-in page. Please try again.';
-      if(btn)btn.classList.remove('loading');
-      return;
-    }
-
-    // Show waiting overlay
-    document.getElementById('ow-title').textContent='SIGNING IN WITH '+provider.toUpperCase();
-    document.getElementById('ow-msg').textContent='A browser window has opened. Complete sign-in there, then return and click "I\'ve signed in" below.';
-    document.getElementById('oauth-waiting').classList.add('open');
-
-    var owBox=document.querySelector('.ow-box');
-    var existing=document.getElementById('ow-confirm');
-    if(existing)existing.remove();
-    var confirmBtn=document.createElement('button');
-    confirmBtn.id='ow-confirm';
-    confirmBtn.className='auth-btn';
-    confirmBtn.style.cssText='font-size:11px;padding:8px;margin-top:4px';
-    confirmBtn.textContent="I've signed in — enter username";
-    confirmBtn.onclick=function(){promptOAuthUsername(provider,btn);};
-    owBox.insertBefore(confirmBtn,owBox.querySelector('.ow-cancel'));
-  }).catch(function(e){
-    err.textContent='Unable to open sign-in page. Please try again.';
-    if(btn)btn.classList.remove('loading');
-  });
+  document.getElementById('auth-err').textContent='OAuth sign-in is not configured in this build. Use email/password instead.';
 }
 
 function promptOAuthUsername(provider,btn){
@@ -1012,7 +965,9 @@ function loginUser(user){
   currentUser=user;
   try{localStorage.setItem('nyxcode_user',JSON.stringify(user));}catch(e){}
   var db=getAccountsDB();
-  db[user.email.toLowerCase()]={email:user.email.toLowerCase(),username:user.username,provider:user.provider,createdAt:user.createdAt||Date.now()};
+  var accountKey=user.email.toLowerCase();
+  var existingAccount=db[accountKey]||{};
+  db[accountKey]={...existingAccount,email:accountKey,username:user.username,provider:user.provider,createdAt:existingAccount.createdAt||user.createdAt||Date.now()};
   saveAccountsDB(db);
   document.getElementById('auth-screen').classList.add('hidden');
   document.getElementById('oauth-waiting').classList.remove('open');
@@ -1445,7 +1400,7 @@ async function createFileInFolder(name,parentDir){
   if(!name)return;
   var safeName=sanitizeFsName(name);
   if(!safeName){addTermLine('<span class="terr">Invalid file name.</span>');return;}
-  if(!HAS_FS_API||!_fsDirPath){var id=genId();openTabs.push({id,safeName,content:'',dirty:false,untitled:true});activeTabId=id;renderAll();return;}
+  if(!HAS_FS_API||!_fsDirPath){var id=genId();openTabs.push({id,name:safeName,content:'',dirty:false,untitled:true});activeTabId=id;renderAll();return;}
   var dir=parentDir||_fsDirPath;
   var sep=dir.includes('\\')?'\\':'/';
   var filePath=dir+sep+safeName;
@@ -1453,7 +1408,7 @@ async function createFileInFolder(name,parentDir){
     await window.nyxcodeAPI.writeFile(filePath,'');
     var id=genId();
     _fsFilePaths[id]=filePath;
-    openTabs.push({id,safeName,content:'',dirty:false,untitled:false,filePath:filePath});
+    openTabs.push({id,name:safeName,content:'',dirty:false,untitled:false,filePath:filePath});
     activeTabId=id;
     await refreshFolderTree();
     renderAll();
@@ -1485,6 +1440,7 @@ async function saveActive(){
   var tab=activeTab();if(!tab)return;tab.content=getEditorContent();
   var filePath=_fsFilePaths[tab.id]||tab.filePath;
   if(filePath&&HAS_FS_API){try{await window.nyxcodeAPI.writeFile(filePath,tab.content);tab.dirty=false;renderTabs();renderTree();var fl=document.getElementById('save-flash');fl.textContent='Saved to disk';fl.classList.add('show');clearTimeout(fl._t);fl._t=setTimeout(()=>fl.classList.remove('show'),1600);showAutosaveBadge();addTermLine('<span class="tok">Saved: '+escHtml(tab.name)+'</span>');}catch(e){addTermLine('<span class="terr">Save failed: '+escHtml(e.message)+'</span>');downloadFile(tab.name,tab.content);}}
+  else if(HAS_FS_API){await saveAs();}
   else{tab.dirty=false;renderTabs();downloadFile(tab.name,tab.content);var fl=document.getElementById('save-flash');fl.textContent='Downloaded';fl.classList.add('show');clearTimeout(fl._t);fl._t=setTimeout(()=>fl.classList.remove('show'),1600);}
 }
 
@@ -2498,7 +2454,7 @@ document.addEventListener('keydown',function(e){
   if(ctrl&&!e.shiftKey&&e.key==='n'){e.preventDefault();newUntitled();return;}
   if(ctrl&&!e.shiftKey&&e.key==='o'){e.preventDefault();openFilesFS();return;}
   if(ctrl&&e.shiftKey&&(e.key==='O'||e.key==='o')){e.preventDefault();openFolderFS();return;}
-  if(ctrl&&!e.shiftKey&&e.key==='s'){e.preventDefault();if(HAS_FS_API){triggerAutoSave();showAutosaveBadge();}else{saveActive();}return;}
+  if(ctrl&&!e.shiftKey&&e.key==='s'){e.preventDefault();saveActive();return;}
   if(ctrl&&e.shiftKey&&e.key==='S'){e.preventDefault();saveAs();return;}
   if(ctrl&&e.key==='b'){e.preventDefault();toggleSidebar();return;}
   if(ctrl&&e.key==='`'){e.preventDefault();togglePanel();return;}
